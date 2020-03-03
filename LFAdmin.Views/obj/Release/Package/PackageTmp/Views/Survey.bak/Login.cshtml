@@ -1,0 +1,71 @@
+﻿
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    @*<div class="layui-form-item">
+        <label class="layui-form-label">公司</label>
+        <div class="layui-input-inline"> 
+            <select name="companyname">
+                <option value="">请选择公司</option>
+                <option value="精工控股本级">精工控股本级</option>
+                <option value="墙煌新材">墙煌新材</option>
+                <option value="金刚幕墙">金刚幕墙</option>
+                <option value="墙煌彩铝">墙煌彩铝</option>
+                <option value="双佳">双佳</option>
+                <option value="装备科技">装备科技</option>
+                <option value="九仙尊生产中心">九仙尊生产中心</option>
+                <option value="振能石油">振能石油</option>
+                <option value="盘锦精工置业">盘锦精工置业</option>
+                <option value="盘锦物业">盘锦物业</option>
+                <option value="霍山置业">霍山置业</option>
+                <option value="红街运营">红街运营</option>
+                <option value="绿泰房产">绿泰房产</option>
+                <option value="精工商管">精工商管</option>
+                <option value="九仙尊生产中心">九仙尊生产中心</option>
+                <option value="皖西宾馆">皖西宾馆</option>
+            </select>
+
+        </div>
+    </div>*@
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" id="fullname" name="fullname" lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-inline">
+            <input type="text" id="mobilephone" name="mobilephone" lay-verify="required" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn " lay-submit="" lay-filter="add">确定</button>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        //监听提交
+        form.on('submit(add)', function (data) {
+            parent.$("#fullname").val($("#fullname").val());
+            parent.$("#mobilephone").val($("#mobilephone").val());
+            //parent.$("#companyname").val($("#companyname").val());
+            //关闭自身
+            var index = parent.layer.getFrameIndex(window.name); 
+            parent.layer.close(index);
+            return false;
+        });
+
+    });
+</script>

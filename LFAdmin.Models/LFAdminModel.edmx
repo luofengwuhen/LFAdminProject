@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LFAdminModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_Basic_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Value" Type="varchar" MaxLength="50" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="T_Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+          <Property Name="Company_Scale" Type="int" />
+        </EntityType>
+        <EntityType Name="T_Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+          <Property Name="Department_Name" Type="varchar" MaxLength="200" />
+          <Property Name="Department_Counts" Type="int" />
+          <Property Name="Is_Assessment" Type="bit" />
+        </EntityType>
+        <EntityType Name="T_Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="alias" Type="varchar" MaxLength="20" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="palias" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="T_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role_Code" Type="varchar" MaxLength="50" />
+          <Property Name="Role_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_Role_Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role_ID" Type="bigint" />
+          <Property Name="Permission_Code" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Chinese_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Position_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Is_Company" Type="bit" />
+          <Property Name="Role_Name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="T_User_Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Rule_Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rule_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_User_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role_ID" Type="bigint" />
+          <Property Name="User_ID" Type="bigint" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“LFAdmin.dbo.V_User_Permission”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_User_Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Rule_Code" Type="varchar" MaxLength="50" />
+          <Property Name="Rule_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="LFAdminModelStoreContainer">
+          <EntitySet Name="T_Basic_Data" EntityType="Self.T_Basic_Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Company" EntityType="Self.T_Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Department" EntityType="Self.T_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Permission" EntityType="Self.T_Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Role" EntityType="Self.T_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Role_Permission" EntityType="Self.T_Role_Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_User" EntityType="Self.T_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_User_Permission" EntityType="Self.T_User_Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_User_Permission" EntityType="Self.V_User_Permission" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_User_Permission].[Id] AS [Id], 
+    [V_User_Permission].[User_ID] AS [User_ID], 
+    [V_User_Permission].[Rule_Code] AS [Rule_Code], 
+    [V_User_Permission].[Rule_Name] AS [Rule_Name]
+    FROM [dbo].[V_User_Permission] AS [V_User_Permission]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LFAdminModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_Basic_Data">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_Role_Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role_ID" Type="Int64" />
+          <Property Name="Permission_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Chinese_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Position_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Company" Type="Boolean" />
+          <Property Name="Role_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_User_Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Rule_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rule_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_User_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role_ID" Type="Int64" />
+          <Property Name="User_ID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="V_User_Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Rule_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rule_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="LFAdminEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_Basic_Data" EntityType="Self.T_Basic_Data" />
+          <EntitySet Name="T_Role" EntityType="Self.T_Role" />
+          <EntitySet Name="T_Role_Permission" EntityType="Self.T_Role_Permission" />
+          <EntitySet Name="T_User" EntityType="Self.T_User" />
+          <EntitySet Name="T_User_Permission" EntityType="Self.T_User_Permission" />
+          <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" />
+          <EntitySet Name="V_User_Permission" EntityType="Self.V_User_Permission" />
+          <EntitySet Name="T_Company" EntityType="LFAdminModel.T_Company" />
+          <EntitySet Name="T_Department" EntityType="LFAdminModel.T_Department" />
+          <EntitySet Name="T_Permission" EntityType="LFAdminModel.T_Permission" />
+        </EntityContainer>
+        <EntityType Name="T_Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Company_Scale" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Department_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Department_Counts" Type="Int32" />
+          <Property Name="Is_Assessment" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="T_Permission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="alias" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="palias" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LFAdminModelStoreContainer" CdmEntityContainer="LFAdminEntities">
+          <EntitySetMapping Name="T_Basic_Data">
+            <EntityTypeMapping TypeName="LFAdminModel.T_Basic_Data">
+              <MappingFragment StoreEntitySet="T_Basic_Data">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Role">
+            <EntityTypeMapping TypeName="LFAdminModel.T_Role">
+              <MappingFragment StoreEntitySet="T_Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Role_Code" ColumnName="Role_Code" />
+                <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Role_Permission">
+            <EntityTypeMapping TypeName="LFAdminModel.T_Role_Permission">
+              <MappingFragment StoreEntitySet="T_Role_Permission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Permission_Code" ColumnName="Permission_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_User">
+            <EntityTypeMapping TypeName="LFAdminModel.T_User">
+              <MappingFragment StoreEntitySet="T_User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Chinese_Name" ColumnName="Chinese_Name" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+                <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+                <ScalarProperty Name="Is_Company" ColumnName="Is_Company" />
+                <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_User_Permission">
+            <EntityTypeMapping TypeName="LFAdminModel.T_User_Permission">
+              <MappingFragment StoreEntitySet="T_User_Permission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Rule_Code" ColumnName="Rule_Code" />
+                <ScalarProperty Name="Rule_Name" ColumnName="Rule_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_User_Role">
+            <EntityTypeMapping TypeName="LFAdminModel.T_User_Role">
+              <MappingFragment StoreEntitySet="T_User_Role">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_User_Permission">
+            <EntityTypeMapping TypeName="LFAdminModel.V_User_Permission">
+              <MappingFragment StoreEntitySet="V_User_Permission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Rule_Code" ColumnName="Rule_Code" />
+                <ScalarProperty Name="Rule_Name" ColumnName="Rule_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Company">
+            <EntityTypeMapping TypeName="LFAdminModel.T_Company">
+              <MappingFragment StoreEntitySet="T_Company">
+                <ScalarProperty Name="Company_Scale" ColumnName="Company_Scale" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Department">
+            <EntityTypeMapping TypeName="LFAdminModel.T_Department">
+              <MappingFragment StoreEntitySet="T_Department">
+                <ScalarProperty Name="Is_Assessment" ColumnName="Is_Assessment" />
+                <ScalarProperty Name="Department_Counts" ColumnName="Department_Counts" />
+                <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Permission">
+            <EntityTypeMapping TypeName="LFAdminModel.T_Permission">
+              <MappingFragment StoreEntitySet="T_Permission">
+                <ScalarProperty Name="palias" ColumnName="palias" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="alias" ColumnName="alias" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

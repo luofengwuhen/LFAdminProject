@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        @if (string.IsNullOrEmpty(ViewBag.Title))
+        {
+            ViewBag.Title = "学习管理平台";
+        }
+
+        @ViewBag.Title
+
+    </title>
+
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+
+    <link href="~/Scripts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+</head>
+<body>
+
+    @RenderBody()
+
+
+</body>
+</html>
+
+
+
+<script language="JavaScript">
+    
+    jQuery.fn.rowspan = function (colIdx) { //封装的一个JQuery小插件
+        return this.each(function () {
+            var that;
+            $('tr', this).each(function (row) {
+                $('td:eq(' + colIdx + ')', this).filter(':visible').each(function (col) {
+                    if (that != null && $(this).html() == $(that).html()) {
+                        rowspan = $(that).attr("rowSpan");
+                        if (rowspan == undefined) {
+                            $(that).attr("rowSpan", 1);
+                            rowspan = $(that).attr("rowSpan");
+                        }
+                        rowspan = Number(rowspan) + 1;
+                        $(that).attr("rowSpan", rowspan);
+                        $(this).hide();
+                    } else {
+                        that = this;
+                    }
+                });
+            });
+        });
+    }
+
+
+    $.ajaxSetup({
+        complete: function (XMLHttpRequest, textStatus, errorMsg) {
+            //console.log(textStatus)
+            // 通过XMLHttpRequest取得响应头，sessionstatus
+            //var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus"); 
+            //if (sessionstatus == "TimeOut") {  
+            if (textStatus == "parsererror") { 
+                top.location.href = "/Home/Login";
+            } else if (textStatus == "error") {
+                //layer.alert("", {
+                //    title: '提示'
+                //}) 
+            }
+        } 
+    })
+        $().ready(function () {
+            var JGLoginAccount = "@Session["JGLoginAccount"]";
+            var pathname = window.location.pathname;
+            if (!JGLoginAccount && pathname != "/Home/Login") {
+                if (!pathname.match("/Survey/") && !pathname.match("/TZSign/"))  {
+                    top.location.href = "/Home/Login";
+                } 
+            } 
+            else {
+                return;
+            }
+ 
+        })
+
+</script>

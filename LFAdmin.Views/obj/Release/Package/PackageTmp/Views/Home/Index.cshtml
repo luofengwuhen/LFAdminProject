@@ -1,0 +1,275 @@
+﻿<link href="../../static/admin/css/admin.css" rel="stylesheet" />
+<link href="../../static/admin/layui/css/layui.css" rel="stylesheet" />
+<div class="main-layout" id='main-layout'>
+    <!--侧边栏-->
+    <div class="main-layout-side">
+        <div class="m-logo">
+        </div>
+        <ul class="layui-nav layui-nav-tree" lay-filter="leftNav">
+            @if (ViewBag.RuleList != null)
+            {
+
+
+                if (ViewBag.RuleList.Contains("01"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe606;</i>360问卷人员</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0101"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Employee/List" data-id='0101' data-text="评估人信息"><span class="l-line"></span>评估人信息</a>
+                                </dd>
+                            }
+                            @if (ViewBag.RuleList.Contains("0102"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Assessor/List" data-id='0102' data-text="被评估人信息"><span class="l-line"></span>被评估人信息</a>
+                                </dd>
+                            }
+                        </dl>
+                    </li>
+                }
+
+                if (ViewBag.RuleList.Contains("02"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe608;</i>360问卷管理</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0201"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Questionnaire/List" data-id='0201' data-text="问卷信息"><span class="l-line"></span>问卷信息</a>
+                                </dd>
+                            }
+                            @if (ViewBag.RuleList.Contains("0202"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Subject/List" data-id='0202' data-text="题目信息"><span class="l-line"></span>题目信息</a>
+                                </dd>
+                            }
+                            @if (ViewBag.RuleList.Contains("0203"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Option/List" data-id='0203' data-text="答案信息"><span class="l-line"></span>答案信息</a>
+                                </dd>
+                            }
+                        </dl>
+                    </li>
+                }
+
+                if (ViewBag.RuleList.Contains("03"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe608;</i>测评问卷</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0301"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/SurveyNine/List" data-id='0301' data-text="九型人格"><span class="l-line"></span>九型人格</a>
+                                </dd>
+                            }
+
+                            @if (ViewBag.RuleList.Contains("0302"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Hollander/List" data-id='0302' data-text="霍兰德"><span class="l-line"></span>霍兰德</a>
+                                </dd>
+                            }
+                        </dl>
+                    </li>
+                }
+
+                if (ViewBag.RuleList.Contains("04"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe60b;</i>系统管理</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0401"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/User/List" data-id='0401' data-text="用户信息"><span class="l-line"></span>用户信息</a>
+                                </dd>
+
+                            }
+                            @if (ViewBag.RuleList.Contains("0403"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Role/List" data-id='0403' data-text="角色信息"><span class="l-line"></span>角色信息</a>
+                                </dd>
+
+                            }
+                            @if (ViewBag.RuleList.Contains("0402"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/Basic/List" data-id='0402' data-text="基础数据"><span class="l-line"></span>基础数据</a>
+                                </dd>
+                            }
+                        </dl>
+                    </li>
+                }
+
+                if (ViewBag.RuleList.Contains("05"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe602;</i>学习台账</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0504"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/TZCompany/List" data-id='0504' data-text="考核公司"><span class="l-line"></span>考核公司</a>
+                                </dd>
+
+                            }
+                            @if (ViewBag.RuleList.Contains("0501"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/TZAssessmentDepartment/List" data-id='0501' data-text="考核部门"><span class="l-line"></span>考核部门</a>
+                                </dd>
+
+                            }
+                            @if (ViewBag.RuleList.Contains("0502"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/TZExaminers/List" data-id='0502' data-text="考核人员"><span class="l-line"></span>考核人员</a>
+                                </dd>
+                            }
+                            @if (ViewBag.RuleList.Contains("0505"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/TZExaminersGroup/List" data-id='0505' data-text="考核人员-集团"><span class="l-line"></span>考核人员-集团</a>
+                                </dd>
+                            }
+                            @if (ViewBag.RuleList.Contains("0503"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/TZCurriculuProject/List" data-id='0503' data-text="课程项目"><span class="l-line"></span>课程项目</a>
+                                </dd>
+                            }
+                        </dl>
+                    </li>
+                }
+                if (ViewBag.RuleList.Contains("06"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe602;</i>月报</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0601"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/VDepmartmentCurriculu/List" data-id='0601' data-text="部门级月报"><span class="l-line"></span>部门级月报</a>
+                                </dd>
+
+                            }
+                            @if (ViewBag.RuleList.Contains("0602"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/TZCompanyMonthReport/List" data-id='0602' data-text="公司级月报"><span class="l-line"></span>公司级月报</a>
+                                </dd>
+
+                            }
+                        </dl>
+                    </li>
+                }
+                if (ViewBag.RuleList.Contains("08"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe602;</i>岗位评估管理</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0801"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/GWPositionEvaluationProject/List" data-id='0801' data-text="岗位价值评估"><span class="l-line"></span>岗位价值评估</a>
+                                </dd>
+
+                            }
+                            @if (ViewBag.RuleList.Contains("0802"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/GWPositionEvaluationResults/List" data-id='0802' data-text="岗位评估结果"><span class="l-line"></span>岗位评估结果</a>
+                                </dd>
+
+                            }
+                        </dl>
+                    </li>
+                }
+                if (ViewBag.RuleList.Contains("07"))
+                {
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="iconfont">&#xe602;</i>测试</a>
+                        <dl class="layui-nav-child">
+                            @if (ViewBag.RuleList.Contains("0701"))
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/LayuiTest/List" data-id='0701' data-text="测试"><span class="l-line"></span>测试</a>
+                                </dd>
+
+                            }
+
+                        </dl>
+                    </li>
+                }
+            }
+
+            <!--            <li class="layui-nav-item">
+        <a href="javascript:;" data-url="/Password/Edit" data-id='5' data-text="个人信息"><i class="iconfont">&#xe606;</i>个人信息</a>
+    </li>-->
+            <!--       <li class="layui-nav-item">
+        <a href="javascript:;" data-url="system.html" data-id='6' data-text="系统设置"><i class="iconfont">&#xe60b;</i>系统设置</a>
+    </li>-->
+        </ul>
+    </div>
+    <!--右侧内容-->
+    <div class="main-layout-container">
+        <!--头部-->
+        <div class="main-layout-header">
+            <div class="menu-btn" id="hideBtn">
+                <a href="javascript:;">
+                    <span class="iconfont">&#xe60e;</span>
+                </a>
+            </div>
+            <ul class="layui-nav" lay-filter="rightNav">
+                <!--  <li class="layui-nav-item"><a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i class="iconfont">&#xe603;</i></a></li>-->
+                <li class="layui-nav-item">
+                    <a href="javascript:;" data-url="/User/Edit" data-id='5' data-text="个人信息"><i class="fa fa-user-o fa-lg"></i> @ViewBag.EmployeeName</a>
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;" onclick="disLogin()"><i class="fa fa-sign-out fa-lg"></i> 退出</a></li>
+            </ul>
+        </div>
+        <!--主体内容-->
+        <div class="main-layout-body">
+            <!--tab 切换-->
+            <div class="layui-tab layui-tab-brief main-layout-tab" lay-filter="tab" lay-allowClose="true">
+                <ul class="layui-tab-title">
+                    <li class="layui-this welcome"></li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show" style="background: #f5f5f5;">
+                        <!--1-->
+                        <!--  <iframe src="welcome" width="100%" height="100%" name="iframe" scrolling="auto" class="iframe" framborder="0"></iframe>-->
+                        <!--1end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--遮罩-->
+    <div class="main-mask">
+
+    </div>
+</div>
+<script src="../../static/admin/layui/layui.js"></script>
+<script src="../../static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../static/admin/js/main.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var scope = {
+        link: 'welcome'
+    }
+
+    function disLogin() {
+        location.href = "/Home/Login";
+    }
+
+</script>
+
+

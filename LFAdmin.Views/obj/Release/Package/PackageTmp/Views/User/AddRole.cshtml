@@ -1,0 +1,92 @@
+﻿
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    @*<input hidden="hidden" name="RoleID" id="RoleID" />*@
+    <input hidden="hidden" name="ID" value="@ViewBag.ID" />
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-inline">
+            <select name="Role_ID" id="Role_ID" lay-filter="Role_ID">
+                <option value="" selected=""></option>
+                @if (ViewBag.RoleList != null)
+                {
+                    foreach (var emp in ViewBag.RoleList)
+                    {
+                        <option value="@emp.ID">@emp.Role_Name</option>
+                    }
+                }
+
+            </select>
+        </div>
+    </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+            </div>
+        </div>
+</form>
+
+
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+    //form.on('select(Role_Name)', function (data) {
+    //    $("#RoleID").val(data.ID);
+
+    //    form.render('select');
+    //});
+    form.render();
+  //监听提交
+    form.on('submit(add)', function(data){
+        var index = layer.load(1, {
+            shade: [0.5, '#000'] //0.1透明度的背景
+        });
+        $.ajax({
+            'type': 'post',
+            'url': '/User/SaveRole',
+            'data': {
+                ID: data.field.ID,
+                //Role_Name: data.field.Role_Name,
+                Role_ID: data.field.Role_ID
+            },
+            success: function (data) {
+                layer.close(index);
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () { 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);//关闭当前页 
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) { 
+                layer.close(index);
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

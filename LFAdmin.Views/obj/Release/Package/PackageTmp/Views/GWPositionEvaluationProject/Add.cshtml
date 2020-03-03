@@ -1,0 +1,106 @@
+﻿ 
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司名称</label>
+        <div class="layui-input-inline">
+            <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                <option value="" selected=""></option>
+                @if (ViewBag.comList != null)
+                {
+                    foreach (var emp in ViewBag.comList)
+                    {
+                        <option value="@emp.Company_Name">@emp.Company_Name</option>
+                    }
+                }
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">项目名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Project_Name" lay-verify="required" autocomplete="off" placeholder="请输入项目名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="Address" id="Address" autocomplete="off"  placeholder="请输入地址"  class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" id="Memo" placeholder="请输入备注" name="Memo"> </textarea>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+ 
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+
+  //监听提交
+    form.on('submit(add)', function(data){
+        var index = layer.load(1, {
+            shade: [0.5, '#000'] //0.1透明度的背景
+        });
+        $.ajax({
+            'type': 'post',
+            'url': '/GWPositionEvaluationProject/AddInfo',
+            'data': { 
+                Company_Name: data.field.Company_Name ,
+                Project_Name: data.field.Project_Name ,
+                Address: data.field.Address ,
+                Memo: data.field.Memo 
+            },
+            success: function (data) {
+                layer.close(index);
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.close(index);
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

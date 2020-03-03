@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        @if (string.IsNullOrEmpty(ViewBag.Title))
+        {
+            ViewBag.Title = "学习管理平台";
+        }
+
+        @ViewBag.Title
+
+    </title>
+
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Scripts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/layui/layui.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+</head>
+<body>
+
+    @RenderBody()
+
+
+</body>
+</html> 
+ 

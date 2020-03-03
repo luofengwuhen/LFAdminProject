@@ -1,0 +1,183 @@
+﻿
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <div class="layui-form-item"> 
+            <label class="layui-form-label">公司</label>
+            <div class="layui-input-inline">
+                <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                    <option value="" selected=""></option>
+                    @if (ViewBag.comList != null)
+                    {
+                        foreach (var emp in ViewBag.comList)
+                        {
+                            <option value="@emp.Company_Name">@emp.Company_Name</option>
+                        }
+                    }
+
+                </select>
+            </div>
+
+            <button class="layui-btn" data-type="reload" type="button" id="search"><i class="layui-icon layui-icon-search"></i>搜索 </button>
+            <button class="layui-btn layui-btn-primary" type="button" data-type="add" id="add"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+        </div>
+    </form>
+   
+    <table id="GWPositionEvaluationProject" class="layui-table" lay-filter="GWPositionEvaluationProject" lay-data="{  height: 'full-80', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/GWPositionEvaluationProject/getList'}">
+        <thead>
+            <tr> 
+                <th lay-data="{type: 'numbers'}"></th>
+                <th lay-data="{field:'Company_Name',  sort: true }">公司</th>
+                <th lay-data="{field:'Project_Name',  sort: true }">项目名称</th>
+                <th lay-data="{field:'Address',  sort: true }">地址</th>
+                <th lay-data="{field:'Questionnaire_Name',  sort: true }">问卷名称</th>
+                <th lay-data="{field:'Position_Counts',  sort: true }">岗位个数</th>
+                <th lay-data="{field:'Memo',  sort: true }">备注</th>
+                <th lay-data="{field:'Creater',  sort: true }">创建人</th>
+                <th lay-data="{field:'Create_Time',  sort: true,width:200 }">创建时间</th>
+                <th lay-data="{ width:320, align:'center', toolbar: '#bar'}"></th>
+            </tr>
+        </thead>
+    </table>
+ 
+    <script type="text/html" id="bar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="QRCode"><i class="fa fa-qrcode fa-lg"></i> 二维码</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="Position"><i class="fa fa-black-tie" ></i> 评估岗位</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i> 删除</a>
+    </script>
+
+    <script type="text/javascript">
+        layui.use(['table', 'layer', 'form', 'layedit', 'laydate', 'upload'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , table = layui.table
+                , upload = layui.upload;
+            var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+           // form.render();
+             
+            //监听工具条
+            table.on('tool(GWPositionEvaluationProject)', function (obj) {
+                var data = obj.data;
+                var id = data.ID;
+                if (obj.event === 'detail') {
+                } else if (obj.event === 'del') {
+                    layer.confirm('数据删除之后将无法恢复', function (index) {
+                        $.ajax({
+                            'type': 'post',
+                            'url': '/GWPositionEvaluationProject/DelInfo',
+                            'data': {
+                                ID: data.ID
+                            },
+                            success: function (data) {
+                                var da = JSON.parse(data);
+                                if (da.IsSuccess == "1") { 
+                                    obj.del();
+                                    layer.close(index);
+                                    layer.alert(da.MessageString, {
+                                        title: '提示'
+                                    });
+                                }
+                                else {
+                                    layer.alert(da.MessageString, {
+                                        title: '提示'
+                                    });
+                                }
+
+                            },
+                            error: function (message) {
+                                layer.alert(JSON.stringify(message.statusText), {
+                                    title: '提示'
+                                });
+                            }
+
+                        });
+
+                    });
+                } else if (obj.event === 'edit') {  
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: "编辑评估项目信息",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['450px', '450px'], //宽高
+                        content: '/GWPositionEvaluationProject/Edit?ID=' + id
+
+                    });
+
+                } else if (obj.event === 'QRCode') { 
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: "二维码下载",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['440px', '580px'], //宽高
+                        content: '/GWPositionEvaluationProject/DownQRCode?ID=' + id
+
+                    }); 
+                } else if (obj.event === 'Position') {
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: "岗位评估",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['1140px', '580px'], //宽高
+                        content: '/GWPositionEvaluationProject/Position?ID=' + id
+
+                    });
+                } 
+
+            });
+
+            layer.ready(function () {
+                //执行重载
+                table.reload('GWPositionEvaluationProject', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Company_Name: $("#Company_Name").val(),
+                        time: new Date()
+                    }
+                });
+            });
+
+            //搜索加载--数据表格重载
+            var $ = layui.$, active = {
+                reload: function () {
+                    //执行重载
+                    table.reload('GWPositionEvaluationProject', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: { 
+                            Company_Name: $("#Company_Name").val(), 
+                            time: new Date()
+                        }
+                    });
+                }
+
+            };
+
+            $('#search').on('click', function () {
+                ids = new Array();
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+
+            $('#add').on('click', function () { 
+                layer.open({
+                    type: 2,
+                    title: "新增评估项目",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['450px', '450px'], //宽高
+                    content: '/GWPositionEvaluationProject/Add' 
+                });
+            });
+           
+
+        });
+
+    </script>

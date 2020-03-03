@@ -1,0 +1,16 @@
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\LFAdmin.Services.dll
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\LFAdmin.Services.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Services\obj\Debug\LFAdmin.Services.csproj.CoreCompileInputs.cache
+H:\1.精工\LFAdminProject\LFAdmin.Services\obj\Debug\LFAdmin.Services.dll
+H:\1.精工\LFAdminProject\LFAdmin.Services\obj\Debug\LFAdmin.Services.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\LFAdmin.Services.dll.config
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\EntityFramework.dll
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\EntityFramework.SqlServer.dll
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\log4net.dll
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\EntityFramework.xml
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\EntityFramework.SqlServer.xml
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\log4net.xml
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\zh-Hans\EntityFramework.resources.dll
+H:\1.精工\LFAdminProject\LFAdmin.Services\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+H:\1.精工\LFAdminProject\LFAdmin.Services\obj\Debug\LFAdmin.Services.csproj.CopyComplete
+H:\1.精工\LFAdminProject\LFAdmin.Services\obj\Debug\LFAdmin.Services.csprojAssemblyReference.cache

@@ -1,0 +1,278 @@
+﻿<style>
+    .layui-table .layui-table-cell {
+        height: auto;
+        overflow: visible;
+        text-overflow: inherit;
+        white-space: normal;
+    }
+</style>
+<div class="demoTable" style="padding-top:20px">
+    &nbsp&nbsp
+    问卷名称：
+    <div class="layui-inline">
+        <input class="layui-input" id="Questionnaire_Name" autocomplete="off">
+    </div>
+
+    <button class="layui-btn" data-type="reload" id="search">搜索</button>
+    <button class="layui-btn layui-btn-primary" data-type="add" id="add">添加</button>
+</div>
+<table id="questionnaire" class="layui-table" lay-filter="questionnaire" lay-data="{  height: 'full/2', cellMinWidth: 120, page: true, limit: 10, url:'/Questionnaire/getList'}">
+    <thead>
+        <tr>
+            <th lay-data="{type: 'numbers'}"></th>
+            <th lay-data="{field:'Questionnaire_Name', event: 'getSubject',  sort: true}">问卷名称</th>
+            <th lay-data="{ width:388, align:'center', toolbar: '#bar'}"></th>
+        </tr>
+    </thead>
+</table>
+
+<div class="layui-row">
+    <div class="layui-col-xs12 layui-col-md8">
+        @*<p>题目</p>
+            <hr class="layui-bg-blue">*@
+        <table id="subject" class="layui-table" lay-filter="subject"></table>
+    </div>
+    <div class="layui-col-xs6 layui-col-md4">
+        @*<p>答案</p>
+            <hr class="layui-bg-blue">*@
+        <table id="option" class="layui-table" lay-filter="option"> </table>
+    </div>
+</div>
+
+
+
+@*<script src="~/Scripts/layui/layui.js"></script>*@
+
+
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">问卷预览</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="subject">添加题目</a>
+    @*<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="subjectAdd">新增题目</a>*@
+</script>
+
+@*<script type="text/html" id="bar2"> 
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="subject">添加答案</a>
+</script>*@
+
+<script type="text/javascript">
+
+    layui.use(['table', 'layer', 'form'], function () {
+        var table = layui.table;
+        layer = layui.layer;
+        form = layui.form;
+        var $ = layui.$;
+        form.render();
+        //监听
+        table.on('tool(questionnaire)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') { //预览
+
+                window.open("/Questionnaire/Survey?que_id=" + data.ID + "&time=" + new Date());
+
+            } else if (obj.event === 'del') {
+                layer.confirm('数据删除之后将无法恢复', function (index) {
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/Questionnaire/DelInfo',
+                        'data': {
+                            ID: data.ID
+                        },
+                        success: function (data) {
+                            var da = JSON.parse(data);
+                            if (da.IsSuccess == "1") {
+                                obj.del();
+                                layer.close(index);
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                            else {
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+
+                        },
+                        error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+
+                    });
+
+             
+
+                });
+            } else if (obj.event === 'edit') {
+                //layer.alert('编辑行：<br>' + JSON.stringify(data))
+
+                //layer.alert('ID：<br>' + )
+                var id = data.ID;
+                //页面层
+                layer.open({
+                    type: 2,
+                    title: "编辑问卷信息",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['430px', '200px'], //宽高
+                    content: '/Questionnaire/Edit?ID=' + id
+                });
+            }
+            else if (obj.event === 'subject') {
+                var id = data.ID;  
+                //页面层
+                layer.open({
+                    type: 2,
+                    title: "绑定问卷题目",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['655px', '450px'], //宽高
+                    content: '/Questionnaire/Subject?ID=' + id
+                });
+            }
+            else if (obj.event === 'subjectAdd') {
+                var id = data.ID;
+                //页面层
+                layer.open({
+                    type: 2,
+                    title: "新增问卷题目",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['655px', '450px'], //宽高
+                    content: '/Questionnaire/SubjectAdd?ID=' + id
+                });
+            }
+            else if (obj.event === 'getSubject') {
+                //执行重载
+                table.reload('subject', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Questionnaire_ID: data.ID,
+                        time: new Date()
+                    }
+                });
+                //执行重载
+                table.reload('option', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Option_Code: "0",
+                        time: new Date()
+                    }
+                });
+
+            }
+
+        });
+
+        //监听单元格事件
+        table.on('tool(subject)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'getOption') {
+                //执行重载
+                table.reload('option', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Option_Code: data.Option_Code,
+                        time: new Date()
+                    }
+                });
+            }
+        });
+
+        layer.ready(function () {
+            //执行重载
+            table.reload('questionnaire', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    Questionnaire_Name: $("#Questionnaire_Name").val(),
+                    time: new Date()
+                }
+            });
+        });
+
+        //搜索加载--数据表格重载
+        var $ = layui.$, active = {
+            reload: function () {
+                //执行重载
+                table.reload('questionnaire', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Questionnaire_Name: $("#Questionnaire_Name").val(),
+                        time: new Date()
+                    }
+                });
+            }
+        };
+
+        $('#search').on('click', function () {
+            ids = new Array();
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+
+        $('#add').on('click', function () {
+
+            layer.open({
+                type: 2,
+                title: "新增问卷信息",
+                skin: 'layui-layer-rim', //加上边框
+                area: ['430px', '200px'], //宽高
+                content: '/Questionnaire/Add'
+
+            });
+        });
+
+
+
+        table.render({
+            elem: '#subject'
+            , url: '/Questionnaire/getSubjectList' //数据接口
+            , height: 'full/2'
+            , cellMinWidth: 120
+            , page: true
+            , limit: 10
+            , cols: [[ //表头
+                { field: 'Subject_Num', title: '序号', width: 80, event: 'getOption', sort: true },
+                { field: 'Subject_Name', title: '题目名称', event: 'getOption', width: 350, sort: true },
+                { field: 'Subject_Type', title: '题目类型', event: 'getOption', sort: true },
+                { field: 'Subject_Second_Type', title: '二级分类', event: 'getOption', sort: true },
+                { field: 'Subject_First_Type', title: '一级分类', event: 'getOption', sort: true },
+                //{ field: 'Subject_Zore_Type', title: '大类', event: 'getOption',  sort: true },  
+                { field: 'Weight', title: '权重', sort: true }
+                //,{ width: 100, align: 'center', toolbar: '#bar2' }
+            ]]
+        });
+
+        table.render({
+            elem: '#option'
+            , url: '/Questionnaire/getOptionList' //数据接口
+            , height: 'full/2'
+            , cellMinWidth: 120
+            , page: true
+            , limit: 10
+            , cols: [[ //表头
+                { field: 'Option_Num', title: '序号', sort: true },
+                { field: 'Option_Name', title: '选项名称', sort: true },
+                { field: 'Option_Score', title: '选项得分', sort: true }
+            ]]
+        });
+
+
+ 
+
+        
+
+    });
+
+</script>

@@ -1,0 +1,217 @@
+﻿@*<link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />*@
+<style>
+    /*table自动换行*/
+    .layui-table .layui-table-cell {
+        height: auto;
+        overflow: visible;
+        text-overflow: inherit;
+        white-space: normal;
+    }
+</style>
+
+<div class="demoTable" style="padding-top:20px;">
+    &nbsp&nbsp
+    公司：
+    <div class="layui-inline">
+        <input class="layui-input" id="company" autocomplete="off">
+    </div>
+
+    部门：
+    <div class="layui-inline">
+        <input class="layui-input" id="depertment" autocomplete="off">
+    </div>
+    被评估人：
+    <div class="layui-inline">
+        <input class="layui-input" id="employee" autocomplete="off">
+    </div>
+    层级：
+    <div class="layui-inline">
+        <input class="layui-input" id="hierarchy" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload" id="search">搜索</button>
+    <button class="layui-btn layui-btn-primary" data-type="add" id="add">添加</button>
+</div> 
+<table  id="assessor" class="layui-table" lay-filter="assessor"   lay-data="{  height: 'full-80', cellMinWidth: 80,toolbar: '#toolbar', page: true, limit: 20, url:'/Assessor/getList'}">
+    <thead>
+        <tr>
+            @*<th lay-data="{type:'radio'}"></th>*@
+            @*<th lay-data="{field:'ID' ,  width:30}">ID</th>*@
+            <th lay-data="{type: 'numbers'}"></th>
+            <th lay-data="{field:'Assessor_Name',  sort: true}">被评估人</th>
+            <th lay-data="{field:'Company_Name',  sort: true}">公司</th>
+            <th lay-data="{field:'Department_Name',  sort: true}">部门</th>
+            <th lay-data="{field:'Position_Name', sort: true}">职位/岗位</th>
+            <th lay-data="{field:'Hierarchy_Name', sort: true}">层级</th>
+            <th lay-data="{field:'Plur_Company_Name', sort: true}">兼职公司</th>
+            <th lay-data="{field:'OwnEmployeeList'}">自己</th>
+            <th lay-data="{field:'SupEmployeeList'}">上级</th>
+            <th lay-data="{field:'SubEmployeeList'}">下属</th>
+            <th lay-data="{field:'IPEmployeeList'}">相关方</th>
+            <th lay-data="{ width:208, align:'center', toolbar: '#bar'}"></th> @**@
+        </tr>
+    </thead>
+</table>
+
+
+
+<script type="text/html" id="toolbar">
+    @*<div class="layui-btn-container"> 
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+    </div>*@
+</script>
+
+<script type="text/html" id="bar">
+    @*<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>*@
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="addEmp">新增评估人</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">查看评估结果</a>
+</script>
+
+<script type="text/javascript"> 
+
+    layui.use(['table', 'layer', 'form'], function () {
+        var table = layui.table;
+        layer = layui.layer;
+        form = layui.form;
+        var $ = layui.$;
+        //头工具栏事件
+        table.on('toolbar(assessor)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;  //获取选中行数据
+                    layer.alert(JSON.stringify(data));  
+                    break;
+            };
+        });
+
+
+        //监听工具条
+        table.on('tool(assessor)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') { 
+                window.open("/Assessor/Report?id=" + data.ID + "&time=" + new Date());
+
+
+            } else if (obj.event === 'del') {
+                layer.confirm('数据删除之后将无法恢复', function (index) { 
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/Assessor/DelInfo',
+                        'data': {
+                            ID: data.ID 
+                        },
+                        success: function (data) {
+                            var da = JSON.parse(data);
+                            if (da.IsSuccess == "1") {
+                                obj.del();
+                                layer.close(index);
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                            else {
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+
+                        },
+                        error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+
+                    }); 
+
+                });
+            }  else if (obj.event === 'edit') {
+                //layer.alert('编辑行：<br>' + JSON.stringify(data))
+
+                //layer.alert('ID：<br>' + )
+                var id = data.ID;
+                  //页面层
+                layer.open({
+                    type: 2,
+                    title: "编辑被评估人信息",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['450px', '450px'], //宽高
+                    content: '/Assessor/Edit?ID=' + id 
+                  
+                });
+
+            }
+            else if (obj.event === 'addEmp') { 
+                var id = data.ID;
+                //页面层
+                layer.open({
+                    type: 2,
+                    title: "新增评估人信息",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['450px', '460px'], //宽高
+                    content: '/Assessor/AddEmp?id=' + id
+
+                });
+
+            }
+        });
+
+
+        layer.ready(function () {
+            //执行重载
+            table.reload('assessor', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    company: $("#company").val(),
+                    depertment: $("#depertment").val(),
+                    employee: $("#employee").val(),
+                    hierarchy: $("#hierarchy").val(),
+                    time: new Date()
+                }
+            });
+        });
+        //搜索加载--数据表格重载
+        var $ = layui.$, active = {
+            reload: function () {
+                //执行重载
+                table.reload('assessor', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        company: $("#company").val(),
+                        depertment: $("#depertment").val(),
+                        employee: $("#employee").val(),
+                        hierarchy: $("#hierarchy").val(),
+                        time: new Date()
+                    }
+                });
+            }
+        };
+
+        $('#search').on('click', function () {
+            ids = new Array();
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        
+        $('#add').on('click', function () { 
+            layer.open({
+                    type: 2,
+                    title: "新增被评估人信息",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['450px', '450px'], //宽高
+                content: '/Assessor/Add'
+                  
+                });
+        });
+         
+
+    });
+
+</script>

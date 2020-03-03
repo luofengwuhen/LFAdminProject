@@ -1,0 +1,149 @@
+﻿@*<link href="~/static/admin/layui/css/layui.css" rel="stylesheet" />*@
+
+ 
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名：</label>
+        <div class="layui-input-block">
+            <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="@ViewBag.User_Name">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名：</label>
+        <div class="layui-input-block">
+            <input type="text" name="employeename" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" value="@ViewBag.Chinese_Name">
+        </div>
+    </div>
+        <div class="layui-form-item">
+        <label class="layui-form-label">公司</label>
+        <div class="layui-input-inline">
+            <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                @*<option value="" selected=""></option>*@
+                @if (ViewBag.comList != null)
+                {
+                    foreach (var emp in ViewBag.comList)
+                    {
+                        <option value="@emp.Company_Name">@emp.Company_Name</option>
+                    }
+                }
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门</label>
+        <div class="layui-input-inline">
+            <select name="Department_Name" id="Department_Name" lay-filter="Department_Name">
+                <option value="" selected=""></option>
+                @if (ViewBag.depList != null)
+                {
+                    foreach (var emp in ViewBag.depList)
+                    {
+                        <option value="@emp.Department_Name">@emp.Department_Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    @*<div class="layui-form-item">
+        <label class="layui-form-label">公司：</label>
+        <div class="layui-input-block">
+            <input type="text" name="Company_Name" required lay-verify="required" placeholder="请输入公司" autocomplete="off" class="layui-input" value="@ViewBag.Company_Name">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门：</label>
+        <div class="layui-input-block">
+            <input type="text" name="Department_Name" required lay-verify="required" placeholder="请输入部门" autocomplete="off" class="layui-input" value="@ViewBag.Department_Name">
+        </div>
+    </div>*@
+    <div class="layui-form-item">
+        <label class="layui-form-label">职位/岗位：</label>
+        <div class="layui-input-block">
+            <input type="text" name="positionname" required lay-verify="required" placeholder="请输入职位/岗位" autocomplete="off" class="layui-input" value="@ViewBag.Position_Name">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminInfo">立即提交</button>
+        </div>
+    </div>
+</form>
+ 
+
+@*<script src="~/static/admin/layui/layui.js"></script>*@
+<script>
+    //Demo
+    layui.use(['form', 'element'], function () {
+        var form = layui.form;
+        var element = layui.element;
+
+        $("#Company_Name").val("@ViewBag.Company_Name");
+        $("#Department_Name").val("@ViewBag.Department_Name");
+
+        //监听select 公司动态选择
+        form.on('select(Company_Name)', function (data) {
+            $.ajax({
+                type: 'POST',
+                url: '/TZAssessmentDepartment/getAssessmentDepartment',
+                data: { Company_Name: data.value },
+                dataType: 'json',
+                success: function (data) {
+                    $("#Department_Name").html("");
+                    var option1 = $("<option>").val("").text("");
+                    $("#Department_Name").append(option1);
+                    $.each(data, function (key, val) {
+                        var option1 = $("<option>").val(val).text(val);
+                        $("#Department_Name").append(option1);
+                    });
+                    form.render('select');
+                    $("#Department_Name").get(0).selectedIndex = 0;
+                }, error: function (message) {
+                    $("#Department_Name").html("");
+                }
+            });
+        });
+
+
+        form.render();
+        //监听信息提交
+        form.on('submit(adminInfo)', function (data) {
+            $.ajax({
+                'type': 'post',
+                'url': '/User/SaveInfo',
+                'data': {
+                    username: data.field.username,
+                    employeename: data.field.employeename, Company_Name: data.field.Company_Name
+                    , Department_Name: data.field.Department_Name, positionname: data.field.positionname
+                },
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "1") {
+                        //layer.msg(obj.MessageString);
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index);
+                            window.parent.location.reload();
+                        }); 
+                    }
+                    else {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    }
+
+                },
+                error: function (message) {
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+
+            });
+            return false;
+        });
+        
+    });
+</script>

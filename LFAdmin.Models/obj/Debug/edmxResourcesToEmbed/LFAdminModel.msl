@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LFAdminModelStoreContainer" CdmEntityContainer="LFAdminEntities">
+    <EntitySetMapping Name="T_Basic_Data">
+      <EntityTypeMapping TypeName="LFAdminModel.T_Basic_Data">
+        <MappingFragment StoreEntitySet="T_Basic_Data">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Memo" ColumnName="Memo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Role">
+      <EntityTypeMapping TypeName="LFAdminModel.T_Role">
+        <MappingFragment StoreEntitySet="T_Role">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Role_Code" ColumnName="Role_Code" />
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Role_Permission">
+      <EntityTypeMapping TypeName="LFAdminModel.T_Role_Permission">
+        <MappingFragment StoreEntitySet="T_Role_Permission">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="Permission_Code" ColumnName="Permission_Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_User">
+      <EntityTypeMapping TypeName="LFAdminModel.T_User">
+        <MappingFragment StoreEntitySet="T_User">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Chinese_Name" ColumnName="Chinese_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Is_Company" ColumnName="Is_Company" />
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_User_Permission">
+      <EntityTypeMapping TypeName="LFAdminModel.T_User_Permission">
+        <MappingFragment StoreEntitySet="T_User_Permission">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Rule_Code" ColumnName="Rule_Code" />
+          <ScalarProperty Name="Rule_Name" ColumnName="Rule_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_User_Role">
+      <EntityTypeMapping TypeName="LFAdminModel.T_User_Role">
+        <MappingFragment StoreEntitySet="T_User_Role">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_User_Permission">
+      <EntityTypeMapping TypeName="LFAdminModel.V_User_Permission">
+        <MappingFragment StoreEntitySet="V_User_Permission">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Rule_Code" ColumnName="Rule_Code" />
+          <ScalarProperty Name="Rule_Name" ColumnName="Rule_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Company">
+      <EntityTypeMapping TypeName="LFAdminModel.T_Company">
+        <MappingFragment StoreEntitySet="T_Company">
+          <ScalarProperty Name="Company_Scale" ColumnName="Company_Scale" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Department">
+      <EntityTypeMapping TypeName="LFAdminModel.T_Department">
+        <MappingFragment StoreEntitySet="T_Department">
+          <ScalarProperty Name="Is_Assessment" ColumnName="Is_Assessment" />
+          <ScalarProperty Name="Department_Counts" ColumnName="Department_Counts" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Permission">
+      <EntityTypeMapping TypeName="LFAdminModel.T_Permission">
+        <MappingFragment StoreEntitySet="T_Permission">
+          <ScalarProperty Name="palias" ColumnName="palias" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="alias" ColumnName="alias" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

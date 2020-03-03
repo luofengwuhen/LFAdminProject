@@ -1,0 +1,14 @@
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\LFAdmin.Models.dll.config
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\LFAdmin.Models.dll
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\LFAdmin.Models.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\EntityFramework.dll
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\EntityFramework.SqlServer.dll
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\EntityFramework.xml
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\EntityFramework.SqlServer.xml
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\zh-Hans\EntityFramework.resources.dll
+H:\1.精工\LFAdminProject\LFAdmin.Models\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+H:\1.精工\LFAdminProject\LFAdmin.Models\obj\Debug\LFAdmin.Models.csproj.CoreCompileInputs.cache
+H:\1.精工\LFAdminProject\LFAdmin.Models\obj\Debug\LFAdmin.Models.csproj.CopyComplete
+H:\1.精工\LFAdminProject\LFAdmin.Models\obj\Debug\LFAdmin.Models.dll
+H:\1.精工\LFAdminProject\LFAdmin.Models\obj\Debug\LFAdmin.Models.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Models\obj\Debug\LFAdmin.Models.csprojAssemblyReference.cache

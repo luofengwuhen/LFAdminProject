@@ -1,0 +1,93 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="ID" value="@ViewBag.TZCurriculuProject.ID" />
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width:120px">实际开始时间</label>
+        <div class="layui-input-block" style="margin-left:120px">
+            <input type="text" name="Actual_Start_Time" lay-verify="required" value="@ViewBag.TZCurriculuProject.Actual_Start_Time" id="Actual_Start_Time" autocomplete="off" class="layui-input">
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width:120px">实际结束时间</label>
+        <div class="layui-input-block" style="margin-left:120px">
+            <input type="text" name="Actual_End_Time" lay-verify="required" value="@ViewBag.TZCurriculuProject.Actual_End_Time" id="Actual_End_Time" autocomplete="off" class="layui-input">
+
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="edit">立即提交</button>
+        </div>
+    </div>
+
+
+</form>
+
+
+<script>
+    layui.use(['form', 'layedit', 'upload', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , upload = layui.upload
+            , laydate = layui.laydate;
+
+
+        laydate.render({
+            elem: '#Actual_Start_Time'
+            , type: 'datetime'
+        });
+
+        laydate.render({
+            elem: '#Actual_End_Time'
+            , type: 'datetime'
+        });
+
+        //监听提交
+        form.on('submit(edit)', function (data) {
+            var index = layer.load(1, {
+                shade: [0.5, '#000'] //0.1透明度的背景
+            });
+            $.ajax({
+                'type': 'post',
+                'url': '/TZCurriculuProject/TimeInfo',
+                'data': {
+                    ID: data.field.ID, 
+                    Actual_Start_Time: data.field.Actual_Start_Time,
+                    Actual_End_Time: data.field.Actual_End_Time 
+                },
+                success: function (data) {
+                    layer.close(index);
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "1") {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index);
+                            window.parent.location.reload();
+                        }); 
+                    }
+                    else {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    } 
+                },
+                error: function (message) {
+                    layer.close(index);
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+
+            }); 
+            return false;
+        });
+
+
+    });
+</script>

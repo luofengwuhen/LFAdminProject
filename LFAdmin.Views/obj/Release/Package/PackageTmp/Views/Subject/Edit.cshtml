@@ -1,0 +1,232 @@
+﻿
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    @*<input hidden="hidden" id="Option_Type" name="Option_Type" />*@
+    <input hidden="hidden" name="ID" value="@ViewBag.Subject.ID" />
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">题目类型</label>
+        <div class="layui-input-inline">
+            <select id="Subject_Type" name="Subject_Type" lay-filter="Subject_Type" lay-verify="required">
+                <option value="" selected=""></option>
+                <option value="单选题">单选题</option>
+                <option value="问答题">问答题</option>
+            </select>
+        </div>
+
+        @*<label class="layui-form-label">题目答案</label>
+        <div class="layui-input-inline">
+            <select id="o_code" name="Option_Code" lay-filter="Option_Code" lay-verify="required" lay-search>
+                <option value="" selected=""></option>
+                @foreach (var sz in ViewBag.OptionList)
+                {
+                    <option value="@sz.Option_Code">@sz.Option_Type</option>
+                }
+            </select>
+        </div>*@ 
+  
+        <label class="layui-form-label">答案编号</label>
+        <div class="layui-input-inline">
+            <input id="o_code" type="number" name="Option_Code"  autocomplete="off" lay-verify="required" class="layui-input"  >
+        </div> 
+
+    </div>
+
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label ">题目名称</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入题目名称" name="Subject_Name" id="Subject_Name"  class="layui-textarea"  ></textarea>
+        </div>
+    </div>
+
+    <fieldset class="layui-elem-field " style="margin-top: 20px;">
+        <legend>360</legend>
+        <div class="layui-form-item">
+
+            <label class="layui-form-label">题目大类</label>
+            <div class="layui-input-inline">
+                <select id="s_zore" name="Subject_Zore_Type" lay-filter="Subject_Zore_Type" lay-search>
+                    <option value="" selected=""></option>
+                    @foreach (var sz in ViewBag.SZeroList)
+                    {
+                        <option value="@sz">@sz</option>
+                    }
+                </select>
+            </div>
+
+
+            <label class="layui-form-label">一级分类</label>
+            <div class="layui-input-inline">
+                <select id="s_first" name="Subject_First_Type" lay-filter="Subject_First_Type" lay-search>
+                    <option value="" selected=""></option>
+                    @foreach (var sz in ViewBag.SFirstList)
+                    {
+                        <option value="@sz">@sz</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+
+
+            <label class="layui-form-label">二级分类</label>
+            <div class="layui-input-inline">
+                <select id="s_second" name="Subject_Second_Type" lay-filter="Subject_Second_Type" lay-search>
+                    <option value="" selected=""></option>
+                    @foreach (var sz in ViewBag.SSecondList)
+                    {
+                        <option value="@sz">@sz</option>
+                    }
+                </select>
+            </div>
+
+            <label class="layui-form-label">权重</label>
+            <div class="layui-input-inline">
+                <input type="number" name="Weight" autocomplete="off" class="layui-input" value="@ViewBag.Subject.Weight" >
+            </div>
+        </div>
+
+    </fieldset>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+            @*<button type="reset" class="layui-btn layui-btn-primary">重置</button>*@
+        </div>
+    </div>
+</form>
+
+
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+    $("#Subject_Name").val("@ViewBag.Subject.Subject_Name");
+    $("#Subject_Type").val("@ViewBag.Subject.Subject_Type");  
+    $("#o_code").val("@ViewBag.Subject.Option_Code");
+    $("#s_zore").val("@ViewBag.Subject.Subject_Zore_Type");
+    $("#s_first").val("@ViewBag.Subject.Subject_First_Type");
+    $("#s_second").val("@ViewBag.Subject.Subject_Second_Type");
+
+    form.render();
+
+
+    //form.on('select(Option_Code)', function (data) {
+    //    $("#Option_Type").val($(data.elem).find("option:selected").text());
+    //});
+
+    form.on('select(Subject_Type)', function (data) {
+        if (data.value == "选择题") {
+            $("#o_code").attr("lay-verify", "required");
+          //  $("#o_code").attr("disabled", false);
+        } else {
+            //$("#o_code").get(0).selectedIndex = 0;
+            $("#o_code").removeAttr("lay-verify", "required");
+            //$("#o_code").attr("disabled", true);
+        }
+        form.render('select');
+    });
+
+
+    //监听select 动态添加评估人是否可选
+    form.on('select(Subject_Zore_Type)', function (data) {
+        $("#s_second").html("");
+        $("#s_first").html("");
+        $.ajax({
+            type: 'POST',
+            url: '/Questionnaire/getFirstType',
+            data: { zoretype: data.value },
+            dataType: 'json',
+            success: function (data) {
+                $("#s_first").html("");
+                var option1 = $("<option>").val("").text("");
+                $("#s_first").append(option1);
+                $.each(data, function (key, val) {
+                    var option1 = $("<option>").val(val).text(val);
+                    $("#s_first").append(option1);
+                    form.render('select');
+                });
+                $("#s_first").get(0).selectedIndex = 0;
+            }
+        });
+
+    });
+
+    form.on('select(Subject_First_Type)', function (data) {
+        var zoretype = $("#s_zore").val();
+        $.ajax({
+            type: 'POST',
+            url: '/Questionnaire/getSecondType',
+            data: { zoretype: zoretype ,firsttype: data.value },
+            dataType: 'json',
+            success: function (data) {
+                $("#s_second").html("");
+                var option1 = $("<option>").val("").text("");
+                $("#s_second").append(option1);
+                $.each(data, function (key, val) {
+                    var option1 = $("<option>").val(val).text(val);
+                    $("#s_second").append(option1);
+                    form.render('select');
+                });
+                $("#s_second").get(0).selectedIndex = 0;
+            }
+        });
+
+    });
+
+  //监听提交
+    form.on('submit(add)', function(data){
+
+        $.ajax({
+            'type': 'post',
+            'url': '/Subject/SaveInfo',
+            'data': {
+                ID: data.field.ID
+                 ,Subject_Type: data.field.Subject_Type
+                , Option_Code: data.field.Option_Code != null ? data.field.Option_Code : 0, Subject_Zore_Type: data.field.Subject_Zore_Type
+                , Subject_First_Type: data.field.Subject_First_Type, Subject_Second_Type: data.field.Subject_Second_Type
+                , Weight: data.field.Weight != null ? data.field.Weight:0, Subject_Name: data.field.Subject_Name
+
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

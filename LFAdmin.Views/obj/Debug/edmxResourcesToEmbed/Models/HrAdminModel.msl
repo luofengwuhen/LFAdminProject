@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HrEvaModelStoreContainer" CdmEntityContainer="HrEvaEntities">
+    <EntitySetMapping Name="T_Assessor_Info">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Assessor_Info">
+        <MappingFragment StoreEntitySet="T_Assessor_Info">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Eva_Counts" ColumnName="Eva_Counts" />
+          <ScalarProperty Name="Plur_Company_Name" ColumnName="Plur_Company_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Employee">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Employee">
+        <MappingFragment StoreEntitySet="T_Employee">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Password_Bak" ColumnName="Password_Bak" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Basic_Data">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Basic_Data">
+        <MappingFragment StoreEntitySet="T_Basic_Data">
+          <ScalarProperty Name="Memo" ColumnName="Memo" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Assessor">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Assessor">
+        <MappingFragment StoreEntitySet="T_Assessor">
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+          <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+          <ScalarProperty Name="Questionnaire_ID" ColumnName="Questionnaire_ID" />
+          <ScalarProperty Name="Strip_Line" ColumnName="Strip_Line" />
+          <ScalarProperty Name="Is_Valid" ColumnName="Is_Valid" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Relation_Name" ColumnName="Relation_Name" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Questionnaire">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Questionnaire">
+        <MappingFragment StoreEntitySet="T_Questionnaire">
+          <ScalarProperty Name="Questionnaire_Name" ColumnName="Questionnaire_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Subject">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Subject">
+        <MappingFragment StoreEntitySet="T_Subject">
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Subject_Zore_Type" ColumnName="Subject_Zore_Type" />
+          <ScalarProperty Name="Subject_First_Type" ColumnName="Subject_First_Type" />
+          <ScalarProperty Name="Subject_Second_Type" ColumnName="Subject_Second_Type" />
+          <ScalarProperty Name="Option_Code" ColumnName="Option_Code" />
+          <ScalarProperty Name="Subject_Type" ColumnName="Subject_Type" />
+          <ScalarProperty Name="Subject_Prefix" ColumnName="Subject_Prefix" />
+          <ScalarProperty Name="Subject_Score" ColumnName="Subject_Score" />
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_User">
+      <EntityTypeMapping TypeName="HrEvaModel.T_User">
+        <MappingFragment StoreEntitySet="T_User">
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+          <ScalarProperty Name="Is_Company" ColumnName="Is_Company" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Chinese_Name" ColumnName="Chinese_Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Option">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Option">
+        <MappingFragment StoreEntitySet="T_Option">
+          <ScalarProperty Name="Subject_Type" ColumnName="Subject_Type" />
+          <ScalarProperty Name="Option_Code" ColumnName="Option_Code" />
+          <ScalarProperty Name="Option_Type" ColumnName="Option_Type" />
+          <ScalarProperty Name="Option_Score" ColumnName="Option_Score" />
+          <ScalarProperty Name="Option_Num" ColumnName="Option_Num" />
+          <ScalarProperty Name="Option_Name" ColumnName="Option_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Questionnaire_Subject">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Questionnaire_Subject">
+        <MappingFragment StoreEntitySet="T_Questionnaire_Subject">
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Subject_Zore_Type" ColumnName="Subject_Zore_Type" />
+          <ScalarProperty Name="Subject_First_Type" ColumnName="Subject_First_Type" />
+          <ScalarProperty Name="Subject_Second_Type" ColumnName="Subject_Second_Type" />
+          <ScalarProperty Name="Option_Code" ColumnName="Option_Code" />
+          <ScalarProperty Name="Subject_Type" ColumnName="Subject_Type" />
+          <ScalarProperty Name="Questionnaire_ID" ColumnName="Questionnaire_ID" />
+          <ScalarProperty Name="Subject_Num" ColumnName="Subject_Num" />
+          <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Questionnaire_Results">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Questionnaire_Results">
+        <MappingFragment StoreEntitySet="T_Questionnaire_Results">
+          <ScalarProperty Name="Questionnairer_Name" ColumnName="Questionnairer_Name" />
+          <ScalarProperty Name="Questionnairer_ID" ColumnName="Questionnairer_ID" />
+          <ScalarProperty Name="Subject_Answer" ColumnName="Subject_Answer" />
+          <ScalarProperty Name="Subject_Zore_Type" ColumnName="Subject_Zore_Type" />
+          <ScalarProperty Name="Subject_First_Type" ColumnName="Subject_First_Type" />
+          <ScalarProperty Name="Subject_Second_Type" ColumnName="Subject_Second_Type" />
+          <ScalarProperty Name="Questionnaire_Name" ColumnName="Questionnaire_Name" />
+          <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="Actual_Score" ColumnName="Actual_Score" />
+          <ScalarProperty Name="Option_Score" ColumnName="Option_Score" />
+          <ScalarProperty Name="Option_Name" ColumnName="Option_Name" />
+          <ScalarProperty Name="Option_Code" ColumnName="Option_Code" />
+          <ScalarProperty Name="Option_ID" ColumnName="Option_ID" />
+          <ScalarProperty Name="Subject_Score" ColumnName="Subject_Score" />
+          <ScalarProperty Name="Subject_Type" ColumnName="Subject_Type" />
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Subject_Num" ColumnName="Subject_Num" />
+          <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+          <ScalarProperty Name="Questionnaire_ID" ColumnName="Questionnaire_ID" />
+          <ScalarProperty Name="Assessor_ID" ColumnName="Assessor_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Questionnairer">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Questionnairer">
+        <MappingFragment StoreEntitySet="T_Questionnairer">
+          <ScalarProperty Name="Create_Time" ColumnName="Create_Time" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Is_OK" ColumnName="Is_OK" />
+          <ScalarProperty Name="Questionnaire_ID" ColumnName="Questionnaire_ID" />
+          <ScalarProperty Name="Mobile_Phone" ColumnName="Mobile_Phone" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Manage_He_Relation_Subject">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Manage_He_Relation_Subject">
+        <MappingFragment StoreEntitySet="HZ_EVA_Manage_He_Relation_Subject">
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Relation_Name" ColumnName="Relation_Name" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Manage_He_Subject">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Manage_He_Subject">
+        <MappingFragment StoreEntitySet="HZ_EVA_Manage_He_Subject">
+          <ScalarProperty Name="MaxScore" ColumnName="MaxScore" />
+          <ScalarProperty Name="MinScore" ColumnName="MinScore" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Quality_He_Relation_Subject">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Quality_He_Relation_Subject">
+        <MappingFragment StoreEntitySet="HZ_EVA_Quality_He_Relation_Subject">
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Relation_Name" ColumnName="Relation_Name" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Quality_He_Subject">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Quality_He_Subject">
+        <MappingFragment StoreEntitySet="HZ_EVA_Quality_He_Subject">
+          <ScalarProperty Name="MaxScore" ColumnName="MaxScore" />
+          <ScalarProperty Name="MinScore" ColumnName="MinScore" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Manage">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Manage">
+        <MappingFragment StoreEntitySet="HZ_EVA_Manage">
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Dim" ColumnName="Dim" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Quality">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Quality">
+        <MappingFragment StoreEntitySet="HZ_EVA_Quality">
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Dim" ColumnName="Dim" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Ranking">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Ranking">
+        <MappingFragment StoreEntitySet="HZ_EVA_Ranking">
+          <ScalarProperty Name="Manage_Name" ColumnName="Manage_Name" />
+          <ScalarProperty Name="Manage_Ranking" ColumnName="Manage_Ranking" />
+          <ScalarProperty Name="Manage_Score" ColumnName="Manage_Score" />
+          <ScalarProperty Name="Quality_Name" ColumnName="Quality_Name" />
+          <ScalarProperty Name="Quality_Ranking" ColumnName="Quality_Ranking" />
+          <ScalarProperty Name="Quality_Score" ColumnName="Quality_Score" />
+          <ScalarProperty Name="Ranking_Name" ColumnName="Ranking_Name" />
+          <ScalarProperty Name="Ranking" ColumnName="Ranking" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_SUM">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_SUM">
+        <MappingFragment StoreEntitySet="HZ_EVA_SUM">
+          <ScalarProperty Name="Valid_Per" ColumnName="Valid_Per" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Invalid_Counts" ColumnName="Invalid_Counts" />
+          <ScalarProperty Name="Valid_Counts" ColumnName="Valid_Counts" />
+          <ScalarProperty Name="Total_Counts" ColumnName="Total_Counts" />
+          <ScalarProperty Name="Relation_Name" ColumnName="Relation_Name" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HZ_EVA_Trust">
+      <EntityTypeMapping TypeName="HrEvaModel.HZ_EVA_Trust">
+        <MappingFragment StoreEntitySet="HZ_EVA_Trust">
+          <ScalarProperty Name="Trust_Pers" ColumnName="Trust_Pers" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Distrust_Per" ColumnName="Distrust_Per" />
+          <ScalarProperty Name="Basictrust_Per" ColumnName="Basictrust_Per" />
+          <ScalarProperty Name="Trust_Per" ColumnName="Trust_Per" />
+          <ScalarProperty Name="Dim" ColumnName="Dim" />
+          <ScalarProperty Name="Hierarchy_Name" ColumnName="Hierarchy_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Assessor_Info_ID" ColumnName="Assessor_Info_ID" />
+          <ScalarProperty Name="Assessor_Name" ColumnName="Assessor_Name" />
+          <ScalarProperty Name="Years" ColumnName="Years" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Upload_Data">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Upload_Data">
+        <MappingFragment StoreEntitySet="TZ_Upload_Data">
+          <ScalarProperty Name="File_Sort" ColumnName="File_Sort" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="Uplpad_Time" ColumnName="Uplpad_Time" />
+          <ScalarProperty Name="Uploader" ColumnName="Uploader" />
+          <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+          <ScalarProperty Name="File_Data" ColumnName="File_Data" />
+          <ScalarProperty Name="File_Size" ColumnName="File_Size" />
+          <ScalarProperty Name="File_Type" ColumnName="File_Type" />
+          <ScalarProperty Name="Curriculu_ID" ColumnName="Curriculu_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Role">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Role">
+        <MappingFragment StoreEntitySet="T_Role">
+          <ScalarProperty Name="Role_Name" ColumnName="Role_Name" />
+          <ScalarProperty Name="Role_Code" ColumnName="Role_Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_User_Role">
+      <EntityTypeMapping TypeName="HrEvaModel.T_User_Role">
+        <MappingFragment StoreEntitySet="T_User_Role">
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Permission">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Permission">
+        <MappingFragment StoreEntitySet="T_Permission">
+          <ScalarProperty Name="palias" ColumnName="palias" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="alias" ColumnName="alias" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_User_Permission">
+      <EntityTypeMapping TypeName="HrEvaModel.T_User_Permission">
+        <MappingFragment StoreEntitySet="T_User_Permission">
+          <ScalarProperty Name="Rule_Name" ColumnName="Rule_Name" />
+          <ScalarProperty Name="Rule_Code" ColumnName="Rule_Code" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Role_Permission">
+      <EntityTypeMapping TypeName="HrEvaModel.T_Role_Permission">
+        <MappingFragment StoreEntitySet="T_Role_Permission">
+          <ScalarProperty Name="Permission_Code" ColumnName="Permission_Code" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Examiners_Group">
+      <EntityTypeMapping TypeName="HrEvaModel.V_Examiners_Group">
+        <MappingFragment StoreEntitySet="V_Examiners_Group">
+          <ScalarProperty Name="Lock_Time" ColumnName="Lock_Time" />
+          <ScalarProperty Name="Locker" ColumnName="Locker" />
+          <ScalarProperty Name="Import_Time" ColumnName="Import_Time" />
+          <ScalarProperty Name="Importer" ColumnName="Importer" />
+          <ScalarProperty Name="Transfer_Counts" ColumnName="Transfer_Counts" />
+          <ScalarProperty Name="Leave_Counts" ColumnName="Leave_Counts" />
+          <ScalarProperty Name="Entry_Counts" ColumnName="Entry_Counts" />
+          <ScalarProperty Name="Admin_Counts" ColumnName="Admin_Counts" />
+          <ScalarProperty Name="Important_Counts" ColumnName="Important_Counts" />
+          <ScalarProperty Name="Totals_Counts" ColumnName="Totals_Counts" />
+          <ScalarProperty Name="First_Department_Counts" ColumnName="First_Department_Counts" />
+          <ScalarProperty Name="Conmpany_Name" ColumnName="Conmpany_Name" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_User_Permission">
+      <EntityTypeMapping TypeName="HrEvaModel.V_User_Permission">
+        <MappingFragment StoreEntitySet="V_User_Permission">
+          <ScalarProperty Name="Rule_Name" ColumnName="Rule_Name" />
+          <ScalarProperty Name="Rule_Code" ColumnName="Rule_Code" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Examiners">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Examiners">
+        <MappingFragment StoreEntitySet="TZ_Examiners">
+          <ScalarProperty Name="Is_Important" ColumnName="Is_Important" />
+          <ScalarProperty Name="Locker" ColumnName="Locker" />
+          <ScalarProperty Name="Is_Lock" ColumnName="Is_Lock" />
+          <ScalarProperty Name="Lock_Time" ColumnName="Lock_Time" />
+          <ScalarProperty Name="Import_Time" ColumnName="Import_Time" />
+          <ScalarProperty Name="Importer" ColumnName="Importer" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Employee_Type" ColumnName="Employee_Type" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="Hierarchy" ColumnName="Hierarchy" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="Card" ColumnName="Card" />
+          <ScalarProperty Name="Second_Department" ColumnName="Second_Department" />
+          <ScalarProperty Name="First_Department" ColumnName="First_Department" />
+          <ScalarProperty Name="Conmpany_Name" ColumnName="Conmpany_Name" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Assessment_Department">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Assessment_Department">
+        <MappingFragment StoreEntitySet="TZ_Assessment_Department">
+          <ScalarProperty Name="Is_Assessment" ColumnName="Is_Assessment" />
+          <ScalarProperty Name="Department_Counts" ColumnName="Department_Counts" />
+          <ScalarProperty Name="Department_Name" ColumnName="Department_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Company">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Company">
+        <MappingFragment StoreEntitySet="TZ_Company">
+          <ScalarProperty Name="Company_Scale" ColumnName="Company_Scale" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Sign">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Sign">
+        <MappingFragment StoreEntitySet="TZ_Sign">
+          <ScalarProperty Name="First_Department" ColumnName="First_Department" />
+          <ScalarProperty Name="Teacher_Mark" ColumnName="Teacher_Mark" />
+          <ScalarProperty Name="Memo" ColumnName="Memo" />
+          <ScalarProperty Name="Curriculu_Mark" ColumnName="Curriculu_Mark" />
+          <ScalarProperty Name="SignOut_Time" ColumnName="SignOut_Time" />
+          <ScalarProperty Name="SignOut_Name" ColumnName="SignOut_Name" />
+          <ScalarProperty Name="SignIn_Time" ColumnName="SignIn_Time" />
+          <ScalarProperty Name="SignIn_Name" ColumnName="SignIn_Name" />
+          <ScalarProperty Name="Curriculu_ID" ColumnName="Curriculu_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Hollander">
+      <EntityTypeMapping TypeName="HrEvaModel.V_Hollander">
+        <MappingFragment StoreEntitySet="V_Hollander">
+          <ScalarProperty Name="Option_Score6" ColumnName="Option_Score6" />
+          <ScalarProperty Name="Option_Score5" ColumnName="Option_Score5" />
+          <ScalarProperty Name="Option_Score4" ColumnName="Option_Score4" />
+          <ScalarProperty Name="Option_Score3" ColumnName="Option_Score3" />
+          <ScalarProperty Name="Option_Score2" ColumnName="Option_Score2" />
+          <ScalarProperty Name="Option_Score1" ColumnName="Option_Score1" />
+          <ScalarProperty Name="Questionnaire_Name" ColumnName="Questionnaire_Name" />
+          <ScalarProperty Name="Mobile_Phone" ColumnName="Mobile_Phone" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="Questionnairer_ID" ColumnName="Questionnairer_ID" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Questionnairer">
+      <EntityTypeMapping TypeName="HrEvaModel.V_Questionnairer">
+        <MappingFragment StoreEntitySet="V_Questionnairer">
+          <ScalarProperty Name="Option_Score9" ColumnName="Option_Score9" />
+          <ScalarProperty Name="Option_Score8" ColumnName="Option_Score8" />
+          <ScalarProperty Name="Option_Score7" ColumnName="Option_Score7" />
+          <ScalarProperty Name="Option_Score6" ColumnName="Option_Score6" />
+          <ScalarProperty Name="Option_Score5" ColumnName="Option_Score5" />
+          <ScalarProperty Name="Option_Score4" ColumnName="Option_Score4" />
+          <ScalarProperty Name="Option_Score3" ColumnName="Option_Score3" />
+          <ScalarProperty Name="Option_Score2" ColumnName="Option_Score2" />
+          <ScalarProperty Name="Option_Score1" ColumnName="Option_Score1" />
+          <ScalarProperty Name="Questionnaire_Name" ColumnName="Questionnaire_Name" />
+          <ScalarProperty Name="Mobile_Phone" ColumnName="Mobile_Phone" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Depmartment_Curriculu">
+      <EntityTypeMapping TypeName="HrEvaModel.V_Depmartment_Curriculu">
+        <MappingFragment StoreEntitySet="V_Depmartment_Curriculu">
+          <ScalarProperty Name="Years_Scenes" ColumnName="Years_Scenes" />
+          <ScalarProperty Name="Important_Full_Name" ColumnName="Important_Full_Name" />
+          <ScalarProperty Name="Avg_Hours" ColumnName="Avg_Hours" />
+          <ScalarProperty Name="Un_Attendance_Counts" ColumnName="Un_Attendance_Counts" />
+          <ScalarProperty Name="Total_Hours" ColumnName="Total_Hours" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="Attendance_Pre" ColumnName="Attendance_Pre" />
+          <ScalarProperty Name="Attendance_Counts" ColumnName="Attendance_Counts" />
+          <ScalarProperty Name="Actual_Attendance_Counts" ColumnName="Actual_Attendance_Counts" />
+          <ScalarProperty Name="Group_Deduction_Reason" ColumnName="Group_Deduction_Reason" />
+          <ScalarProperty Name="Group_Deduction_Factor" ColumnName="Group_Deduction_Factor" />
+          <ScalarProperty Name="Valid_Reason" ColumnName="Valid_Reason" />
+          <ScalarProperty Name="Check_Time" ColumnName="Check_Time" />
+          <ScalarProperty Name="Is_Valid" ColumnName="Is_Valid" />
+          <ScalarProperty Name="Curriculu_Cost" ColumnName="Curriculu_Cost" />
+          <ScalarProperty Name="Curriculu_Name" ColumnName="Curriculu_Name" />
+          <ScalarProperty Name="Is_Assessment" ColumnName="Is_Assessment" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Company_Month_Report">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Company_Month_Report">
+        <MappingFragment StoreEntitySet="TZ_Company_Month_Report">
+          <ScalarProperty Name="FXRS_Per" ColumnName="FXRS_Per" />
+          <ScalarProperty Name="YFXRS" ColumnName="YFXRS" />
+          <ScalarProperty Name="YIFXRS" ColumnName="YIFXRS" />
+          <ScalarProperty Name="FJC_RJXS" ColumnName="FJC_RJXS" />
+          <ScalarProperty Name="FJC_ZXS" ColumnName="FJC_ZXS" />
+          <ScalarProperty Name="FJC_FGL" ColumnName="FJC_FGL" />
+          <ScalarProperty Name="FJC_YCQRS" ColumnName="FJC_YCQRS" />
+          <ScalarProperty Name="FJC_SCQRS" ColumnName="FJC_SCQRS" />
+          <ScalarProperty Name="YFXFGL" ColumnName="YFXFGL" />
+          <ScalarProperty Name="YFGBMS" ColumnName="YFGBMS" />
+          <ScalarProperty Name="WCBMS" ColumnName="WCBMS" />
+          <ScalarProperty Name="SCQRS" ColumnName="SCQRS" />
+          <ScalarProperty Name="YCQRS" ColumnName="YCQRS" />
+          <ScalarProperty Name="XS" ColumnName="XS" />
+          <ScalarProperty Name="KCJF" ColumnName="KCJF" />
+          <ScalarProperty Name="KS" ColumnName="KS" />
+          <ScalarProperty Name="FXRS" ColumnName="FXRS" />
+          <ScalarProperty Name="ZZZCC" ColumnName="ZZZCC" />
+          <ScalarProperty Name="ZZCC" ColumnName="ZZCC" />
+          <ScalarProperty Name="Valid_Per" ColumnName="Valid_Per" />
+          <ScalarProperty Name="NDJF" ColumnName="NDJF" />
+          <ScalarProperty Name="JF" ColumnName="JF" />
+          <ScalarProperty Name="DF" ColumnName="DF" />
+          <ScalarProperty Name="PX" ColumnName="PX" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Curriculu_Project">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Curriculu_Project">
+        <MappingFragment StoreEntitySet="TZ_Curriculu_Project">
+          <ScalarProperty Name="Valid_Reason" ColumnName="Valid_Reason" />
+          <ScalarProperty Name="Is_Valid" ColumnName="Is_Valid" />
+          <ScalarProperty Name="Submiter_ID" ColumnName="Submiter_ID" />
+          <ScalarProperty Name="Submit_Time" ColumnName="Submit_Time" />
+          <ScalarProperty Name="Submiter" ColumnName="Submiter" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Group_Deduction_Reason" ColumnName="Group_Deduction_Reason" />
+          <ScalarProperty Name="Group_Deduction_Factor" ColumnName="Group_Deduction_Factor" />
+          <ScalarProperty Name="Deduction_Reason" ColumnName="Deduction_Reason" />
+          <ScalarProperty Name="Deduction_Factor" ColumnName="Deduction_Factor" />
+          <ScalarProperty Name="External_Trainer" ColumnName="External_Trainer" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Group_Check_Time" ColumnName="Group_Check_Time" />
+          <ScalarProperty Name="Group_Checker" ColumnName="Group_Checker" />
+          <ScalarProperty Name="Check_Time" ColumnName="Check_Time" />
+          <ScalarProperty Name="Checker" ColumnName="Checker" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="File_Counts" ColumnName="File_Counts" />
+          <ScalarProperty Name="Memo" ColumnName="Memo" />
+          <ScalarProperty Name="Actual_End_Time" ColumnName="Actual_End_Time" />
+          <ScalarProperty Name="Actual_Start_Time" ColumnName="Actual_Start_Time" />
+          <ScalarProperty Name="Estimate_End_Time" ColumnName="Estimate_End_Time" />
+          <ScalarProperty Name="Estimate_Start_Time" ColumnName="Estimate_Start_Time" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="Hierarchy" ColumnName="Hierarchy" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="First_Department" ColumnName="First_Department" />
+          <ScalarProperty Name="Curriculu_Name" ColumnName="Curriculu_Name" />
+          <ScalarProperty Name="Organization_Type" ColumnName="Organization_Type" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TZ_Sign_Url">
+      <EntityTypeMapping TypeName="HrEvaModel.TZ_Sign_Url">
+        <MappingFragment StoreEntitySet="TZ_Sign_Url">
+          <ScalarProperty Name="Curriculu_Name" ColumnName="Curriculu_Name" />
+          <ScalarProperty Name="SignOutQC" ColumnName="SignOutQC" />
+          <ScalarProperty Name="SignInQC" ColumnName="SignInQC" />
+          <ScalarProperty Name="SignOutUrl" ColumnName="SignOutUrl" />
+          <ScalarProperty Name="SignInUrl" ColumnName="SignInUrl" />
+          <ScalarProperty Name="Curriculu_ID" ColumnName="Curriculu_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GW_Evaluationers">
+      <EntityTypeMapping TypeName="HrEvaModel.GW_Evaluationers">
+        <MappingFragment StoreEntitySet="GW_Evaluationers">
+          <ScalarProperty Name="Completed_Time" ColumnName="Completed_Time" />
+          <ScalarProperty Name="Is_Completed" ColumnName="Is_Completed" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="First_Department" ColumnName="First_Department" />
+          <ScalarProperty Name="Conmpany_Name" ColumnName="Conmpany_Name" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Position_ID" ColumnName="Position_ID" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GW_Position">
+      <EntityTypeMapping TypeName="HrEvaModel.GW_Position">
+        <MappingFragment StoreEntitySet="GW_Position">
+          <ScalarProperty Name="Import_Time" ColumnName="Import_Time" />
+          <ScalarProperty Name="Importer" ColumnName="Importer" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="First_Department" ColumnName="First_Department" />
+          <ScalarProperty Name="Conmpany_Name" ColumnName="Conmpany_Name" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GW_Position_Evaluation_Project">
+      <EntityTypeMapping TypeName="HrEvaModel.GW_Position_Evaluation_Project">
+        <MappingFragment StoreEntitySet="GW_Position_Evaluation_Project">
+          <ScalarProperty Name="Create_Time" ColumnName="Create_Time" />
+          <ScalarProperty Name="Creater" ColumnName="Creater" />
+          <ScalarProperty Name="Memo" ColumnName="Memo" />
+          <ScalarProperty Name="Position_Counts" ColumnName="Position_Counts" />
+          <ScalarProperty Name="Questionnaire_Name" ColumnName="Questionnaire_Name" />
+          <ScalarProperty Name="Questionnaire_ID" ColumnName="Questionnaire_ID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GW_QRCode">
+      <EntityTypeMapping TypeName="HrEvaModel.GW_QRCode">
+        <MappingFragment StoreEntitySet="GW_QRCode">
+          <ScalarProperty Name="QRCode" ColumnName="QRCode" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Position_Evaluationers">
+      <EntityTypeMapping TypeName="HrEvaModel.V_Position_Evaluationers">
+        <MappingFragment StoreEntitySet="V_Position_Evaluationers">
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="Post" ColumnName="Post" />
+          <ScalarProperty Name="Evaluationers_Department" ColumnName="Evaluationers_Department" />
+          <ScalarProperty Name="Evaluationers_Company" ColumnName="Evaluationers_Company" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Position_Department" ColumnName="Position_Department" />
+          <ScalarProperty Name="Position_Company" ColumnName="Position_Company" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GW_Position_Evaluation_Results">
+      <EntityTypeMapping TypeName="HrEvaModel.GW_Position_Evaluation_Results">
+        <MappingFragment StoreEntitySet="GW_Position_Evaluation_Results">
+          <ScalarProperty Name="Actual_Score9" ColumnName="Actual_Score9" />
+          <ScalarProperty Name="Option_Name9" ColumnName="Option_Name9" />
+          <ScalarProperty Name="Actual_Score8" ColumnName="Actual_Score8" />
+          <ScalarProperty Name="Option_Name8" ColumnName="Option_Name8" />
+          <ScalarProperty Name="Actual_Score7" ColumnName="Actual_Score7" />
+          <ScalarProperty Name="Option_Name7" ColumnName="Option_Name7" />
+          <ScalarProperty Name="Actual_Score6" ColumnName="Actual_Score6" />
+          <ScalarProperty Name="Option_Name6" ColumnName="Option_Name6" />
+          <ScalarProperty Name="Actual_Score5" ColumnName="Actual_Score5" />
+          <ScalarProperty Name="Option_Name5" ColumnName="Option_Name5" />
+          <ScalarProperty Name="Actual_Score4" ColumnName="Actual_Score4" />
+          <ScalarProperty Name="Option_Name4" ColumnName="Option_Name4" />
+          <ScalarProperty Name="Actual_Score3" ColumnName="Actual_Score3" />
+          <ScalarProperty Name="Option_Name3" ColumnName="Option_Name3" />
+          <ScalarProperty Name="Actual_Score2" ColumnName="Actual_Score2" />
+          <ScalarProperty Name="Option_Name2" ColumnName="Option_Name2" />
+          <ScalarProperty Name="Actual_Score1" ColumnName="Actual_Score1" />
+          <ScalarProperty Name="Option_Name1" ColumnName="Option_Name1" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Full_Name" ColumnName="Full_Name" />
+          <ScalarProperty Name="Evaluationer_ID" ColumnName="Evaluationer_ID" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="Position_ID" ColumnName="Position_ID" />
+          <ScalarProperty Name="Project_Name" ColumnName="Project_Name" />
+          <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Position_Evaluation_Results">
+      <EntityTypeMapping TypeName="HrEvaModel.V_Position_Evaluation_Results">
+        <MappingFragment StoreEntitySet="V_Position_Evaluation_Results">
+          <ScalarProperty Name="result" ColumnName="result" />
+          <ScalarProperty Name="is_variation" ColumnName="is_variation" />
+          <ScalarProperty Name="variation_per" ColumnName="variation_per" />
+          <ScalarProperty Name="stdevscore" ColumnName="stdevscore" />
+          <ScalarProperty Name="avgscore2" ColumnName="avgscore2" />
+          <ScalarProperty Name="avgscore" ColumnName="avgscore" />
+          <ScalarProperty Name="minscore" ColumnName="minscore" />
+          <ScalarProperty Name="maxscore" ColumnName="maxscore" />
+          <ScalarProperty Name="Position_Name" ColumnName="Position_Name" />
+          <ScalarProperty Name="First_Department" ColumnName="First_Department" />
+          <ScalarProperty Name="Conmpany_Name" ColumnName="Conmpany_Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

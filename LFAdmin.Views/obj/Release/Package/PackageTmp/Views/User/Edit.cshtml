@@ -1,0 +1,179 @@
+﻿@*<link href="~/static/admin/layui/css/layui.css" rel="stylesheet" />*@
+
+<div class="layui-tab page-content-wrap">
+    <ul class="layui-tab-title">
+        <li class="layui-this">修改资料</li>
+        <li>修改密码</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <form class="layui-form" style="width: 90%;padding-top: 20px;">
+                @*<div class="layui-form-item">
+                        <label class="layui-form-label">ID：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="id" disabled autocomplete="off" class="layui-input layui-disabled" value="1">
+                        </div>
+                    </div>*@
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="@ViewBag.UserName">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="employeename" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input" value="@ViewBag.Chinese_Name">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="companyname" required lay-verify="required" placeholder="请输入公司" autocomplete="off" class="layui-input" value="@ViewBag.Company_Name">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">部门：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="depertmentname" required lay-verify="required" placeholder="请输入部门" autocomplete="off" class="layui-input" value="@ViewBag.Department_Name">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">职位：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="positionname" required lay-verify="required" placeholder="请输入职位" autocomplete="off" class="layui-input" value="@ViewBag.Position_Name">
+                    </div>
+                </div>
+                @*<div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">部门：</label>
+                        <div class="layui-input-block">
+                            <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        </div>
+                    </div>*@
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminInfo">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-tab-item">
+            <form class="layui-form" v style="width: 90%;padding-top: 20px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="@ViewBag.UserName">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">旧密码：</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password1" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">新密码：</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password2" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">重复密码：</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password3" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminPassword">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/static/admin/layui/layui.js"></script>*@
+<script>
+    //Demo
+    layui.use(['form', 'element'], function () {
+        var form = layui.form;
+        var element = layui.element;
+        form.render();
+        //监听信息提交
+        form.on('submit(adminInfo)', function (data) {
+            $.ajax({
+                'type': 'post',
+                'url': '/User/SaveInfo',
+                'data': {
+                    username: data.field.username,
+                    employeename: data.field.employeename, companyname: data.field.companyname
+                    , depertmentname: data.field.depertmentname, positionname: data.field.positionname
+                },
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "1") {
+                        //layer.msg(obj.MessageString);
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    }
+                    else {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    }
+
+                },
+                error: function (message) {
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+
+            });
+            return false;
+        });
+        //监听密码提交
+        form.on('submit(adminPassword)', function (data) {
+
+            if (data.field.password2 != data.field.password3) {
+                layer.alert(JSON.stringify("两次输入的密码不一致!"), {
+                    title: '提示'
+                });
+                return false;
+            }
+
+            $.ajax({
+                'type': 'post',
+                'url': '/User/SavePassword',
+                'data': {
+                    username: data.field.username,
+                    password1: data.field.password1, password2: data.field.password2
+                    , password3: data.field.password3
+                },
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "1") {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    }
+                    else {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    }
+
+                },
+                error: function (message) {
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+
+            });
+            return false;
+        });
+    });
+</script>

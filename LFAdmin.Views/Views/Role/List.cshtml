@@ -1,0 +1,149 @@
+﻿
+<div class="demoTable" style="padding-top:20px">
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <button class="layui-btn" data-type="reload" type="button" id="search">搜索</button>
+        <button class="layui-btn layui-btn-primary" type="button" data-type="add" id="add">添加</button>
+    </form>
+</div>
+    <table id="role" class="layui-table" lay-filter="role" lay-data="{  height: 'full-80', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/Role/getList'}">
+        <thead>
+            <tr>
+                <th lay-data="{type: 'numbers'}"></th>
+                <th lay-data="{field:'Role_Code',  sort: true}">角色编码</th>
+                <th lay-data="{field:'Role_Name', sort: true}">角色名称</th>
+                <th lay-data="{ width:258, align:'center', toolbar: '#bar'}"></th>
+            </tr>
+        </thead>
+    </table>
+
+    <script type="text/html" id="bar">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="rolePermission">角色权限</a> 
+    </script>
+
+    <script type="text/javascript"> 
+        layui.use(['table', 'layer', 'form', 'element', 'upload'], function () {
+            var table = layui.table;
+            layer = layui.layer,
+            form = layui.form,
+            element = layui.element,
+            upload = layui.upload;
+            var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+            //监听工具条
+            table.on('tool(role)', function (obj) {
+                var data = obj.data;
+                var id = data.ID;
+                if (obj.event === 'detail') {
+
+                }
+                else if (obj.event === 'del') {
+                    layer.confirm('数据删除之后将无法恢复', function (index) {
+                        $.ajax({
+                            'type': 'post',
+                            'url': '/Role/DelInfo',
+                            'data': {
+                                ID: id
+                            },
+                            success: function (data) {
+                                var da = data;
+                                if (da.IsSuccess == "1") {
+                                    obj.del();
+                                    layer.close(index);
+
+                                    layer.alert(da.MessageString, {
+                                        title: '提示'
+                                    });
+                                }
+                                else {
+                                    layer.alert(da.MessageString, {
+                                        title: '提示'
+                                    });
+                                }
+
+                            },
+                            error: function (message) {
+                                layer.alert(JSON.stringify(message.statusText), {
+                                    title: '提示'
+                                });
+                            }
+
+                        });
+
+
+
+                    });
+                } else if (obj.event === 'edit') { 
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: "编辑角色信息",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['430px', '300px'], //宽高
+                        content: '/Role/Edit?ID=' + id
+                    });
+
+                } else if (obj.event === 'rolePermission') {
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: "编辑角色权限信息",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['530px', '550px'], //宽高
+                        content: '/Role/RolePermission?ID=' + id
+                    });
+
+                }
+                
+            });
+
+            //页面一打开就执行弹层
+            layer.ready(function () {
+                //执行重载
+                table.reload('role', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        time: new Date()
+                    }
+                });
+            });
+
+            //搜索加载--数据表格重载
+            var $ = layui.$, active = {
+                reload: function () {
+                    //执行重载
+                    table.reload('role', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            time: new Date()
+                        }
+                    });
+                }
+            };
+
+            $('#search').on('click', function () {
+                ids = new Array();
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+
+            $('#add').on('click', function () { 
+                layer.open({
+                    type: 2,
+                    title: "新增角色信息",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['430px', '300px'], //宽高
+                    content: '/Role/Add'
+
+                });
+            });
+
+        });
+
+    </script>

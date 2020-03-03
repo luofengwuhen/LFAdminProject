@@ -1,0 +1,150 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="ID" value="@ViewBag.Role.ID" />
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Role_Name" lay-verify="required" disabled placeholder="请输入角色名称" value="@ViewBag.Role.Role_Name" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <label class="layui-form-label">选择权限</label>
+        <div class="layui-input-block" style="height:330px;overflow-y:scroll" >
+            <div id="LAY-auth-tree-index" ></div>
+        </div>
+    </div>
+
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="edit">立即提交</button>
+        </div>
+    </div>
+</form>
+<script src="~/Scripts/layui/lay/modules/authtree.js"></script>
+<script type="text/javascript">
+
+    layui.use(['jquery', 'form', 'layer'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var layer = layui.layer; 
+         
+        $.ajax({
+            url: '/Role/getTreeData?ID=' +@ViewBag.Role.ID+'&time=' + new Date(),
+            type: "GET",//请求方式为get
+            dataType: 'json',
+            success: function (res) {
+                // 渲染时传入渲染目标ID，树形结构数据（具体结构看样例，checked表示默认选中），以及input表单的名字
+                //layui.authtree.render('#LAY-auth-tree-index', data.DataList.NodesList, {
+                var trees = layui.authtree.listConvert(res.data.list, {
+                    primaryKey: 'alias'
+                    , startPid: '0'
+                    , parentKey: 'palias'
+                    , nameKey: 'name'
+                    , valueKey: 'alias'
+                    , checkedKey: res.data.checkedAlias
+                    , disabledKey: res.data.disabledAlias
+                });
+                //$('#LAY-auth-tree-convert-code').text(JSON.stringify(res, null, 2));
+                //$('#LAY-auth-tree-convert-code-answer').text(JSON.stringify(trees, null, 2));
+                //layui.code({
+                //});
+                // 如果页面中多个树共存，需要注意 layfilter 需要不一样
+                layui.authtree.render('#LAY-auth-tree-index', trees, {
+                    inputname: 'authids[]'
+                    , layfilter: 'lay-check-auth'
+                    // ,autoclose: false
+                    // ,autochecked: false
+                    // ,openchecked: true
+                    // ,openall: true
+                    , autowidth: true
+                });
+
+                // PS:使用 form.on() 会引起了事件冒泡延迟的BUG，需要 setTimeout()，并且无法监听全选/全不选
+                // PS:如果开启双击展开配置，form.on()会记录两次点击事件，authtree.on()不会
+                form.on('checkbox(lay-check-auth)', function (data) {
+                    // 注意这里：需要等待事件冒泡完成，不然获取叶子节点不准确。
+                    setTimeout(function () {
+                        //console.log('监听 form 触发事件数据', data);
+                        // 获取选中的叶子节点
+                        var leaf = layui.authtree.getLeaf('#LAY-auth-tree-index');
+                       // console.log('leaf', leaf);
+                        // 获取最新选中
+                        var lastChecked = layui.authtree.getLastChecked('#LAY-auth-tree-index');
+                        //console.log('lastChecked', lastChecked);
+                        // 获取最新取消
+                        var lastNotChecked = layui.authtree.getLastNotChecked('#LAY-auth-tree-index');
+                        //console.log('lastNotChecked', lastNotChecked);
+                    }, 100);
+                });
+                // 使用 authtree.on() 不会有冒泡延迟
+                layui.authtree.on('change(lay-check-auth)', function (data) {
+                    //console.log('监听 authtree 触发事件数据', data);
+                    // 获取所有节点
+                    var all = layui.authtree.getAll('#LAY-auth-tree-index');
+                    //console.log('all', all);
+                    // 获取所有已选中节点
+                    var checked = layui.authtree.getChecked('#LAY-auth-tree-index');
+                    //console.log('checked', checked);
+                    // 获取所有未选中节点
+                    var notchecked = layui.authtree.getNotChecked('#LAY-auth-tree-index');
+                    //console.log('notchecked', notchecked);
+                    // 获取选中的叶子节点
+                    var leaf = layui.authtree.getLeaf('#LAY-auth-tree-index');
+                    //console.log('leaf', leaf);
+                    // 获取最新选中
+                    var lastChecked = layui.authtree.getLastChecked('#LAY-auth-tree-index');
+                    //console.log('lastChecked', lastChecked);
+                    // 获取最新取消
+                    var lastNotChecked = layui.authtree.getLastNotChecked('#LAY-auth-tree-index');
+                    //console.log('lastNotChecked', lastNotChecked);
+                }); 
+            },
+            error: function (xml, errstr, err) {
+                layer.alert(errstr + '，获取样例数据失败，请检查是否部署在本地服务器中！');
+            }
+        });
+
+
+        //监听提交
+        form.on('submit(edit)', function (data) {
+
+            var authids = layui.authtree.getChecked('#LAY-auth-tree-index');
+              
+            $.ajax({
+                'type': 'post',
+                'url': '/Role/SaveRolePermission?time='+new Date(),
+                'data': {
+                    ID: data.field.ID, authids: authids.toString() 
+                },
+                success: function (data) {
+                    var obj = data;
+                    if (obj.IsSuccess == "1") {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index);
+                            window.parent.location.reload();
+                        });
+                    }
+                    else {
+                        layer.alert(JSON.stringify(obj.MessageString), {
+                            title: '提示'
+                        });
+                        return false;
+                    }
+                },
+                error: function (message) {
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                    return false;
+                }
+            });
+            return false;
+        });
+
+    });
+</script>

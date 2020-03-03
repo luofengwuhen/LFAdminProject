@@ -1,0 +1,305 @@
+﻿
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="ID" value="@ViewBag.TZCurriculuProject.ID" />
+    <div class="layui-form-item">
+        <label class="layui-form-label">组织部门</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Department" value="@ViewBag.TZCurriculuProject.Department" disabled autocomplete="off" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">组织形式</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Organization_Type" value="@ViewBag.TZCurriculuProject.Organization_Type" disabled autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">课程名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Curriculu_Name" value="@ViewBag.TZCurriculuProject.Curriculu_Name" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="Address" id="Address" value="@ViewBag.TZCurriculuProject.Address" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" hidden>
+        <label class="layui-form-label">学习费用</label>
+        <div class="layui-input-block">
+            <input type="number" name="Cost" id="Cost" value="@ViewBag.TZCurriculuProject.Cost" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label" style="width:120px">预计开始时间</label>
+        <div class="layui-input-inline" style="margin-left:0px">
+            <input type="text" class="layui-input" id="Estimate_Start_Time" value="@ViewBag.TZCurriculuProject.Estimate_Start_Time" placeholder="请输入预计开始时间" name="Estimate_Start_Time">
+        </div>
+
+        <label class="layui-form-label" style="width:120px">预计结束时间</label>
+        <div class="layui-input-inline" style="margin-left:0px">
+            <input type="text" class="layui-input" id="Estimate_End_Time" value="@ViewBag.TZCurriculuProject.Estimate_End_Time" placeholder="请输入预计结束时间" name="Estimate_End_Time">
+        </div>
+    </div>
+
+    @*<div class="layui-form-item" hidden>
+            <label class="layui-form-label" style="width:120px">实际开始时间</label>
+            <div class="layui-input-inline" style="margin-left:0px">
+                <input type="text" name="Actual_Start_Time" lay-verify="required" value="@ViewBag.TZCurriculuProject.Actual_Start_Time" id="Actual_Start_Time" autocomplete="off" class="layui-input">
+
+            </div>
+
+            <label class="layui-form-label" style="width:120px">实际结束时间</label>
+            <div class="layui-input-inline" style="margin-left:0px">
+                <input type="text" name="Actual_End_Time" lay-verify="required" value="@ViewBag.TZCurriculuProject.Actual_End_Time" id="Actual_End_Time" autocomplete="off" class="layui-input">
+
+            </div>
+        </div>*@
+
+    @if (ViewBag.TZCurriculuProject.Organization_Type == "内部讲师")
+    {
+        <fieldset class="layui-elem-field " id="teacher" style="margin-top: 20px;">
+            <legend>内部讲师</legend>
+            <div class="layui-form-item">
+                <label class="layui-form-label">讲师姓名</label>
+                <div class="layui-input-inline">
+                    <select name="Full_Name" id="Full_Name" lay-filter="Full_Name" lay-search lay-verify="required">
+                        <option value="" selected=""></option>
+                        @if (ViewBag.exList != null)
+                        {
+                            foreach (var emp in ViewBag.exList)
+                            {
+                                <option value="@emp.Full_Name">@emp.Full_Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <label class="layui-form-label">岗位</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="Post" value="@ViewBag.TZCurriculuProject.Post" disabled autocomplete="off" class="layui-input">
+
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">层级</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="Hierarchy" value="@ViewBag.TZCurriculuProject.Hierarchy" disabled autocomplete="off" class="layui-input">
+
+                </div>
+                <label class="layui-form-label">职级</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="Rank" value="@ViewBag.TZCurriculuProject.Rank" disabled autocomplete="off" class="layui-input">
+
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">一级部门</label>
+                <div class="layui-input-block">
+                    <input type="text" name="First_Department" value="@ViewBag.TZCurriculuProject.First_Department" disabled autocomplete="off" class="layui-input">
+
+
+                </div>
+            </div>
+        </fieldset>
+    }
+    else
+    {
+        <fieldset class="layui-elem-field " id="teacher2" style="margin-top: 20px;">
+            <legend>外部讲师</legend>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">讲师姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Full_Name2" value="@ViewBag.TZCurriculuProject.Full_Name" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">机构</label>
+                <div class="layui-input-block">
+                    <input type="text" name="First_Department2" value="@ViewBag.TZCurriculuProject.First_Department" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">参训人员</label>
+                <div class="layui-input-block">
+                    <select id="External_Trainer" name="External_Trainer" xm-select="External_Trainer" lay-verify="required" xm-select-search="">
+                        @if (ViewBag.exList != null)
+                        {
+                            foreach (var emp in ViewBag.exList)
+                            {
+                                <option value="@emp.Full_Name">@emp.Full_Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+        </fieldset>
+    }
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" id="Memo" name="Memo"> @ViewBag.TZCurriculuProject.Memo</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="edit">立即提交</button>
+        </div>
+    </div>
+</form>
+<link href="~/Scripts/layui/lay/modules/formSelects-v4.css" rel="stylesheet" />
+<script src="~/Scripts/layui/lay/modules/formSelects-v4.min.js"></script>
+
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+        , laydate = layui.laydate;
+    var formSelects = layui.formSelects;
+
+
+    //日期时间选择器
+    laydate.render({
+        elem: '#Estimate_Start_Time'
+        , type: 'datetime'
+    });
+
+    laydate.render({
+        elem: '#Estimate_End_Time'
+        , type: 'datetime'
+    });
+
+    laydate.render({
+        elem: '#Actual_Start_Time'
+        , type: 'datetime'
+    });
+
+    laydate.render({
+        elem: '#Actual_End_Time'
+        , type: 'datetime'
+    });
+
+    $("#Full_Name").val("@ViewBag.TZCurriculuProject.Full_Name");
+    var et = "@ViewBag.TZCurriculuProject.External_Trainer";
+        formSelects.value('External_Trainer', et.split(','));
+    //监听select 动态设置控件
+    form.on('select(Organization_Type)', function (data) {
+        if (data.value == "内部讲师") {
+            $("#teacher").show();
+            $("#teacher2").hide();
+            $("#Full_Name").attr("lay-verify", "required");
+            $("#Full_Name2").attr("lay-verify", "");
+            $("#First_Department2").attr("lay-verify", "");
+            $("#External_Trainer").attr("lay-verify", "");
+        } else {
+            $("#teacher").hide();
+            $("#teacher2").show();
+            $("#Full_Name").attr("lay-verify", "");
+            $("#Full_Name2").attr("lay-verify", "required");
+            $("#First_Department2").attr("lay-verify", "required");
+            $("#External_Trainer").attr("lay-verify", "required");
+        }
+    });
+
+    form.on('select(Full_Name)', function (data) {
+
+        $("#Post").val("");
+        $("#Hierarchy").val("");
+        $("#Rank").val("");
+        $("#First_Department").val("");
+
+        $.ajax({
+            type: 'POST',
+            url: '/TZCurriculuProject/getExaminers',
+            data: { Full_Name: data.value },
+            dataType: 'json',
+            success: function (obj) {
+                if (obj.code == 1) {
+                    layer.alert(obj.msg, {
+                        title: '提示'
+                    });
+                }
+                else {
+                    $("#Post").val(obj.data.Post);
+                    $("#Hierarchy").val(obj.data.Hierarchy);
+                    $("#Rank").val(obj.data.Rank);
+                    $("#First_Department").val(obj.data.First_Department);
+                }
+
+            }
+        });
+    });
+
+
+    form.render();
+
+
+    //监听提交
+    form.on('submit(edit)', function (data) {
+        var index = layer.load(1, {
+            shade: [0.5, '#000'] //0.1透明度的背景
+        });
+        $.ajax({
+            'type': 'post',
+            'url': '/TZCurriculuProject/SaveInfo',
+            'data': {
+                ID: data.field.ID,
+                Department: data.field.Department, Organization_Type: data.field.Organization_Type,
+                Curriculu_Name: data.field.Curriculu_Name, Address: data.field.Address
+                , Full_Name: data.field.Full_Name,
+                Post: data.field.Post, Hierarchy: data.field.Hierarchy,
+                Rank: data.field.Rank == undefined ? 0 : data.field.Rank, First_Department: data.field.First_Department,
+                Full_Name2: data.field.Full_Name2, First_Department2: data.field.First_Department2,
+                Estimate_Start_Time: data.field.Estimate_Start_Time, Estimate_End_Time: data.field.Estimate_End_Time,
+                Memo: data.field.Memo,
+                Cost: data.field.Cost,
+                Actual_Start_Time: data.field.Actual_Start_Time,
+                Actual_End_Time: data.field.Actual_End_Time,
+                External_Trainer: JSON.stringify(layui.formSelects.value('External_Trainer', 'valStr'))
+            },
+            success: function (data) {
+                layer.close(index);
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        //window.parent.location.reload();
+                        parent.layer.close(index);//关闭当前页 
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.close(index);
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+});
+</script>

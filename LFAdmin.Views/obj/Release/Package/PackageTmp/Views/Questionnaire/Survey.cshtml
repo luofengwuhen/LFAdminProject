@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "问卷预览";
+}
+@*<style>
+    .layui-card-header {
+        height: auto;
+        overflow: visible;
+        text-overflow: inherit;
+        white-space: normal;
+    }
+</style>*@
+  
+<form class=" layui-form layui-form-pane" style="padding-left:10%;padding-right:10%;padding-top:20px;  " >
+    <div style="font-size:18px !important; text-align:center;line-height:60px;">
+        @ViewBag.Survey.Questionnaire_Name
+    </div>
+
+    @*<blockquote class="layui-elem-quote layui-text">
+        请您对被评估人各项关键性指标进行评估，如果您认为被评估人的行为与对应行为描述是“一直如此”、“大多数如此”、“半数如此”、“偶尔如此”或“从来没有”，则请您在评估标准的对应评估标准栏下进行勾选，若您认为此项标准不适用或对此项标准无法作出判断，则打“无法评价”。谢谢您的支持!
+    </blockquote>*@
+
+
+    @foreach (var subject in ViewBag.Survey.subjectList)
+    {
+        if (subject.Subject_Type == "单选题")
+        {
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body"> @subject.Subject_Num . @subject.Subject_Name</div> 
+                        <div class="layui-card-body">
+                            @foreach (var option in subject.optionList)
+                            {
+                                <input type="radio" name="inlineRadioOptions$@subject.Subject_ID"  lay-verify="required"  value="@option.Option_Name" title="@option.Option_Name" />
+                            }
+                        </div> 
+                </div>
+            </div>
+        }
+        else if (subject.Subject_Type == "量表题")
+        {
+
+        }
+        else if (subject.Subject_Type == "多选题")
+        {
+
+        }
+
+        else if (subject.Subject_Type == "问答题")
+        {
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body"> @subject.Subject_Num . @subject.Subject_Name</div>
+                    <div class="layui-card-body">
+                        <textarea class="layui-textarea " name="content" lay-verify="content" id="LAY_demo_editor"></textarea>
+                    </div>
+                </div>
+                </div>
+         }
+
+    }
+</form>
+
+ 
+
+    <script type="text/javascript">
+
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form;
+            layer = layui.layer;
+            layedit = layui.layedit;
+            laydate = layui.laydate;
+
+            form.render();
+            form.render('radio');
+
+
+            form.verify({
+		        title: function(value){
+		          if(value.length < 5){
+			        return '标题至少得5个字符啊';
+		          }
+		        } 
+          });
+ 
+
+        });
+
+
+
+
+    </script>
+

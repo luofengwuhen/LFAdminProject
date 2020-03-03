@@ -1,0 +1,425 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+     
+    <div class="layui-form-item">
+        <input hidden="hidden" name="ID" value="@ViewBag.ID" />
+        <button class="layui-btn" data-type="reload" type="button" id="search">搜索</button>
+        <table id="TZUploadData" class="layui-table" lay-filter="TZUploadData" lay-data="{  height: '260', cellMinWidth: 120, page: true, limit: 20, url:'/TZCurriculuProject/PreviewData?ID=@ViewBag.ID'}">
+            <thead>
+                <tr>
+                    <th lay-data="{field:'File_Name', sort: true }">文件名</th>
+                    @*<th lay-data="{field:'File_Type', sort: true}">文件类型</th>*@
+                    @*<th lay-data="{field:'File_Size',  sort: true }">文件大小</th>*@
+                    <th lay-data="{field:'File_Size',  sort: true,templet:'<div>{{ parseInt(d.File_Size/1024) }}kb</div>'}">文件大小</th>
+                    <th lay-data="{field:'Uploader',  sort: true}">上传人</th>
+                    <th lay-data="{field:'Uplpad_Time',  sort: true,width:200}">上传时间</th>
+
+                    <th lay-data="{ width:128, align:'center', toolbar: '#bar'}"></th>
+                </tr>
+            </thead>
+        </table>
+        <div class="layui-form-item">
+            @if (ViewBag.Organization_Type == "内部讲师")
+            {
+                <input type="checkbox" name="Xuexi" title="学习通知" lay-filter="lockDemo">
+                <input type="checkbox" name="Kejian" title="课件" lay-filter="lockDemo">
+                <input type="checkbox" name="Xianchang" title="现场照片" lay-filter="lockDemo">
+            }
+            else
+            {
+                <input type="checkbox" name="Shenqing" title="培训申请表" lay-filter="lockDemo">
+                <input type="checkbox" name="Fuwu" title="培训服务协议" lay-filter="lockDemo">
+                <input type="checkbox" name="Zhaopian" title="现场照片" lay-filter="lockDemo">
+                <input type="checkbox" name="Pinggu" title="学习效果评估表" lay-filter="lockDemo">
+            }
+        </div>
+
+        @if (ViewBag.Preview != null && ViewBag.Preview == true)
+        {
+
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:150px">达标系数（公司）</label>
+                        <div class="layui-input-inline" style="width:400px">
+                            <input type="number" name="Deduction_Factor" id="Deduction_Factor" value="@ViewBag.TZCurriculuProject.Deduction_Factor" disabled autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline">
+                            <button class="layui-btn" type="button" id="tips" onclick="btnTips()">扣分说明</button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:150px"> 扣分原因（公司）</label>
+                        <div class="layui-input-block" style="margin-left:150px">
+                            <input type="text" name="Deduction_Reason" id="Deduction_Reason" value="@ViewBag.TZCurriculuProject.Deduction_Reason" disabled autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div style="padding: 20px; background-color: #F2F2F2;">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md6">*@
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width:150px">达标系数（集团）</label>
+                                    <div class="layui-input-block" style="margin-left:150px">
+                                        <input type="number" name="Group_Deduction_Factor" id="Group_Deduction_Factor" value="@ViewBag.TZCurriculuProject.Group_Deduction_Factor" disabled autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width:150px">扣分原因（集团）</label>
+                                    <div class="layui-input-block" style="margin-left:150px">
+                                        <input type="text" name="Group_Deduction_Reason" id="Group_Deduction_Reason" value="@ViewBag.TZCurriculuProject.Group_Deduction_Reason" disabled autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @*</div>*@
+                    @*<div class="layui-col-md6">*@
+
+                        <div class="layui-card">
+                            <div class="layui-card-body">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width:150px">是否有效（集团）</label>
+                                    <div class="layui-input-block" style="margin-left:150px">
+                                        <input type="checkbox" name="Is_Valid" title="有效" lay-filter="lockDemo">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" style="width:150px">原因说明（集团）</label>
+                                    <div class="layui-input-block" style="margin-left:150px">
+                                        <input type="text" name="Valid_Reason" id="Valid_Reason" value="@ViewBag.TZCurriculuProject.Valid_Reason" disabled autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    @*</div>*@
+                @*</div>
+            </div>*@
+                }
+
+
+                @if (ViewBag.SubCompany != null && ViewBag.SubCompany == true)
+                {
+
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">达标系数（公司）</label>
+                                <div class="layui-input-inline" style="width:400px">
+                                    <input type="number" name="Deduction_Factor" id="Deduction_Factor" autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <button class="layui-btn" type="button" id="tips" onclick="btnTips()">扣分说明</button>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">扣分原因（公司）</label>
+                                <div class="layui-input-block" style="margin-left:150px">
+                                    <input type="text" name="Deduction_Reason" id="Deduction_Reason" autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (ViewBag.Group != null && ViewBag.Group == true)
+                {
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">达标系数（公司）</label>
+                                <div class="layui-input-inline" style="width:400px">
+                                    <input type="number" name="Deduction_Factor" id="Deduction_Factor" value="@ViewBag.TZCurriculuProject.Deduction_Factor" disabled autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <button class="layui-btn" type="button" id="tips" onclick="btnTips()">扣分说明</button>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">扣分原因（公司）</label>
+                                <div class="layui-input-block" style="margin-left:150px">
+                                    <input type="text" name="Deduction_Reason" id="Deduction_Reason" value="@ViewBag.TZCurriculuProject.Deduction_Reason" disabled autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">达标系数（集团）</label>
+                                <div class="layui-input-block" style="margin-left:150px">
+                                    <input type="number" name="Group_Deduction_Factor" id="Group_Deduction_Factor"  autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">扣分原因（集团）</label>
+                                <div class="layui-input-block" style="margin-left:150px">
+                                    <input type="text" name="Group_Deduction_Reason" id="Group_Deduction_Reason"   autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">是否有效（集团）</label>
+                                <div class="layui-input-block" style="margin-left:150px">
+                                    <input type="checkbox" name="Is_Valid" title="有效" lay-filter="lockDemo">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" style="width:150px">原因说明（集团）</label>
+                                <div class="layui-input-block" style="margin-left:150px">
+                                    <input type="text" name="Valid_Reason" id="Valid_Reason"   autocomplete="off" lay-verify="required" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+
+                @if (ViewBag.SubCompany == true)
+                {
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="company">确认提报</button>
+                        </div>
+                    </div>
+                }
+                @if (ViewBag.Group == true)
+                {
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="group">审核</button>
+                        </div>
+                    </div>
+                }
+            </div>
+</form>
+<script type="text/html" id="bar">
+    @*文件删除*@
+    {{#  if('@ViewBag.DelFiles'=='True'){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
+    {{# } }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="download">下载</a>
+</script>
+
+<script>
+    layui.use(['form', 'table', 'layedit', 'upload', 'laydate', 'element', 'layer'], function(){
+  var form = layui.form 
+      , layedit = layui.layedit
+      , upload = layui.upload
+      , table = layui.table
+            , laydate = layui.laydate;
+        var element = layui.element;
+        var layer = layui.layer;
+        var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+
+        window.btnTips = function(obj) {
+            layer.tips('未提供课件或《学习签到表》的，该项学习时数计为0；其他课程附件资料缺少的，按“缺1项，此项学时*0.7；缺2项，此项学时*0.5；超过3项（含）的不计分”进行计算.', '#tips', {
+                tips: [1, '#3595CC'],
+                time: 10000
+            });
+        }
+
+        if ('@ViewBag.TZCurriculuProject.Is_Valid' == 'True') {
+            $("[name='Is_Valid']").attr("checked", 'true');
+        }
+
+            if ('@ViewBag.Organization_Type' == "内部讲师")
+            {
+                if ('@ViewBag.Xuexi' == 'true') {
+                    $("[name='Xuexi']").attr("checked", 'true');
+                }
+                if ('@ViewBag.Kejian' == 'true') {
+                $("[name='Kejian']").attr("checked", 'true');
+                }
+                if ('@ViewBag.Xianchang' == 'true') {
+                    $("[name='Xianchang']").attr("checked", 'true');
+                }
+            }
+            else
+            {
+                 if ('@ViewBag.Shenqing' == 'true') {
+                     $("[name='Shenqing']").attr("checked", 'true');
+                }
+                 if ('@ViewBag.Fuwu' == 'true') {
+                     $("[name='Fuwu']").attr("checked", 'true');
+                }
+                 if ('@ViewBag.Zhaopian' == 'true') {
+                     $("[name='Zhaopian']").attr("checked", 'true');
+                }
+                 if ('@ViewBag.Pinggu' == 'true') {
+                     $("[name='Pinggu']").attr("checked", 'true');
+                }
+            }
+
+            form.render();
+     
+                //监听工具条
+                table.on('tool(TZUploadData)', function (obj) {
+                    var data = obj.data;
+                    var id = data.ID;
+                    if (obj.event === 'detail') {
+            } else if (obj.event === 'del') {
+                layer.confirm('数据删除之后将无法恢复', function (index) {
+            $.ajax({
+                        'type': 'post',
+                'url': '/TZCurriculuProject/DelFile',
+                'data': {
+                            ID: data.ID,
+                    Curriculu_ID:@ViewBag.ID
+                },
+                success: function (data) {
+                            var obj = JSON.parse(data);
+                            if (obj.IsSuccess == "1") {
+                                obj.del();
+                                layer.close(index);
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+
+                                window.parent.location.reload();
+                            }
+                            else {
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                        },
+                error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+                    });
+                     
+                });
+            }
+            else if (obj.event === 'download') {
+            location.href = "/TZCurriculuProject/Download?ID=" + data.ID;
+        }
+        });
+
+        layer.ready(function () {
+            //执行重载
+            table.reload('TZUploadData', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    time: new Date()
+                }
+            });
+        });
+
+        //搜索加载--数据表格重载
+        var $ = layui.$, active = {
+            reload: function () {
+                //执行重载
+                table.reload('TZUploadData', {
+                    page: {
+                                curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                                time: new Date()
+                    }
+                });
+            } 
+        };
+
+
+        $('#search').on('click', function () {
+                    ids = new Array();
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+        });
+
+
+        //监听提交
+        form.on('submit(company)', function (data) {
+            var index = layer.load(1, {
+                shade: [0.5, '#000'] //0.1透明度的背景
+            });
+
+         $.ajax({
+            'type': 'post',
+            'url': '/TZCurriculuProject/Check',
+            'data': {
+                ID: data.field.ID, Deduction_Factor: data.field.Deduction_Factor, Deduction_Reason: data.field.Deduction_Reason
+            },
+             success: function (data) {
+                 layer.close(index);
+                        var obj = JSON.parse(data);
+                        if (obj.IsSuccess == "1") {
+                            layer.alert(obj.MessageString, {
+                                title: '提示'
+                            }, function () {
+                                layer.close(layer.index);
+                                window.parent.location.reload();
+                            });
+                        }
+                        else {
+                            layer.alert(obj.MessageString, {
+                                title: '提示'
+                            });
+                        }
+                    },
+                    error: function (message) {
+                        layer.alert(JSON.stringify(message.statusText), {
+                            title: '提示'
+                        });
+                    } 
+                }); 
+            return false;
+        });
+
+
+        form.on('submit(group)', function (data) {
+            var index = layer.load(1, {
+                shade: [0.5, '#000'] //0.1透明度的背景
+            });
+
+            $.ajax({
+                'type': 'post',
+                'url': '/TZCurriculuProject/GroupCheck',
+                'data': {
+                    ID: data.field.ID, Group_Deduction_Factor: data.field.Group_Deduction_Factor, Group_Deduction_Reason: data.field.Group_Deduction_Reason
+                    , Is_Valid: data.field.Is_Valid, Valid_Reason: data.field.Valid_Reason
+                },
+                success: function (data) {
+                    layer.close(index);
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "1") {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index);
+                            window.parent.location.reload();
+                        });
+                    }
+                    else {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    }
+                },
+                error: function (message) {
+                    layer.close(index);
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+            });
+            return false;
+        });
+
+});
+</script>

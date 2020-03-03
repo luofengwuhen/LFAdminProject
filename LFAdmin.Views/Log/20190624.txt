@@ -1,0 +1,32 @@
+ 
+记录时间：2019-06-24 16:26:50,941 
+线程ID:[10] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-24 16:32:33,326 
+线程ID:[10] 
+日志级别：  ERROR 
+错误描述：[1-SurveyNineController-getList]查询问卷数据失败 :从存储区提供程序的数据读取器中进行读取时出错。有关详细信息，请参阅内部异常。 
+System.Data.Entity.Core.EntityCommandExecutionException: 从存储区提供程序的数据读取器中进行读取时出错。有关详细信息，请参阅内部异常。 ---> System.Data.SqlClient.SqlException: 在将 varchar 值 '文化塑造与组织氛围建设' 转换成数据类型 int 时失败。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   在 System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   在 System.Data.SqlClient.SqlDataReader.Read()
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.StoreRead()
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.HandleReaderException(Exception e)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.StoreRead()
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 HrAdminProject.Controllers.SurveyNineController.getList(Int32 page, Int32 limit, String Full_Name, String Mobile_Phone) 位置 H:\1.精工\HrEvaProject\HrAdminProject\Controllers\SurveyNineController.cs:行号 40
+ 
+记录时间：2019-06-24 17:21:41,721 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 

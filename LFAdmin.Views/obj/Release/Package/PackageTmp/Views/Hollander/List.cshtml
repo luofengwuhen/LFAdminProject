@@ -1,0 +1,103 @@
+﻿
+<div class="demoTable" style="padding-top:20px">
+    &nbsp&nbsp
+    问卷人：
+    <div class="layui-inline">
+        <input class="layui-input" id="Full_Name" autocomplete="off">
+    </div>
+
+    &nbsp&nbsp
+    手机号：
+    <div class="layui-inline">
+        <input class="layui-input" id="Mobile_Phone" autocomplete="off">
+    </div>
+
+    <button class="layui-btn" data-type="reload" id="search">搜索</button>
+</div>
+<table id="questionnairer" class="layui-table" lay-filter="questionnairer" lay-data="{  height: 'full-80',  cellMinWidth: 100, page: true, limit: 20,toolbar: '#toolbar',  url:'/Hollander/getList'}">
+    <thead>
+        <tr>
+            <th lay-data="{type: 'numbers'}"></th>
+            @*@if (Session["JGLoginCompanyName"].Equals("精工控股本级"))
+        {*@
+            <th lay-data="{field:'Company_Name',   sort: true}">公司</th>
+            @*}  *@
+
+            <th lay-data="{field:'Full_Name',   sort: true}">参与人姓名</th>
+            <th lay-data="{field:'Mobile_Phone',   sort: true}">手机号</th>
+            <th lay-data="{field:'Questionnaire_Name',   sort: true}">问卷名称</th>
+            <th lay-data="{field:'Option_Score1',   sort: true}">技能星</th>
+            <th lay-data="{field:'Option_Score2',   sort: true}">研究星</th>
+            <th lay-data="{field:'Option_Score3',   sort: true}">艺术星</th>
+            <th lay-data="{field:'Option_Score4',   sort: true}">社会星</th>
+            <th lay-data="{field:'Option_Score5',   sort: true}">企业星</th>
+            <th lay-data="{field:'Option_Score6',   sort: true}">事务星</th>
+            <th lay-data="{ width:128, align:'center', toolbar: '#bar'}"></th> 
+        </tr>
+    </thead>
+</table>
+
+
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail">问卷结果</a>
+</script>
+ 
+
+<script type="text/javascript">
+
+    layui.use(['table', 'layer', 'form'], function () {
+        var table = layui.table;
+        layer = layui.layer;
+        form = layui.form;
+        var $ = layui.$;
+        form.render();
+        //监听
+        table.on('tool(questionnairer)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') { //预览
+
+                window.open("/Hollander/Show?quer_id=" + data.ID + "&time=" + new Date());
+
+            }   
+        }); 
+
+        layer.ready(function () {
+            //执行重载
+            table.reload('questionnairer', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    Full_Name: $("#Full_Name").val(),
+                    Mobile_Phone: $("#Mobile_Phone").val(),
+                    time: new Date()
+                }
+            });
+        });
+
+        //搜索加载--数据表格重载
+        var $ = layui.$, active = {
+            reload: function () {
+                //执行重载
+                table.reload('questionnairer', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Full_Name: $("#Full_Name").val(),
+                        Mobile_Phone: $("#Mobile_Phone").val(),
+                        time: new Date()
+                    }
+                });
+            }
+        };
+
+        $('#search').on('click', function () {
+            ids = new Array();
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        
+    });
+
+</script>

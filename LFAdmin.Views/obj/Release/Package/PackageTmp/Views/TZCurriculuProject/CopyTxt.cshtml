@@ -1,0 +1,50 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">课程信息</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" id="Memo" placeholder="" name="Memo" style="height:200px">
+                           关于学习活动的通知 
+		 各位伙伴，为了加速员工成长与能力提升，强化学习意识，营造学习氛围，推动学习型组织建设，提升团队效能。本期学习活动具体如下： 
+		 【主 题】  @ViewBag.TZCurriculuProject.Curriculu_Name
+		 【分享师】  @ViewBag.TZCurriculuProject.Full_Name
+		 【时 间】  @ViewBag.TZCurriculuProject.Estimate_Start_Time
+		 【地 点】  @ViewBag.TZCurriculuProject.Address
+		 请各位安排好工作，按时出席。如有疑问，请及时沟通。</textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" type="button"  id="copyTxt" lay-event="Copy" data-clipboard-target="#Memo">复制到剪切板</button> 
+        </div>
+    </div>
+
+</form>
+
+<script src="~/Scripts/clipboard.min.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+
+        form.render();
+
+        $('#copyTxt').on('click', function () {
+            var clipboard = new ClipboardJS('#copyTxt');
+            clipboard.on('success', function (e) {
+                layer.msg("已复制到剪贴板");
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);  
+            });
+            clipboard.on('error', function (e) {
+                layer.msg("复制到剪贴板遇到了未知的错误");
+            });
+
+        });
+
+
+    });
+</script>

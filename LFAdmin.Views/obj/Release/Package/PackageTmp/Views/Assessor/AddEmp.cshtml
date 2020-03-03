@@ -1,0 +1,136 @@
+﻿@*<link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />*@
+
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="Assessor_Info_ID" value="@ViewBag.Assessor_Info_ID" />
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">被评估人</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Assessor_Name" lay-verify="required" disabled autocomplete="off" class="layui-input" value="@ViewBag.Assessor_Name">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">关系</label>
+        <div class="layui-input-inline">
+            <select name="Relation_Name" lay-filter="Relation_Name" lay-verify="required">
+                <option value="" selected=""></option>
+                <option value="自己">自己</option>
+                <option value="上级">上级</option>
+                <option value="下属">下属</option>
+                <option value="相关方">相关方</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">评估人</label>
+        <div class="layui-input-inline">
+            <select id="Emp_ID" name="Emp_ID" lay-filter="Emp_ID" lay-verify="required" lay-search>
+                <option value="" selected=""></option>
+                @foreach (var emp in ViewBag.empList)
+                {
+                    <option value="@emp.ID">@emp.Employee_Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">问卷</label>
+        <div class="layui-input-inline">
+            <select name="Questionnaire_ID" lay-filter="Questionnaire_ID" lay-verify="required" lay-search>
+                <option value="" selected=""></option>
+                @foreach (var que in ViewBag.QuestionList)
+                {
+                    <option value="@que.ID">@que.Questionnaire_Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否条线</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="stripline" lay-skin="switch" lay-text="是|否">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+        </div>
+    </div>
+</form>
+
+@*<script src="~/Scripts/layui/layui.js"></script>*@
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+    //监听select 动态添加评估人是否可选
+    form.on('select(Relation_Name)', function (data) {
+        if (data.value == "自己") {
+            $("#Emp_ID").removeAttr("lay-search");
+            $("#Emp_ID").attr("lay-verify","");
+            $("#Emp_ID").attr("disabled", true);
+            form.render('select');
+        } else {
+            $("#Emp_ID").attr("lay-search", true);
+            $("#Emp_ID").attr("lay-verify", "required");
+            $("#Emp_ID").attr("disabled", false);
+            form.render('select');
+        }
+    });
+
+  //监听提交
+    form.on('submit(add)', function(data){
+
+        $.ajax({
+            'type': 'post',
+            'url': '/Assessor/AddAssessor',
+            'data': {
+                Assessor_Info_ID: data.field.Assessor_Info_ID, Emp_ID: data.field.Emp_ID == "" ? 1 : data.field.Emp_ID
+                , Relation_Name: data.field.Relation_Name, Questionnaire_ID: data.field.Questionnaire_ID 
+                , stripline: data.field.stripline=="on"?true:false 
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

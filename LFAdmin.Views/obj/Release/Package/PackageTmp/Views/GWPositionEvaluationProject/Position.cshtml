@@ -1,0 +1,114 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;"> 
+    <div class="layui-form-item">
+        <input hidden="hidden" name="ID" value="@ViewBag.Project_ID" />
+
+
+        <button class="layui-btn layui-btn-normal" data-type="import" type="button" id="import"><i class="layui-icon layui-icon-upload-circle"></i>导入</button>
+        <a href="../Docs/Examiners/评估岗位模板.xls" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-template"></i>模板下载</a>
+        @*<button class="layui-btn" data-type="reload" type="button" id="search">搜索</button>*@
+
+        <table id="Position" lay-filter="Position"></table>
+        @*<table id="Position" class="layui-table" lay-filter="Position" lay-data="{  height: 'full-90', cellMinWidth: 120, page: true, limit: 90,toolbar: '#toolbar', url:'/GWPositionEvaluationProject/getPosition?Project_ID=@ViewBag.Project_ID'}">
+            <thead>
+                <tr>
+                    <th lay-data="{field:'Position_Company', sort: true }">岗位公司</th>
+                    <th lay-data="{field:'Position_Department', sort: true}">岗位部门</th>
+                    <th lay-data="{field:'Position_Name',  sort: true }">岗位</th>
+                    <th lay-data="{field:'Evaluationers_Company',  sort: true}">评估人公司</th>
+                    <th lay-data="{field:'Evaluationers_Department',  sort: true }">评估人部门</th>
+                    <th lay-data="{field:'Post',  sort: true }">评估人职位</th>
+                    <th lay-data="{field:'Full_Name',  sort: true }">评估人姓名</th>
+                    <th lay-data="{field:'Phone',  sort: true }">评估人手机号</th>
+                </tr>
+            </thead>
+        </table>*@
+    </div>
+</form>
+
+<script src="~/Scripts/layui/lay/modules/tableMerge.js"></script>
+<script>
+    layui.use(['form', 'table', 'layedit', 'upload','util', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , upload = layui.upload
+            , table = layui.table
+            , util = layui.util
+            , laydate = layui.laydate;
+        var $ = layui.$; //重点在layui中引用JQ必须写这一句 
+        var tableMerge = layui.tableMerge;
+
+        table.render({
+            elem: '#Position'
+            , height: 'full-90'
+            , url: '/GWPositionEvaluationProject/getPosition?Project_ID=@ViewBag.Project_ID'
+            , limit: 90
+            , page: true
+            , cols: [[ 
+                , { field: 'Position_Company', merge: true, title: '岗位公司' }
+                , { field: 'Position_Department', merge: ['Position_Company', 'Position_Department'], merge: true, title: '岗位部门' }            
+                , { field: 'Position_Name', merge: ['Position_Department', 'Position_Name'], merge: true, title: '岗位'}   
+                , { field: 'Evaluationers_Company', merge: ['Position_Name', 'Evaluationers_Company'], title: '评估人公司'}                            
+                , { field: 'Evaluationers_Department', merge: ['Evaluationers_Company', 'Evaluationers_Department'], title: '评估人部门'}             
+                , { field: 'Post', merge: ['Evaluationers_Department', 'Post'], title: '评估人职位'}                                   
+                , { field: 'Full_Name', title: '评估人姓名' }
+                , { field: 'Phone', title: '评估人手机号' } 
+            ]]
+            , done: function () {
+                tableMerge.render(this)
+            }
+        });
+
+
+         
+        layer.ready(function () {
+            //执行重载
+            table.reload('Position', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    Project_ID: @ViewBag.Project_ID , 
+                    time: new Date()
+                }
+            });
+        });
+
+
+
+        ///导入
+        upload.render({
+            elem: '#import'
+            , accept: 'file'
+            , exts: 'xls|xlsx'
+            , url: '/GWPositionEvaluationProject/Import?Project_ID='+@ViewBag.Project_ID
+            , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+            }
+            , done: function (res) {
+                layer.closeAll('loading'); //关闭loading
+                if (res.IsSuccess == "1") {
+                    layer.alert("上传成功", {
+                        title: '提示'
+                    });
+                    window.location.reload();
+                }
+                else {
+                    layer.alert(res.MessageString, {
+                        title: '提示'
+                    });
+                    return false;
+                }
+            },
+            error: function (message) {
+                layer.closeAll('loading'); //关闭loading
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+                return false;
+            }
+        });
+
+
+    });
+</script>

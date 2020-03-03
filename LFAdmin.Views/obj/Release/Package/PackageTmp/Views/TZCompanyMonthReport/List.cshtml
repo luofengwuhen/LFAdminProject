@@ -1,0 +1,196 @@
+﻿
+<div class="demoTable" style="padding-top:20px;">
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">年度</label>
+            <div class="layui-input-inline">
+                <select name="Year" id="Year" lay-filter="Year">
+                    <option value=""></option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+
+            </div>
+
+
+            <label class="layui-form-label">月度</label>
+            <div class="layui-input-inline">
+                <select name="Month" id="Month" lay-filter="Month">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>  
+            </div>  
+
+            <label class="layui-form-label">公司</label>
+            <div class="layui-input-inline"> 
+                <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                    <option value="" selected=""></option>
+                    @if (ViewBag.comList != null)
+                    {
+                        foreach (var emp in ViewBag.comList)
+                        {
+                            <option value="@emp.Company_Name">@emp.Company_Name</option>
+                        }
+                    }
+
+                </select>
+            </div> 
+
+            <button class="layui-btn" data-type="reload" type="button" id="search"><i class="layui-icon layui-icon-search"></i>搜索 </button> 
+        </div>
+    </form>
+</div>
+    <table id="TZCompanyMonthReport" class="layui-table" lay-filter="TZCompanyMonthReport" lay-data="{  height: 'full-80', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/TZCompanyMonthReport/getList'}">
+        <thead>
+            <tr>
+                <th lay-data="{type: 'radio', event: 'checked'}" rowspan="2"></th>
+                <th lay-data="{type: 'numbers'}" rowspan="2"></th>
+                <th lay-data="{field:'Year', sort: true,width:80}" rowspan="2">年度</th>
+                <th lay-data="{field:'Month', sort: true,width:80}" rowspan="2"> 月度</th>
+                <th lay-data="{field:'Company_Name',  sort: true,width:120}" rowspan="2">所属公司</th>
+                <th lay-data="{field:'PX',  sort: true}" rowspan="2">排名</th>
+                <th lay-data="{field:'DF',  sort: true}" rowspan="2">得分</th>
+                <th lay-data="{field:'JF',  sort: true}" rowspan="2">当期积分</th>
+                <th lay-data="{field:'NDJF',  sort: true}" rowspan="2">年度累计积分</th>
+                <th lay-data="{field:'Valid_Per',  sort: true}" rowspan="2">提报有效率</th>
+
+                <th lay-data="{align:'center'}" colspan="7">当月整体情况（全员，含计产、非计产）</th>
+                <th lay-data="{align:'center'}" colspan="3">部门覆盖</th>
+                <th lay-data="{align:'center'}" colspan="3">非计产学员覆盖</th>
+                <th lay-data="{align:'center'}" colspan="3">非计产学员学习量</th>
+                <th lay-data="{align:'center'}" colspan="3">关键岗位分享师（7级以上，年度累计计算）</th>
+
+            </tr>
+
+            <tr>
+                <th lay-data="{field:'ZZCC',  sort: true}">组织场次</th>
+                <th lay-data="{field:'FXRS',  sort: true}">分享师人数</th>
+                <th lay-data="{field:'KS',  sort: true}">课时</th>
+                <th lay-data="{field:'KCJF',  sort: true}">课程均分</th>
+                <th lay-data="{field:'XS',  sort: true}">学时</th>
+                <th lay-data="{field:'YCQRS',  sort: true}">应出勤人数</th>
+                <th lay-data="{field:'SCQRS',  sort: true}">实出勤人数</th>
+
+
+                <th lay-data="{field:'WCBMS',  sort: true}">完成部门数</th>
+                <th lay-data="{field:'YFGBMS',  sort: true}">应覆盖部门数</th>
+                <th lay-data="{field:'YFXFGL',  sort: true}">月分享例会覆盖率</th>
+
+
+                <th lay-data="{field:'FJC_SCQRS',  sort: true}">实出勤人数</th>
+                <th lay-data="{field:'FJC_YCQRS',  sort: true}">应出勤人数</th>
+                <th lay-data="{field:'FJC_FGL',  sort: true}">学员覆盖率</th>
+
+                <th lay-data="{field:'FJC_ZXS',  sort: true}">总学时</th>
+                <th lay-data="{field:'FJC_YCQRS',  sort: true}">应出勤人数</th>
+                <th lay-data="{field:'FJC_RJXS',  sort: true}">月人均学时</th>
+
+                <th lay-data="{field:'YIFXRS',  sort: true}">已分享师人数</th>
+                <th lay-data="{field:'YFXRS',  sort: true}">应分享师人数</th>
+                <th lay-data="{field:'FXRS_Per',  sort: true}">占比</th>
+            </tr>
+        </thead>
+    </table>
+
+
+
+    <script type="text/html" id="toolbar">
+        <a class="layui-btn layui-btn" lay-event="edit">
+            <i class="layui-icon layui-icon-edit"></i>编辑
+        </a>
+    </script>
+
+    <script type="text/javascript">
+
+
+        layui.use(['table', 'layer', 'form', 'layedit', 'laydate', 'upload'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , table = layui.table
+                , upload = layui.upload;
+            var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+            form.render();
+
+            table.on('toolbar(TZCompanyMonthReport)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
+                var data = checkStatus.data;  //获取选中行数据
+                if (data.length == 0) { layer.msg("请选择一行记录"); return; }
+
+                var id = data[0].ID;
+                switch (obj.event) {
+                    case 'edit':
+                        //页面层
+                        layer.open({
+                            type: 2,
+                            title: "编辑公司级月报信息",
+                            skin: 'layui-layer-rim', //加上边框
+                            area: ['400px', '330px'], //宽高
+                            content: '/TZCompanyMonthReport/Edit?ID=' + id
+
+                        });
+                        break;
+                }
+            });
+
+
+            layer.ready(function () {
+                //执行重载
+                table.reload('TZCompanyMonthReport', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Year: $("#Year").val(),
+                        Month: $("#Month").val(),
+                        Company_Name: $("#Company_Name").val(),
+                        time: new Date()
+                    }
+                });
+            });
+
+            //搜索加载--数据表格重载
+            var $ = layui.$, active = {
+                reload: function () {
+                    //执行重载
+                    table.reload('TZCompanyMonthReport', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            Year: $("#Year").val(),
+                            Month: $("#Month").val(),
+                            Company_Name: $("#Company_Name").val(), 
+                            time: new Date()
+                        }
+                    });
+                }
+
+            };
+
+            $('#search').on('click', function () {
+                ids = new Array();
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+           
+
+        });
+
+    </script>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2fd4aac9390e43e295bfc15645d1ec23" Name="Diagram1">
+        <EntityTypeShape EntityType="HrEvaModel.T_Assessor_Info" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Employee" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Basic_Data" Width="1.5" PointX="3.25" PointY="3.875" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Assessor" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Questionnaire" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Subject" Width="2.125" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_User" Width="1.5" PointX="0.5" PointY="4.25" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Option" Width="1.5" PointX="7.375" PointY="7.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Questionnaire_Subject" Width="1.875" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Questionnaire_Results" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Questionnairer" Width="1.75" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Manage_He_Relation_Subject" Width="1.5" PointX="9.75" PointY="7.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Manage_He_Subject" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Quality_He_Relation_Subject" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Quality_He_Subject" Width="1.5" PointX="5.75" PointY="11.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Manage" Width="1.5" PointX="8.375" PointY="11.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Quality" Width="1.5" PointX="10.375" PointY="11.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Ranking" Width="1.5" PointX="12.375" PointY="7.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_SUM" Width="1.5" PointX="12.375" PointY="12.75" />
+        <EntityTypeShape EntityType="HrEvaModel.HZ_EVA_Trust" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Upload_Data" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Role" Width="1.5" PointX="3.375" PointY="15.25" />
+        <EntityTypeShape EntityType="HrEvaModel.T_User_Role" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Permission" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_User_Permission" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="HrEvaModel.T_Role_Permission" Width="1.5" PointX="16.375" PointY="7.75" />
+        <EntityTypeShape EntityType="HrEvaModel.V_Examiners_Group" Width="1.5" PointX="16.375" PointY="10.75" />
+        <EntityTypeShape EntityType="HrEvaModel.V_User_Permission" Width="1.5" PointX="11.375" PointY="16.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Examiners" Width="1.5" PointX="13.375" PointY="16.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Assessment_Department" Width="1.5" PointX="13.375" PointY="4.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Company" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Sign" Width="1.5" PointX="15.375" PointY="3.75" />
+        <EntityTypeShape EntityType="HrEvaModel.V_Hollander" Width="1.5" PointX="3.375" PointY="17.75" />
+        <EntityTypeShape EntityType="HrEvaModel.V_Questionnairer" Width="1.5" PointX="15.375" PointY="15.75" />
+        <EntityTypeShape EntityType="HrEvaModel.V_Depmartment_Curriculu" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Company_Month_Report" Width="1.5" PointX="17.375" PointY="15.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Curriculu_Project" Width="1.5" PointX="5.375" PointY="18.75" />
+        <EntityTypeShape EntityType="HrEvaModel.TZ_Sign_Url" Width="1.5" PointX="18.375" PointY="6.75" />
+        <EntityTypeShape EntityType="HrEvaModel.GW_Evaluationers" Width="1.5" PointX="7.75" PointY="18.75" />
+        <EntityTypeShape EntityType="HrEvaModel.GW_Position" Width="1.5" PointX="18.75" PointY="10.75" />
+        <EntityTypeShape EntityType="HrEvaModel.GW_Position_Evaluation_Project" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HrEvaModel.GW_QRCode" Width="1.5" PointX="0.75" PointY="19.75" />
+        <EntityTypeShape EntityType="HrEvaModel.V_Position_Evaluationers" Width="1.5" PointX="10.375" PointY="19.75" />
+        <EntityTypeShape EntityType="HrEvaModel.GW_Position_Evaluation_Results" Width="1.5" PointX="19.375" PointY="14.75" />
+        <EntityTypeShape EntityType="HrEvaModel.V_Position_Evaluation_Results" Width="1.5" PointX="20.375" PointY="4.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

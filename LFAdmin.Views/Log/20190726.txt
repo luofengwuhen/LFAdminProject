@@ -1,0 +1,30 @@
+ 
+记录时间：2019-07-26 16:02:48,488 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[UserID:账号 :admin,登录成功!;Controller-Action:]: 
+ 
+记录时间：2019-07-26 16:05:47,927 
+线程ID:[5] 
+日志级别：  INFO  
+错误描述：[UserID:账号 :admin,登录成功!;Controller-Action:]: 
+ 
+记录时间：2019-07-26 16:05:49,274 
+线程ID:[7] 
+日志级别：  ERROR 
+错误描述：[UserID:未找到路径“/Basic/List”的控制器或该控制器未实现 IController。;Controller-Action:]: 
+ 
+记录时间：2019-07-26 17:07:21,732 
+线程ID:[8] 
+日志级别：  ERROR 
+错误描述：错误如下:尝试创建“LFAdmin.Views.Controllers.HomeController”类型的控制器时出错。请确保控制器具有无参数公共构造函数。 
+ 
+记录时间：2019-07-26 17:24:11,041 
+线程ID:[5] 
+日志级别：  INFO  
+错误描述：账号 :admin,登录成功! 
+ 
+记录时间：2019-07-26 17:24:13,336 
+线程ID:[5] 
+日志级别：  ERROR 
+错误描述：未找到路径“/Basic/List”的控制器或该控制器未实现 IController。 

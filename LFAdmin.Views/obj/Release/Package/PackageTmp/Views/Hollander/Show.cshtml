@@ -1,0 +1,254 @@
+﻿<style>
+    td {
+        width: 100px;
+        text-align: center;
+    }
+
+    div {
+        margin: 0 auto;
+    }
+
+    h4 {
+        line-height: 25px;
+    }
+</style>
+
+<div style="width:800px;">
+    <h1 style="text-align:center;margin-top:50px;margin-bottom:40px;">@ViewBag.Title</h1>
+
+    <h2 style="text-align:center;">@ViewBag.Full_Name</h2>
+    <br />
+    <br />
+    <div style="width:100%;">
+
+        <div id="echarts" style="height:450px;padding-top:10px;"></div>
+
+        @*<table style="line-height:40px;border:2px solid" border="1">
+                <tr style="font-weight:700;background-color:#79BCFF;">
+                    <td>
+                        技能星
+                    </td>
+                    <td>
+                        研究星
+                    </td>
+                    <td>
+                        艺术星
+                    </td>
+                    <td>
+                        社会星
+                    </td>
+                    <td>
+                        企业星
+                    </td>
+                    <td>
+                        事务星
+                    </td>
+
+                </tr>
+                <tr style="background-color:#FF99FF;font-weight:600">
+                    @foreach (var sl in ViewBag.ScoreList)
+                    {
+                        <td>
+                            @sl.score
+                        </td>
+                    }
+                </tr>
+            </table>*@
+
+
+    </div>
+    <br />
+    <br />
+
+    @if (ViewBag.FirstType == true)
+    {
+        <div style="width:100%;">
+            <h3 style="color:#000097;line-height:30px;">
+                职业人格：R型【技能星】
+            </h3>
+
+            <h4>
+                &emsp;&emsp;【典型特点】<br />
+                &emsp;&emsp;愿意使用工具从事操作性工作，动手能力强，做事手脚灵活，动作协调。偏好于具体任务，不善言辞，做事保守，较为谦虚。缺乏社交能力，通常喜欢独立做事。<br />
+                &emsp;&emsp;【性格特点】<br />
+                &emsp;&emsp;踏实稳重、诚实可靠。感觉迟钝、不讲究、谦逊的。<br />
+                &emsp;&emsp;【职业倾向】<br />
+                &emsp;&emsp;喜欢使用工具、机器，需要基本操作技能的工作。要求具备机械方面才能、体力、或从事与物件、机器、工具、运动器材、植物、动物相关的职业有兴趣，并具备相应能力。<br />
+                &emsp;&emsp;【匹配精工职位】<br />
+                &emsp;&emsp;本级：系统运维管理；<br />
+                &emsp;&emsp;房产建筑/建筑新材料板块：施工技术员、施工制图员； CAD图纸深化设计师、设备工程师；<br />
+                &emsp;&emsp;化纤板块：电气工程师、设备管理、机械技术员、工艺技术员；<br />
+                &emsp;&emsp;医疗健康版块：工艺技术员。<br />
+            </h4>
+        </div>
+        <br />
+        <br />
+    }
+    @if (ViewBag.SecondType == true)
+    {
+        <div style="width:100%;">
+            <h3 style="color:#000097;line-height:30px;">
+                职业人格：I型【研究星】
+            </h3>
+
+            <h4>
+                &emsp;&emsp;【典型特点】<br />
+                &emsp;&emsp;思想家而非实干家，抽象思维能力强，求知欲强，肯动脑，善思考，不愿动手。喜欢独立的和富有创造性的工作。知识渊博，有学识才能，不善于领导他人。考虑问题理性，做事喜欢精确，喜欢逻辑分析和推理，不断探讨未知的领域。<br />
+                &emsp;&emsp;【性格特点】<br />
+                &emsp;&emsp;坚持性强，有韧性，喜欢钻研。为人好奇，独立性强。<br />
+                &emsp;&emsp;【职业倾向】<br />
+                &emsp;&emsp;喜欢智力的、抽象的、分析的、独立的定向任务，要求具备智力或分析才能，并将其用于观察、估测、衡量、形成理论、最终解决问题的工作，并具备相应的能力。<br />
+                &emsp;&emsp;【匹配精工职位】<br />
+                &emsp;&emsp;本级：程序开发、系统运维、战略研究、投资分析；<br />
+                &emsp;&emsp;房产建筑/建筑新材料板块：幕墙设计师、结构设计师、涂装研发工程师；<br />
+                &emsp;&emsp;化纤板块：（化纤）研发工程师、RD（解聚合）技术员；<br />
+                &emsp;&emsp;医疗健康板块：组培技术员、栽培技术员。<br />
+            </h4>
+        </div>
+        <br />
+        <br />
+    }
+    @if (ViewBag.ThridType == true)
+    {
+        <div style="width:100%;">
+            <h3 style="color:#000097;line-height:30px;">
+                职业人格：A型【艺术星】
+            </h3>
+
+            <h4>
+                &emsp;&emsp;【典型特点】<br />
+                &emsp;&emsp;有创造力，乐于创造新颖、与众不同的成果，渴望表现自己的个性，实现自身的价值。做事理想化，追求完美，不重实际。具有一定的艺术才能和个性。善于表达，怀旧，心态较为复杂。<br />
+                &emsp;&emsp;【性格特点】<br />
+                &emsp;&emsp;有创造性，非传统的，敏感，容易情绪化，较冲动，不服从指挥。<br />
+                &emsp;&emsp;【职业倾向】<br />
+                &emsp;&emsp;喜欢的工作要求具备艺术修养、创造力、表达能力和直觉，并将其用于语言、行为、声音、颜色和形式的审美、思索和感受，具备相应的能力。不善于事务性工作。<br />
+                &emsp;&emsp;【匹配精工职位】<br />
+                &emsp;&emsp;本级：文案策划、企划专员、平面设计；<br />
+                &emsp;&emsp;房产建筑/建筑新材料板块：品牌专员、建筑设计师（歌德）；<br />
+            </h4>
+        </div>
+        <br />
+        <br />
+
+    }
+    @if (ViewBag.FourthType == true)
+    {
+        <div style="width:100%;">
+            <h3 style="color:#000097;line-height:30px;">
+                职业人格：S型【社会星】
+            </h3>
+
+            <h4>
+                &emsp;&emsp;【典型特点】<br />
+                &emsp;&emsp;喜欢与人交往、不断结交新的朋友、善言谈、愿意教导别人。关心社会问题、渴望发挥自己的社会作用。寻求广泛的人际关系，比较看重社会义务和社会道德。<br />
+                &emsp;&emsp;【性格特点】<br />
+                &emsp;&emsp;为人友好、热情、善解人意、乐于助人。<br />
+                &emsp;&emsp;【职业倾向】<br />
+                &emsp;&emsp;喜欢要求与人打交道的工作，能够不断结交新的朋友，从事提供信息、启迪、帮助、培训、开发或治疗等事务，并具备相应能力。<br />
+                &emsp;&emsp;【匹配精工职位】<br />
+                &emsp;&emsp;本级：培训管理、招聘管理、ERP实施工程师；<br />
+                &emsp;&emsp;房产建筑/建筑新材料板块：品牌公关、活动策划；<br />
+                &emsp;&emsp;化纤板块：生产管理储备；<br />
+                &emsp;&emsp;酒店板块：酒店管理储备。<br />
+            </h4>
+        </div>
+        <br />
+        <br />
+    }
+    @if (ViewBag.FiveType == true)
+    {
+        <div style="width:100%;">
+            <h3 style="color:#000097;line-height:30px;">
+                职业人格：E型【企业星】
+            </h3>
+
+            <h4>
+                &emsp;&emsp;【典型特点】<br />
+                &emsp;&emsp;追求权力、权威和物质财富，具有领导才能。喜欢竞争、敢冒风险、有野心/抱负。为人务实，习惯以利益得失、权利、地位、金钱等来衡量做事的价值，做事有较强的目的性。<br />
+                &emsp;&emsp;【性格特点】<br />
+                &emsp;&emsp;善辩、精力旺盛、独断、乐观、自信、好交际、机敏、有支配愿望。<br />
+                &emsp;&emsp;【职业倾向】<br />
+                &emsp;&emsp;喜欢要求具备经营、管理、劝服、监督和领导才能，以实现机构、政治／社会及经济目标的工作，并具备相应的能力。<br />
+                &emsp;&emsp;【匹配精工职位】<br />
+                &emsp;&emsp;本级：营运管理储备；<br />
+                &emsp;&emsp;房产建筑/建筑新材料板块：工程管理储备、内销/外贸营销管理储备；<br />
+                &emsp;&emsp;化纤板块：营销管理储备；<br />
+            </h4>
+        </div>
+        <br />
+        <br />
+
+    }
+    @if (ViewBag.SixType == true)
+    {
+
+        <div style="width:100%;">
+            <h3 style="color:#000097;line-height:30px;">
+                职业人格：C型【事务星】
+            </h3>
+
+            <h4>
+                &emsp;&emsp;【典型特点】<br />
+                &emsp;&emsp;尊重权威和规章制度，喜欢按计划办事，细心、有条理，习惯接受他人的指挥和领导，自己不谋求领导职务。喜欢关注实际和细节情况，通常较为谨慎和保守，缺乏创造性，不喜欢冒险和竞争，富有自我牺牲精神。<br />
+                &emsp;&emsp;【性格特点】<br />
+                &emsp;&emsp;有责任心、依赖性强、高效率、稳重踏实、细致、有耐心。<br />
+                &emsp;&emsp;【职业倾向】<br />
+                &emsp;&emsp;喜欢要求注意细节、精确度、有系统有条理，具有记录、归档、据特定要求或程序组织数据和文字信息的职业，并具备相应能力。<br />
+                &emsp;&emsp;【匹配精工职位】<br />
+                &emsp;&emsp;本级：行政储备、财务/审计储备、法务储备；<br />
+                &emsp;&emsp;房产建筑/建筑新材料板块：预算员、造价员、工程技术员、招投标技术员；<br />
+                &emsp;&emsp;化纤板块：质量工程师、EHS工程师、生产计划员；<br />
+                &emsp;&emsp;医疗健康板块：质量技术员。<br />
+            </h4>
+        </div>
+        <br />
+        <br />
+    }
+
+
+</div>
+
+<!-- ECharts单文件引入 -->
+<script src="../Scripts/echarts.min.js"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('echarts'));
+    var option = {
+        tooltip: {
+            show: false
+        },
+        legend: {
+           // data: ['评测结果']
+        },
+        radar: {
+            // shape: 'circle',
+            name: {
+                textStyle: {
+                    color: '#fff',
+                    backgroundColor: '#999',
+                    borderRadius: 3,
+                    padding: [3, 5]
+                }
+            },
+            indicator: [
+                { name: '技能星', max: 15 },
+                { name: '研究星', max: 15 },
+                { name: '艺术星', max: 15 },
+                { name: '社会星', max: 15 },
+                { name: '企业星', max: 15 },
+                { name: '事务星', max: 15 }
+            ]
+        },
+        series: [{ 
+            type: 'radar', 
+            data: [
+                {
+                    value: [@ViewBag.Result.Option_Score1, @ViewBag.Result.Option_Score2, @ViewBag.Result.Option_Score3
+                        , @ViewBag.Result.Option_Score4, @ViewBag.Result.Option_Score5, @ViewBag.Result.Option_Score6],
+                    name: '评测结果'
+                }
+            ]
+        }]
+    };
+    // 为echarts对象加载数据
+    myChart.setOption(option);
+</script>

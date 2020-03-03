@@ -1,0 +1,189 @@
+﻿
+<link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+<link href="~/Scripts/css/login.css" rel="stylesheet" />
+<style>
+    .navbar-fixed-bottom {
+        bottom: 0;
+        margin-bottom: 0;
+        border-width: 1px 0 0;
+        border-radius: 0;
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+</style>
+<div class="m-login-bg">
+    <div class="m-login">
+        <h3>登&nbsp &nbsp&nbsp&nbsp录</h3>
+        <div class="m-login-warp">
+            <form class="layui-form">
+                <div class="layui-form-item  ">
+                    <input type="text" id="username" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-item">
+
+                    <input type="password" id="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                </div>
+                @*<div class="layui-form-item">
+            <div class="layui-inline">
+                <input type="text" name="verity" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline">
+                <img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="~/Scripts/admin/images/login/yzm.jpg" />
+            </div>
+        </div>*@
+
+                <div>
+
+                    <input type="checkbox" name="rememberMe" id="rememberMe" title="记住帐号" lay-skin="primary">
+
+                </div>
+                <br />
+
+                <div class="layui-form-item m-login-btn">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" onclick="saveUserInfo()">登录</button>
+                    </div>
+                    <div class="layui-inline">
+                        @*<button type="button" class="layui-btn layui-btn-primary" onclick="addPassword()">设置密码</button>*@
+                        <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                    </div>
+                </div>
+
+                @*<div class="kit-login-row" style="margin-bottom:0;">
+                    <a href="javascript:;" style="color: rgb(153, 153, 153); text-decoration: none; font-size: 13px;" id="forgot">忘记密码</a>
+                </div>*@
+                <div><h4 style="color: rgb(153, 153, 153); text-decoration: none; font-size: 13px;">温馨提示:请使用谷歌游览器,360游览器请选用兼容模式运行</h4></div>
+            </form>
+ 
+        </div>
+        <footer class="navbar-fixed-bottom copyright ">
+            <p>&copy; @DateTime.Now.Year - 精工控股集团</p>
+        </footer>
+
+    </div>
+</div>
+@*<script src="~/Scripts/layui/layui.js"></script>*@
+<script>
+
+    $(document).ready(function () {
+        //判断一下当前层是不是顶层，如果不是，则做一下顶层页面重定向
+        if (window != top) {
+            top.location.href = location.href;
+        }
+    });
+
+    layui.use(['form', 'layedit', 'laydate'], function () {
+                var form = layui.form,
+                    layer = layui.layer;
+             var $ = layui.$;
+
+                //自定义验证规则
+                form.verify({
+                    title: function (value) {
+                        if (value.length < 5) {
+                            return '标题至少得5个字符啊';
+                        }
+                    },
+                    password: [/(.+){6,12}$/, '密码必须6到12位'],
+                    verity: [/(.+){6}$/, '验证码必须是6位'],
+
+        });
+
+        $('#forgot').on('click', function () {
+            layer.msg('请联系管理员.');
+        });
+
+
+                //监听提交
+                form.on('submit(login)', function (data) {
+                    var index = layer.load(1, {
+                        shade: [0.5, '#000'] //0.1透明度的背景
+                    });
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/Home/LoginOn',
+                        'data': { username: data.field.username, pasword: data.field.password },
+                        success: function (data) {
+                            layer.close(index);
+                            var obj = JSON.parse(data);
+                            if (obj.IsSuccess == "1") {
+
+                                location.href = "/Home/Index";
+                            }
+                            else {
+                                layer.alert(JSON.stringify(obj.MessageString), {
+                                    title: '提示'
+                                });
+                                return false;
+                            }
+
+                        },
+                        error: function (message) {
+                            layer.close(index);
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                            return false;
+                        }
+
+                    });
+                    return false;
+                });
+
+            });
+
+             @*function addPassword() {
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title:"密码设置",
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['350px', '360px'], //宽高
+                    content:  "@Url.Action("Add", "Password")"   //调到设置密码页面
+                    });
+                }*@
+
+    /*记住用户名和密码*/
+    $(function () {
+        if ($.cookie("rememberMe")) {
+            $("#rememberMe").prop("checked", true);
+            $("#username").val($.cookie("username"));
+            $("#password").val($.cookie("password"));
+        }
+    });
+
+    function saveUserInfo() {
+
+
+
+        if ($("#rememberMe").prop("checked") == true) {
+            var user_name = $("#username").val();
+            var user_password = $("#password").val();
+            $.cookie("rememberMe", true, {
+                expires: 7
+            }); // 存储一个带7天期限的 cookie
+            $.cookie("username", user_name, {
+                expires: 7
+            }); // 存储一个带7天期限的 cookie
+            $.cookie("password", user_password, {
+                expires: 7
+            }); // 存储一个带7天期限的 cookie
+        } else {
+            $.cookie("rememberMe", "false", {
+                expires: -1
+            }); // 删除 cookie
+            $.cookie("username", '', {
+                expires: -1
+            });
+            $.cookie("password", '', {
+                expires: -1
+            });
+        }
+
+
+    }
+
+</script>
+

@@ -1,0 +1,167 @@
+﻿
+<div class="demoTable" style="padding-top:20px;">
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">年度</label>
+            <div class="layui-input-inline">
+                <select name="Year" id="Year" lay-filter="Year">
+                    <option value=""></option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+
+            </div>
+
+
+            <label class="layui-form-label">月度</label>
+            <div class="layui-input-inline">
+                <select name="Month" id="Month" lay-filter="Month">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>  
+            </div>  
+
+            <label class="layui-form-label">公司</label>
+            <div class="layui-input-inline"> 
+                <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                    <option value="" selected=""></option>
+                    @if (ViewBag.comList != null)
+                    {
+                        foreach (var emp in ViewBag.comList)
+                        {
+                            <option value="@emp.Company_Name">@emp.Company_Name</option>
+                        }
+                    }
+
+                </select>
+            </div> 
+
+            <button class="layui-btn" data-type="reload" type="button" id="search"><i class="layui-icon layui-icon-search"></i>搜索 </button> 
+        </div>
+    </form>
+</div>
+    <table id="VDepmartmentCurriculu" class="layui-table" lay-filter="VDepmartmentCurriculu" lay-data="{  height: 'full-80', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/VDepmartmentCurriculu/getList'}">
+        <thead>
+            <tr>
+                <th lay-data="{type: 'numbers'}" rowspan="2"></th>
+                <th lay-data="{field:'Year', sort: true,width:80}" rowspan="2">年度</th>
+                <th lay-data="{field:'Month', sort: true,width:80}" rowspan="2"> 月度</th>
+                <th lay-data="{field:'Company_Name',  sort: true,width:120}" rowspan="2">所属公司</th>
+                <th lay-data="{field:'Department',  sort: true}" rowspan="2">组织部门</th>
+                <th lay-data="{field:'Is_Assessment',  sort: true}" rowspan="2">是否纳入考核</th>
+                <th lay-data="{field:'Curriculu_Name',  sort: true}" rowspan="2">课程名称</th>
+                <th lay-data="{align:'center'}" colspan="4">提报有效性</th>
+                <th lay-data="{align:'center'}" colspan="2">资料完整性</th>
+                <th lay-data="{align:'center'}" colspan="3">非计产学员覆盖</th>
+                <th lay-data="{align:'center'}" colspan="3">非计产学员学习量</th>
+                <th lay-data="{align:'center'}" colspan="2">关键岗位分享师</th>
+
+                @*<th lay-data="{field:'Memo',  sort: true}" rowspan="2">备注</th>*@
+                @*<th lay-data="{ width:158, align:'center', toolbar: '#bar'}"></th>*@
+            </tr>
+
+            <tr>
+                <th lay-data="{field:'Curriculu_Cost',  sort: true}">课时</th>
+                <th lay-data="{field:'Is_Valid',  sort: true}">活动有效性</th>
+                <th lay-data="{field:'Check_Time',  sort: true}">提报及时性</th>
+                <th lay-data="{field:'Valid_Reason',  sort: true}">原因说明</th>
+
+
+           
+                <th lay-data="{field:'Group_Deduction_Factor',  sort: true}">折合系数</th>
+                <th lay-data="{field:'Group_Deduction_Reason',  sort: true}">扣分说明</th>
+             
+         
+                <th lay-data="{field:'Actual_Attendance_Counts',  sort: true}">实出勤人数</th>
+                <th lay-data="{field:'Attendance_Counts',  sort: true}">应出勤人数</th>
+                <th lay-data="{field:'Attendance_Pre',  sort: true}">学员覆盖率</th>
+  
+                <th lay-data="{field:'Total_Hours',  sort: true}">总学时</th>
+                <th lay-data="{field:'Un_Attendance_Counts',  sort: true}">应出勤人数</th>
+                <th lay-data="{field:'Avg_Hours',  sort: true}">月人均学时</th>
+        
+                <th lay-data="{field:'Important_Full_Name',  sort: true}">姓名</th>
+                <th lay-data="{field:'Years_Scenes',  sort: true}">当年累计场次</th>
+            </tr>
+        </thead>
+    </table>
+
+
+
+    <script type="text/html" id="bar">
+
+    </script>
+
+    <script type="text/javascript">
+
+
+        layui.use(['table', 'layer', 'form', 'layedit', 'laydate', 'upload'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , table = layui.table
+                , upload = layui.upload;
+            var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+            form.render();
+
+         
+            layer.ready(function () {
+                //执行重载
+                table.reload('VDepmartmentCurriculu', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Year: $("#Year").val(),
+                        Month: $("#Month").val(),
+                        Company_Name: $("#Company_Name").val(),
+                        time: new Date()
+                    }
+                });
+            });
+
+            //搜索加载--数据表格重载
+            var $ = layui.$, active = {
+                reload: function () {
+                    //执行重载
+                    table.reload('VDepmartmentCurriculu', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            Year: $("#Year").val(),
+                            Month: $("#Month").val(),
+                            Company_Name: $("#Company_Name").val(), 
+                            time: new Date()
+                        }
+                    });
+                }
+
+            };
+
+            $('#search').on('click', function () {
+                ids = new Array();
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+           
+
+        });
+
+    </script>

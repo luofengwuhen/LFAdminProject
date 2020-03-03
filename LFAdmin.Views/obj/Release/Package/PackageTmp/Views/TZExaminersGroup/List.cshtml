@@ -1,0 +1,221 @@
+﻿
+<div class="demoTable" style="padding-top:20px;">
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">年度</label>
+            <div class="layui-input-inline">
+                <select name="Year" id="Year" lay-filter="Year">
+                    <option value=""></option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+
+            </div>
+
+
+            <label class="layui-form-label">月度</label>
+            <div class="layui-input-inline">
+                <select name="Month" id="Month" lay-filter="Month">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>  
+            </div>  
+
+            <label class="layui-form-label">公司</label>
+            <div class="layui-input-inline"> 
+                <select name="Conmpany_Name" id="Conmpany_Name" lay-filter="Conmpany_Name">
+                    <option value="" selected=""></option>
+                    @if (ViewBag.comList != null)
+                    {
+                        foreach (var emp in ViewBag.comList)
+                        {
+                            <option value="@emp.Company_Name">@emp.Company_Name</option>
+                        }
+                    }
+
+                </select>
+            </div> 
+
+            <button class="layui-btn" data-type="reload" type="button" id="search"><i class="layui-icon layui-icon-search"></i>搜索 </button> 
+        </div>
+    </form>
+</div>
+    <table id="TZExaminersGroup" class="layui-table" lay-filter="TZExaminersGroup" lay-data="{  height: 'full-80', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/TZExaminersGroup/getList'}">
+        <thead>
+            <tr>
+                <th lay-data="{type: 'numbers'}"></th>
+                <th lay-data="{field:'Year', sort: true,width:80}">年度</th>
+                <th lay-data="{field:'Month', sort: true,width:80}">月度</th>
+                <th lay-data="{field:'Conmpany_Name',  sort: true,width:120}">所属公司</th>
+                <th lay-data="{field:'First_Department_Counts',  sort: true}">一级部门数</th>
+                <th lay-data="{field:'Totals_Counts',  sort: true}">总人数</th>
+                <th lay-data="{field:'Important_Counts',  sort: true}">关键岗位人数</th>
+                <th lay-data="{field:'Admin_Counts',  sort: true}">非计产人数</th>
+                <th lay-data="{field:'Entry_Counts',  sort: true}">本月入职人数</th>
+                <th lay-data="{field:'Leave_Counts',  sort: true}">本月离职人数</th>
+                <th lay-data="{field:'Transfer_Counts',  sort: true}">本月调动人数</th>
+                <th lay-data="{field:'Importer',  sort: true,width:100}">导入人</th>
+                <th lay-data="{field:'Import_Time',  sort: true,width:200}">导入时间</th>
+                <th lay-data="{field:'Locker',  sort: true,width:100}">审核人</th>
+                <th lay-data="{field:'Lock_Time',  sort: true,width:200}">审核时间</th>
+
+                <th lay-data="{ width:158, align:'center', toolbar: '#bar'}"></th>
+            </tr>
+        </thead>
+    </table>
+
+
+
+    <script type="text/html" id="bar">
+        {{#  if(d.Locker !='' && d.Locker !=null){ }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="uncheck"><i class="fa fa-rotate-right fa-lg"></i> 审核退回</a> 
+        {{# } else { }}
+        <a class="layui-btn layui-btn-xs" lay-event="check"><i class="fa fa-check-square-o fa-lg"></i> 审核</a>
+        {{# } }}
+    </script>
+
+    <script type="text/javascript">
+
+
+        layui.use(['table', 'layer', 'form', 'layedit', 'laydate', 'upload'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , table = layui.table
+                , upload = layui.upload;
+            var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+            form.render();
+
+            //监听工具条
+            table.on('tool(TZExaminersGroup)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                } else if (obj.event === 'check') {
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/TZExaminersGroup/check',
+                        'data': {
+                            Year: data.Year,
+                            Month: data.Month,
+                            Conmpany_Name: data.Conmpany_Name
+                        },
+                        success: function (data) {
+                            var da = JSON.parse(data);
+                            if (da.IsSuccess == "1") {  
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                                window.location.reload();
+                            }
+                            else {
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+
+                        },
+                        error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+
+                    }); 
+
+                } else if (obj.event === 'uncheck') {
+
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/TZExaminersGroup/uncheck',
+                        'data': {
+                            Year: data.Year,
+                            Month: data.Month,
+                            Conmpany_Name: data.Conmpany_Name
+                        },
+                        success: function (data) {
+                            var obj = JSON.parse(data);
+                            if (obj.IsSuccess == "1") {
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+                                window.location.reload();
+                            }
+                            else {
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+
+                        },
+                        error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+
+                    }); 
+                }
+
+            });
+
+
+            layer.ready(function () {
+                //执行重载
+                table.reload('TZExaminersGroup', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Year: $("#Year").val(),
+                        Month: $("#Month").val(),
+                        Conmpany_Name: $("#Conmpany_Name").val(),
+                        time: new Date()
+                    }
+                });
+            });
+
+            //搜索加载--数据表格重载
+            var $ = layui.$, active = {
+                reload: function () {
+                    //执行重载
+                    table.reload('TZExaminersGroup', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: {
+                            Year: $("#Year").val(),
+                            Month: $("#Month").val(),
+                            Conmpany_Name: $("#Conmpany_Name").val(), 
+                            time: new Date()
+                        }
+                    });
+                }
+
+            };
+
+            $('#search').on('click', function () {
+                ids = new Array();
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+           
+
+        });
+
+    </script>

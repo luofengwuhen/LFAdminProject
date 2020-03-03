@@ -1,0 +1,72 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="ID" value="@ViewBag.Role.ID" />
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色编码</label>
+        <div class="layui-input-block">
+            <input type="text" name="Role_Code" lay-verify="required" placeholder="请输入角色编码" value="@ViewBag.Role.Role_Code" autocomplete="off" class="layui-input ">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Role_Name" lay-verify="required" placeholder="请输入角色名称" value="@ViewBag.Role.Role_Name" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="edit">立即提交</button>
+        </div>
+    </div>
+</form> 
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+         
+         
+        //监听提交
+        form.on('submit(edit)', function (data) { 
+            var index = layer.load(1, {
+                shade: [0.5, '#000'] //0.1透明度的背景
+            });
+            $.ajax({
+                'type': 'post',
+                'url': '/Role/SaveInfo',
+                'data': {
+                    ID: data.field.ID,Role_Code: data.field.Role_Code, Role_Name: data.field.Role_Name
+                },
+                success: function (data) {
+                    layer.close(index);
+                    var obj = data;
+                    if (obj.IsSuccess == "1") {  
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index);
+                            window.parent.location.reload();
+                        }); 
+                    }
+                    else {
+                        layer.alert(JSON.stringify(obj.MessageString), {
+                            title: '提示'
+                        });
+                        return false;
+                    } 
+                },
+                error: function (message) {
+                    layer.close(index);
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                    return false;
+                } 
+            });
+            return false;
+        });
+
+    }); 
+</script>

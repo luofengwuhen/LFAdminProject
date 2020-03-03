@@ -1,0 +1,765 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HrEvaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="T_Assessor_Info">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Eva_Counts" Type="Int32" />
+    <Property Name="Plur_Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Employee">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Employee_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password_Bak" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="HrEvaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="T_Assessor_Info" EntityType="Self.T_Assessor_Info" />
+    <EntitySet Name="T_Employee" EntityType="Self.T_Employee" />
+    <EntitySet Name="T_Basic_Data" EntityType="HrEvaModel.T_Basic_Data" />
+    <EntitySet Name="T_Assessor" EntityType="HrEvaModel.T_Assessor" />
+    <EntitySet Name="T_Questionnaire" EntityType="HrEvaModel.T_Questionnaire" />
+    <EntitySet Name="T_Subject" EntityType="HrEvaModel.T_Subject" />
+    <EntitySet Name="T_User" EntityType="HrEvaModel.T_User" />
+    <EntitySet Name="T_Option" EntityType="HrEvaModel.T_Option" />
+    <EntitySet Name="T_Questionnaire_Subject" EntityType="HrEvaModel.T_Questionnaire_Subject" />
+    <EntitySet Name="T_Questionnaire_Results" EntityType="HrEvaModel.T_Questionnaire_Results" />
+    <EntitySet Name="T_Questionnairer" EntityType="HrEvaModel.T_Questionnairer" />
+    <EntitySet Name="HZ_EVA_Manage_He_Relation_Subject" EntityType="HrEvaModel.HZ_EVA_Manage_He_Relation_Subject" />
+    <EntitySet Name="HZ_EVA_Manage_He_Subject" EntityType="HrEvaModel.HZ_EVA_Manage_He_Subject" />
+    <EntitySet Name="HZ_EVA_Quality_He_Relation_Subject" EntityType="HrEvaModel.HZ_EVA_Quality_He_Relation_Subject" />
+    <EntitySet Name="HZ_EVA_Quality_He_Subject" EntityType="HrEvaModel.HZ_EVA_Quality_He_Subject" />
+    <EntitySet Name="HZ_EVA_Manage" EntityType="HrEvaModel.HZ_EVA_Manage" />
+    <EntitySet Name="HZ_EVA_Quality" EntityType="HrEvaModel.HZ_EVA_Quality" />
+    <EntitySet Name="HZ_EVA_Ranking" EntityType="HrEvaModel.HZ_EVA_Ranking" />
+    <EntitySet Name="HZ_EVA_SUM" EntityType="HrEvaModel.HZ_EVA_SUM" />
+    <EntitySet Name="HZ_EVA_Trust" EntityType="HrEvaModel.HZ_EVA_Trust" />
+    <EntitySet Name="TZ_Upload_Data" EntityType="HrEvaModel.TZ_Upload_Data" />
+    <EntitySet Name="T_Role" EntityType="HrEvaModel.T_Role" />
+    <EntitySet Name="T_User_Role" EntityType="HrEvaModel.T_User_Role" />
+    <EntitySet Name="T_Permission" EntityType="HrEvaModel.T_Permission" />
+    <EntitySet Name="T_User_Permission" EntityType="HrEvaModel.T_User_Permission" />
+    <EntitySet Name="T_Role_Permission" EntityType="HrEvaModel.T_Role_Permission" />
+    <EntitySet Name="V_Examiners_Group" EntityType="HrEvaModel.V_Examiners_Group" />
+    <EntitySet Name="V_User_Permission" EntityType="HrEvaModel.V_User_Permission" />
+    <EntitySet Name="TZ_Examiners" EntityType="HrEvaModel.TZ_Examiners" />
+    <EntitySet Name="TZ_Assessment_Department" EntityType="HrEvaModel.TZ_Assessment_Department" />
+    <EntitySet Name="TZ_Company" EntityType="HrEvaModel.TZ_Company" />
+    <EntitySet Name="TZ_Sign" EntityType="HrEvaModel.TZ_Sign" />
+    <EntitySet Name="V_Hollander" EntityType="HrEvaModel.V_Hollander" />
+    <EntitySet Name="V_Questionnairer" EntityType="HrEvaModel.V_Questionnairer" />
+    <EntitySet Name="V_Depmartment_Curriculu" EntityType="HrEvaModel.V_Depmartment_Curriculu" />
+    <EntitySet Name="TZ_Company_Month_Report" EntityType="HrEvaModel.TZ_Company_Month_Report" />
+    <EntitySet Name="TZ_Curriculu_Project" EntityType="HrEvaModel.TZ_Curriculu_Project" />
+    <EntitySet Name="TZ_Sign_Url" EntityType="HrEvaModel.TZ_Sign_Url" />
+    <EntitySet Name="GW_Evaluationers" EntityType="HrEvaModel.GW_Evaluationers" />
+    <EntitySet Name="GW_Position" EntityType="HrEvaModel.GW_Position" />
+    <EntitySet Name="GW_Position_Evaluation_Project" EntityType="HrEvaModel.GW_Position_Evaluation_Project" />
+    <EntitySet Name="GW_QRCode" EntityType="HrEvaModel.GW_QRCode" />
+    <EntitySet Name="V_Position_Evaluationers" EntityType="HrEvaModel.V_Position_Evaluationers" />
+    <EntitySet Name="GW_Position_Evaluation_Results" EntityType="HrEvaModel.GW_Position_Evaluation_Results" />
+    <EntitySet Name="V_Position_Evaluation_Results" EntityType="HrEvaModel.V_Position_Evaluation_Results" />
+  </EntityContainer>
+  <EntityType Name="T_Basic_Data">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Assessor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Relation_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="Boolean" Nullable="false" />
+    <Property Name="Is_Valid" Type="Boolean" Nullable="false" />
+    <Property Name="Strip_Line" Type="Boolean" Nullable="false" />
+    <Property Name="Questionnaire_ID" Type="Int64" />
+    <Property Name="Emp_ID" Type="Int64" />
+    <Property Name="Emp_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="T_Questionnaire">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Questionnaire_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Subject_Prefix" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Code" Type="Int32" />
+    <Property Name="Subject_Second_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_First_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Zore_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="T_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Chinese_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Is_Company" Type="Boolean" />
+    <Property Name="Role_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Option">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Option_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Num" Type="Int32" />
+    <Property Name="Option_Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Option_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Code" Type="Int32" />
+    <Property Name="Subject_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Questionnaire_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject_ID" Type="Int64" />
+    <Property Name="Subject_Num" Type="Int32" />
+    <Property Name="Questionnaire_ID" Type="Int64" />
+    <Property Name="Subject_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Code" Type="Int32" />
+    <Property Name="Subject_Second_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_First_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Zore_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Subject_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Questionnaire_Results">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_ID" Type="Int64" />
+    <Property Name="Questionnaire_ID" Type="Int64" Nullable="false" />
+    <Property Name="Subject_ID" Type="Int64" Nullable="false" />
+    <Property Name="Subject_Num" Type="Int32" />
+    <Property Name="Subject_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Option_ID" Type="Int64" />
+    <Property Name="Option_Code" Type="Int32" />
+    <Property Name="Option_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Actual_Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Employee_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Questionnaire_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Second_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_First_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Zore_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_Answer" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Questionnairer_ID" Type="Int32" />
+    <Property Name="Questionnairer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Questionnairer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Full_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Questionnaire_ID" Type="Int32" />
+    <Property Name="Is_OK" Type="Boolean" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Create_Time" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Manage_He_Relation_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Relation_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_ID" Type="Int64" />
+    <Property Name="Subject_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Manage_He_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_ID" Type="Int64" />
+    <Property Name="Subject_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MinScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MaxScore" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Quality_He_Relation_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Relation_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_ID" Type="Int64" />
+    <Property Name="Subject_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Quality_He_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subject_ID" Type="Int64" />
+    <Property Name="Subject_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MinScore" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MaxScore" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Manage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Dim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Quality">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Dim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Ranking">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Ranking" Type="Int32" />
+    <Property Name="Ranking_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Quality_Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Quality_Ranking" Type="Int32" />
+    <Property Name="Quality_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Manage_Score" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Manage_Ranking" Type="Int32" />
+    <Property Name="Manage_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_SUM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Relation_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Total_Counts" Type="Int32" />
+    <Property Name="Valid_Counts" Type="Int32" />
+    <Property Name="Invalid_Counts" Type="Int32" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Valid_Per" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Trust">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Years" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Assessor_Info_ID" Type="Int64" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Dim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Trust_Per" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Basictrust_Per" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Distrust_Per" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Trust_Pers" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="TZ_Upload_Data">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Curriculu_ID" Type="Int64" />
+    <Property Name="File_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="File_Size" Type="Int64" />
+    <Property Name="File_Data" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="File_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Uploader" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Uplpad_Time" Type="DateTime" Precision="3" />
+    <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="File_Sort" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_User_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_ID" Type="Int64" />
+    <Property Name="User_ID" Type="Int64" />
+  </EntityType>
+  <EntityType Name="T_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="alias" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="palias" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_User_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User_ID" Type="Int32" Nullable="false" />
+    <Property Name="Rule_Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rule_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_Role_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_ID" Type="Int64" />
+    <Property Name="Permission_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_Examiners_Group">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="Conmpany_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="First_Department_Counts" Type="Int32" />
+    <Property Name="Totals_Counts" Type="Int32" />
+    <Property Name="Important_Counts" Type="Int32" />
+    <Property Name="Admin_Counts" Type="Int32" />
+    <Property Name="Entry_Counts" Type="Int32" />
+    <Property Name="Leave_Counts" Type="Int32" />
+    <Property Name="Transfer_Counts" Type="Int32" />
+    <Property Name="Importer" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Import_Time" Type="DateTime" Precision="3" />
+    <Property Name="Locker" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Lock_Time" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="V_User_Permission">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="User_ID" Type="Int32" Nullable="false" />
+    <Property Name="Rule_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Rule_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TZ_Examiners">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="Conmpany_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="First_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Second_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Post" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Rank" Type="Int32" />
+    <Property Name="Employee_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Importer" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Import_Time" Type="DateTime" Precision="3" />
+    <Property Name="Lock_Time" Type="DateTime" Precision="3" />
+    <Property Name="Is_Lock" Type="Boolean" />
+    <Property Name="Locker" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Is_Important" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TZ_Assessment_Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Company_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Department_Counts" Type="Int32" />
+    <Property Name="Is_Assessment" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TZ_Company">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Company_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Company_Scale" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TZ_Sign">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Curriculu_ID" Type="Int64" />
+    <Property Name="SignIn_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SignIn_Time" Type="DateTime" Precision="3" />
+    <Property Name="SignOut_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SignOut_Time" Type="DateTime" Precision="3" />
+    <Property Name="Curriculu_Mark" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Memo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Teacher_Mark" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="First_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_Hollander">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Questionnairer_ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Questionnairer_ID" Type="Int64" Nullable="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Questionnaire_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Score1" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score2" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score3" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score4" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score5" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score6" Type="Decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="V_Questionnairer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Questionnaire_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Score1" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score2" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score3" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score4" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score5" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score6" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score7" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score8" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="Option_Score9" Type="Decimal" Precision="38" Scale="2" />
+  </EntityType>
+  <EntityType Name="V_Depmartment_Curriculu">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Is_Assessment" />
+      <PropertyRef Name="Is_Valid" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Is_Assessment" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Curriculu_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Curriculu_Cost" Type="Decimal" Precision="20" Scale="6" />
+    <Property Name="Is_Valid" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Check_Time" Type="DateTime" Precision="3" />
+    <Property Name="Valid_Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Group_Deduction_Factor" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="Group_Deduction_Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Attendance_Counts" Type="Int32" />
+    <Property Name="Attendance_Counts" Type="Int32" />
+    <Property Name="Attendance_Pre" Type="Decimal" Precision="24" Scale="12" />
+    <Property Name="Full_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Total_Hours" Type="Decimal" Precision="31" Scale="6" />
+    <Property Name="Un_Attendance_Counts" Type="Int32" />
+    <Property Name="Avg_Hours" Type="Decimal" Precision="38" Scale="13" />
+    <Property Name="Important_Full_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Years_Scenes" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TZ_Company_Month_Report">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Company_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="PX" Type="Int32" />
+    <Property Name="DF" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="JF" Type="Int32" />
+    <Property Name="NDJF" Type="Int32" />
+    <Property Name="Valid_Per" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ZZCC" Type="Int32" />
+    <Property Name="ZZZCC" Type="Int32" />
+    <Property Name="FXRS" Type="Int32" />
+    <Property Name="KS" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="KCJF" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="XS" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="YCQRS" Type="Int32" />
+    <Property Name="SCQRS" Type="Int32" />
+    <Property Name="WCBMS" Type="Int32" />
+    <Property Name="YFGBMS" Type="Int32" />
+    <Property Name="YFXFGL" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FJC_SCQRS" Type="Int32" />
+    <Property Name="FJC_YCQRS" Type="Int32" />
+    <Property Name="FJC_FGL" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FJC_ZXS" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FJC_RJXS" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="YIFXRS" Type="Int32" />
+    <Property Name="YFXRS" Type="Int32" />
+    <Property Name="FXRS_Per" Type="Decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="TZ_Curriculu_Project">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Organization_Type" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Curriculu_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="First_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Post" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Hierarchy" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="Rank" Type="Int32" />
+    <Property Name="Estimate_Start_Time" Type="DateTime" Precision="3" />
+    <Property Name="Estimate_End_Time" Type="DateTime" Precision="3" />
+    <Property Name="Actual_Start_Time" Type="DateTime" Precision="3" />
+    <Property Name="Actual_End_Time" Type="DateTime" Precision="3" />
+    <Property Name="Memo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="File_Counts" Type="Int32" />
+    <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Checker" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Check_Time" Type="DateTime" Precision="3" />
+    <Property Name="Group_Checker" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Group_Check_Time" Type="DateTime" Precision="3" />
+    <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="External_Trainer" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Deduction_Factor" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="Deduction_Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Group_Deduction_Factor" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="Group_Deduction_Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Submiter" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Submit_Time" Type="DateTime" Precision="3" />
+    <Property Name="Submiter_ID" Type="Int64" />
+    <Property Name="Is_Valid" Type="Boolean" />
+    <Property Name="Valid_Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TZ_Sign_Url">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Curriculu_ID" Type="Int64" />
+    <Property Name="SignInUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="SignOutUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="SignInQC" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="SignOutQC" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Curriculu_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="GW_Evaluationers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_ID" Type="Int64" />
+    <Property Name="Project_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_ID" Type="Int64" />
+    <Property Name="Position_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Conmpany_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="First_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Post" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Is_Completed" Type="Boolean" />
+    <Property Name="Completed_Time" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="GW_Position">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_ID" Type="Int64" />
+    <Property Name="Project_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Conmpany_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="First_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Importer" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Import_Time" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="GW_Position_Evaluation_Project">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Company_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Questionnaire_ID" Type="Int64" />
+    <Property Name="Questionnaire_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Counts" Type="Int32" />
+    <Property Name="Memo" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="Creater" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Create_Time" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="GW_QRCode">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_ID" Type="Int64" />
+    <Property Name="Project_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="QRCode" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="V_Position_Evaluationers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="Project_ID" Type="Int64" />
+    <Property Name="Project_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Company" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Evaluationers_Company" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Evaluationers_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Post" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Full_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="GW_Position_Evaluation_Results">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_ID" Type="Int64" />
+    <Property Name="Project_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_ID" Type="Int64" />
+    <Property Name="Position_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Evaluationer_ID" Type="Int64" />
+    <Property Name="Full_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Option_Name1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score1" Type="Int32" />
+    <Property Name="Option_Name2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score2" Type="Int32" />
+    <Property Name="Option_Name3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score3" Type="Int32" />
+    <Property Name="Option_Name4" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score4" Type="Int32" />
+    <Property Name="Option_Name5" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score5" Type="Int32" />
+    <Property Name="Option_Name6" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score6" Type="Int32" />
+    <Property Name="Option_Name7" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score7" Type="Int32" />
+    <Property Name="Option_Name8" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score8" Type="Int32" />
+    <Property Name="Option_Name9" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Actual_Score9" Type="Int32" />
+  </EntityType>
+  <EntityType Name="V_Position_Evaluation_Results">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="variation_per" />
+      <PropertyRef Name="is_variation" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Conmpany_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="First_Department" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Position_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="maxscore" Type="Int32" />
+    <Property Name="minscore" Type="Int32" />
+    <Property Name="avgscore" Type="Int32" />
+    <Property Name="avgscore2" Type="Int32" />
+    <Property Name="stdevscore" Type="Double" />
+    <Property Name="variation_per" Type="Double" Nullable="false" />
+    <Property Name="is_variation" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

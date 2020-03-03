@@ -1,0 +1,102 @@
+﻿@*<link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />*@
+
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司</label>
+        <div class="layui-input-inline">
+            <select name="typename" lay-filter="typename" lay-verify="required">
+                <option value="" selected=""></option>
+                <option value="公司">公司</option>
+                <option value="部门">部门</option>
+                <option value="岗位/职位">岗位/职位</option>
+                <option value="层级">层级</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Name" lay-verify="required" autocomplete="off" placeholder="请输入名称" class="layui-input">
+        </div>
+    </div>
+
+    @*<div class="layui-form-item">
+        <label class="layui-form-label">值</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Value" autocomplete="off" placeholder="请输入值" class="layui-input">
+        </div>
+    </div>*@
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea type="text" name="Memo" autocomplete="off" placeholder="请输入备注" class="layui-textarea"> </textarea>
+        </div>
+    </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+</form>
+
+@*<script src="~/Scripts/layui/layui.js"></script>*@
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+
+  //监听提交
+    form.on('submit(add)', function(data){
+
+        $.ajax({
+            'type': 'post',
+            'url': '/Basic/AddInfo',
+            'data': {
+                Type: data.field.typename, Name: data.field.Name
+                //, Value: data.field.Value
+                , Memo: data.field.Memo 
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

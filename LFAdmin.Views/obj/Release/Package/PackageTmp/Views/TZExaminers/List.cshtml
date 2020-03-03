@@ -1,0 +1,248 @@
+﻿
+<div class="demoTable" style="padding-top:20px;">
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">年度</label>
+            <div class="layui-input-inline">
+                <select name="Year" id="Year" lay-filter="Year">
+                    <option value=""></option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+
+            </div>
+
+
+            <label class="layui-form-label">月度</label>
+            <div class="layui-input-inline">
+                <select name="Month" id="Month" lay-filter="Month">
+                    <option value=""></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+
+            </div>
+
+            @if (Session["JGLoginCompanyName"].Equals("精工控股本级"))
+            {
+
+                <label class="layui-form-label">公司</label>
+                <div class="layui-input-inline">
+                    <select name="Conmpany_Name" id="Conmpany_Name" lay-filter="Conmpany_Name">
+                        <option value="" selected=""></option>
+                        @if (ViewBag.comList != null)
+                        {
+                            foreach (var emp in ViewBag.comList)
+                            {
+                                <option value="@emp.Company_Name">@emp.Company_Name</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+            }
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">一级部门</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="First_Department" autocomplete="off">
+            </div>
+
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="Full_Name" autocomplete="off">
+            </div>
+
+
+            <button class="layui-btn" data-type="reload" type="button" id="search"><i class="layui-icon layui-icon-search"></i>搜索 </button>
+            <a href="../Docs/Examiners/考核人员导入模板.xls" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-template"></i>模板下载</a>
+            <button class="layui-btn layui-btn-normal" data-type="import" type="button" id="import"><i class="layui-icon layui-icon-upload-circle"></i>人员导入</button>
+        </div>
+    </form>
+</div>
+<table id="TZExaminers" class="layui-table" lay-filter="TZExaminers" lay-data="{  height: 'full-150', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/TZExaminers/getList'}">
+    <thead>
+        <tr>
+            <th lay-data="{type: 'numbers'}"></th>
+            <th lay-data="{field:'Year', sort: true,width:80}">年度</th>
+            <th lay-data="{field:'Month', sort: true,width:80}">月度</th>
+            <th lay-data="{field:'Conmpany_Name',  sort: true,width:120}">所属公司</th>
+            <th lay-data="{field:'First_Department',  sort: true,width:120}">一级部门</th>
+            <th lay-data="{field:'Second_Department',  sort: true,width:120}">二级部门</th>
+            <th lay-data="{field:'Card',  sort: true,width:180}">身份证</th>
+            <th lay-data="{field:'Full_Name',  sort: true,width:100}">姓名</th>
+            <th lay-data="{field:'Post',  sort: true}">岗位</th>
+            <th lay-data="{field:'Hierarchy',  sort: true,width:80}">层级</th>
+            @*<th lay-data="{field:'Rank',  sort: true,width:80}">职级</th>*@
+            <th lay-data="{field:'Is_Important',templet: '#checkboxTpl', unresize: true}">关键岗位</th>
+            <th lay-data="{field:'Employee_Type',  sort: true}">员工类型</th>
+            <th lay-data="{field:'State',  sort: true}">异动状态</th>
+            <th lay-data="{field:'Importer',  sort: true,width:100}">导入人</th>
+            <th lay-data="{field:'Import_Time',  sort: true,width:200}">导入时间</th>
+            <th lay-data="{field:'Locker',  sort: true,width:100}">审核人</th>
+            <th lay-data="{field:'Lock_Time',  sort: true,width:200}">审核时间</th>
+
+            <th lay-data="{ width:108, align:'center', toolbar: '#bar'}"></th>
+        </tr>
+    </thead>
+</table>
+<script type="text/html" id="checkboxTpl">
+    <!-- 这里的 checked 的状态只是演示 -->
+    <input type="checkbox" name="lock" value="{{d.Is_Important}}" title="关键" lay-filter="lockDemo" {{ d.Is_Important == true ? 'checked' : '' }}>
+</script>
+
+
+<script type="text/html" id="bar">
+    @*离职权限*@
+    {{#  if('@ViewBag.Leave'=='True'){ }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="leave"><i class="fa fa-user-times fa-lg"></i> 离职</a>
+    {{# } }}
+</script>
+
+<script type="text/javascript">
+
+
+    layui.use(['table', 'layer', 'form', 'layedit', 'laydate', 'upload'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate
+            , table = layui.table
+            , upload = layui.upload;
+        var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+        form.render();
+
+        //监听工具条
+        table.on('tool(TZExaminers)', function (obj) {
+            var data = obj.data;
+            var id = data.ID;
+            if (obj.event === 'detail') {
+            } else if (obj.event === 'leave') {
+                layer.confirm('该人员异动状态改为"离职"之后将无法恢复', function (index) {
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/TZExaminers/Leave',
+                        'data': {
+                            ID: id
+                        },
+                        success: function (data) {
+                            var da = JSON.parse(data);
+                            if (da.IsSuccess == "1") {
+                                layer.close(index);
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                            else {
+                                layer.alert(da.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                        },
+                        error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+                    });
+                });
+            }
+
+        });
+
+        layer.ready(function () {
+            //执行重载
+            table.reload('TZExaminers', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    Year: $("#Year").val(),
+                    Month: $("#Month").val(),
+                    Conmpany_Name: $("#Conmpany_Name").val(),
+                    First_Department: $("#First_Department").val(),
+                    Full_Name: $("#Full_Name").val(),
+                    time: new Date()
+                }
+            });
+        });
+
+
+        //搜索加载--数据表格重载
+        var $ = layui.$, active = {
+            reload: function () {
+                //执行重载
+                table.reload('TZExaminers', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Year: $("#Year").val(),
+                        Month: $("#Month").val(),
+                        Conmpany_Name: $("#Conmpany_Name").val(),
+                        First_Department: $("#First_Department").val(),
+                        Full_Name: $("#Full_Name").val(),
+                        time: new Date()
+                    }
+                });
+            }
+
+        };
+
+        $('#search').on('click', function () {
+            ids = new Array();
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        ///导入
+        upload.render({
+            elem: '#import'
+            , accept: 'file'
+            , exts: 'xls|xlsx'
+            , 'url': '/TZExaminers/ImportExaminers'
+            , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+            }
+            , done: function (res) {
+                layer.closeAll('loading'); //关闭loading
+                if (res.IsSuccess == "1") {
+                    layer.alert("上传成功", {
+                        title: '提示'
+                    });
+                    window.location.reload();
+                }
+                else {
+                    layer.alert(res.MessageString, {
+                        title: '提示'
+                    });
+                    return false;
+                }
+            },
+            error: function (message) {
+                layer.closeAll('loading'); //关闭loading
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+                return false;
+            }
+        });
+
+
+
+    });
+
+</script>

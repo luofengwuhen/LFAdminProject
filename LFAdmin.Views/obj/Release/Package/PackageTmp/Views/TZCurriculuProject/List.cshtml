@@ -1,0 +1,753 @@
+﻿@*<style>
+        /*table自动换行*/
+        .layui-table .layui-table-cell {
+            height: auto;
+            overflow: visible;
+            text-overflow: inherit;
+            white-space: normal;
+        }
+    </style>*@
+<div class="demoTable" style="padding-top:20px;">
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <div class="layui-form-item">
+            @if (Session["JGLoginCompanyName"].Equals("精工控股本级"))
+            {
+                <label class="layui-form-label">公司</label>
+                <div class="layui-input-inline">
+                    <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                        @*<option value="" selected=""></option>*@
+                        @if (ViewBag.comList != null)
+                        {
+                            foreach (var emp in ViewBag.comList)
+                            {
+                                <option value="@emp.Company_Name">@emp.Company_Name</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+            }
+
+                <label class="layui-form-label">组织部门</label>
+                <div class="layui-input-inline">
+                    <select name="Department" id="Department" lay-filter="Department">
+                        <option value="" selected=""></option>
+                        @if (ViewBag.depList != null)
+                        {
+                            foreach (var emp in ViewBag.depList)
+                            {
+                                <option value="@emp.Department_Name">@emp.Department_Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+
+                <label class="layui-form-label">组织形式</label>
+                <div class="layui-input-inline">
+                    <select name="Organization_Type" id="Organization_Type" lay-filter="Organization_Type">
+                        <option value="" selected=""></option>
+                        <option value="内部讲师">内部讲师</option>
+                        <option value="外部讲师">外部讲师</option>
+                    </select>
+                </div>
+
+
+                <button class="layui-btn" data-type="reload" type="button" id="search">
+                    <i class="layui-icon layui-icon-search"></i>搜索
+                </button>
+                <button class="layui-btn layui-btn-primary" type="button" data-type="add" id="add">
+                    <i class="layui-icon layui-icon-add-circle"></i>添加
+                </button>
+            </div>
+    </form>
+</div>
+<table id="TZCurriculuProject" lay-filter="TZCurriculuProject"></table>
+@*<table id="TZCurriculuProject" class="layui-table" lay-filter="TZCurriculuProject" lay-data="{  height: 'full-80', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/TZCurriculuProject/getList'}">
+        <thead>
+            <tr>
+                <th lay-data="{type: 'radio',event: 'checked' }"></th>
+                <th lay-data="{type: 'numbers'}"></th>
+                <th lay-data="{field:'Company_Name',   sort: true}">公司</th>
+                <th lay-data="{field:'Department', sort: true,width:120}">组织部门</th>
+                <th lay-data="{field:'Organization_Type', sort: true,width:120}">组织形式</th>
+                <th lay-data="{field:'Curriculu_Name',  sort: true,width:200}">课程名称</th>
+                <th lay-data="{field:'First_Department',  sort: true,width:170}">讲师一级部门/机构</th>
+                <th lay-data="{field:'Full_Name',  sort: true,width:120}">讲师姓名</th>
+                <th lay-data="{field:'Actual_Start_Time',width:170,  sort: true}">实际开始时间</th>
+                <th lay-data="{field:'Actual_End_Time',width:170,  sort: true}">实际结束时间</th>
+                <th lay-data="{field:'Cost',   width:100}">课程经费</th>
+                <th lay-data="{field:'Submiter',   width:100}">创建人</th> 
+            </tr>
+        </thead>
+    </table>*@
+@*<th lay-data="{ width:498 ,height:40,align:'center', toolbar: '#bar'}"></th>*@
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container" hidden="hidden" id="divBtn">
+
+        @*各部们提报*@
+        {{#  if('@ViewBag.DepartmentAdd'=='True'){ }}
+        <a class="layui-btn layui-btn" lay-event="edit">
+            <i class="layui-icon layui-icon-edit"></i>编辑
+        </a>
+        <a class="layui-btn layui-btn-primary layui-btn" lay-event="Copy"><i class="layui-icon layui-icon-notice"></i>通知模板</a>
+        @*外部讲师不需要签到二维码*@
+        <a class="layui-btn layui-btn-primary layui-btn" id="QRCode" lay-event="QRCode"><i class="fa fa-qrcode fa-lg"></i> 二维码签到</a>
+
+        <a class="layui-btn layui-btn-primary layui-btn" lay-event="time"><i class="fa fa-calendar fa-lg"></i> 课程时间</a>
+        <a class="layui-btn layui-btn-primary layui-btn" lay-event="cost"><i class="fa fa-cny fa-lg"></i> 课程经费</a>
+
+        @*内部讲师 和外部讲师上传的问题不一样*@
+        <a class="layui-btn layui-btn-primary layui-btn" id="uploadFiles" lay-event="uploadFiles"><i class="fa fa-cloud-upload fa-lg"></i> 文件上传</a>
+        <a class="layui-btn layui-btn-primary layui-btn" id="uploadFilesOutside" lay-event="uploadFilesOutside"><i class="fa fa-cloud-upload fa-lg"></i> 文件上传</a>
+        {{# } }}
+        @*所有人都有的权限*@
+        <a class="layui-btn layui-btn-primary layui-btn" lay-event="previewFiles"><i class="fa fa-file-word-o fa-lg"></i> 文件查看</a>
+        <a class="layui-btn layui-btn-primary layui-btn" lay-event="sign"><i class="fa fa-check-circle-o fa-lg"></i> 签到信息</a>
+        @*具有子公司审核权限*@
+        {{#  if('@ViewBag.CheckPurview'=='True'){ }}
+        @*子公司已审核,则显示撤回*@
+        <a class="layui-btn layui-btn-danger layui-btn" id="CancelCheck" lay-event="CancelCheck"><i class="fa fa-rotate-right fa-lg"></i> 审核撤回</a>
+        <a class="layui-btn layui-btn-normal layui-btn" id="Check" lay-event="Check"><i class="fa fa-check-square-o fa-lg"></i> 审核提报</a>
+        {{# } }}
+
+        @*具有集团审核权限*@
+        {{#  if('@ViewBag.GroupCheckPurview'=='True'){ }}
+        @*集团已审核,则显示撤回*@
+        <a class="layui-btn layui-btn-danger layui-btn" id="GroupCancelCheck" lay-event="GroupCancelCheck"><i class="fa fa-rotate-right fa-lg"></i> 审核撤回</a>
+        <a class="layui-btn layui-btn-normal layui-btn" id="GroupCheck" lay-event="GroupCheck"><i class="fa fa-check-square-o fa-lg"></i> 审核</a>
+        {{# } }}
+        @*各部们提报*@
+        {{#  if('@ViewBag.DepartmentDel'=='True'){ }}
+        <a class="layui-btn layui-btn-danger layui-btn" lay-event="del"><i class="layui-icon layui-icon-delete"></i> 删除</a>
+        {{# } }}
+    </div>
+</script>
+
+<script src="~/Scripts/clipboard.min.js"></script>
+<script type="text/html" id="bar">
+    <div style="text-align:left">
+        @*各部们提报*@
+        {{#  if('@ViewBag.DepartmentAdd'=='True'){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="Copy">通知模板</a>
+        @*外部讲师不需要签到二维码*@
+        {{#  if(d.Organization_Type =='内部讲师'){ }}
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="QRCode">二维码</a>
+        {{# } }}
+
+        @*内部讲师 和外部讲师上传的问题不一样*@
+        {{#  if(d.Organization_Type =='内部讲师'){ }}
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="uploadFiles">文件上传</a>
+        {{# } else { }}
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="uploadFilesOutside">文件上传</a>
+        {{# } }}
+        {{# } }}
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="previewFiles">文件查看</a>
+
+        @*具有子公司审核权限*@
+        {{#  if('@ViewBag.CheckPurview'=='True'){ }}
+        @*子公司已审核,则显示撤回*@
+        {{#  if(d.Checker !='' && d.Checker !=null){ }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="CancelCheck">审核撤回</a>
+        {{# } else { }}
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="Check">审核提报</a>
+        {{# } }}
+        {{# } }}
+
+        @*具有集团审核权限*@
+        {{#  if('@ViewBag.GroupCheckPurview'=='True'){ }}
+        @*集团已审核,则显示撤回*@
+        {{#  if(d.Group_Checker !='' && d.Group_Checker !=null){ }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="GroupCancelCheck">审核撤回</a>
+        {{# } else { }}
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="GroupCheck">审核</a>
+        {{# } }}
+        {{# } }}
+        @*各部们提报*@
+        {{#  if('@ViewBag.DepartmentAdd'=='True'){ }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        {{# } }}
+    </div>
+
+
+</script>
+
+<script type="text/javascript">
+    layui.use(['table', 'layer', 'form', 'layedit', 'laydate', 'util', 'upload'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate
+            , table = layui.table
+            , util = layui.util
+            , upload = layui.upload;
+        var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+        table.render({
+            elem: '#TZCurriculuProject' //指定原始表格元素选择器（推荐id选择器）
+            , height: 'full-90' //容器高度
+            , cellMinWidth: 120
+            , toolbar: '#toolbar'
+            , page: true
+            , limit: 20
+            , url: '/TZCurriculuProject/getList' 
+            , cols: [[
+                { type: 'radio', event: 'checked' } ,
+                {type: 'numbers'},
+                { field: 'Company_Name', title: '公司',   sort: true},
+                { field: 'Department', title: '组织部门', sort: true,width:120},
+                { field: 'Organization_Type', title: '组织形式', sort: true, width: 120 },
+                { field: 'Curriculu_Name', title: '课程名称',  sort: true,width:200},
+                { field: 'First_Department', title: '讲师一级部门',  sort: true,width:170},
+                { field: 'Full_Name', title: '讲师姓名',  sort: true,width:120},
+                { field: 'Actual_Start_Time', title: '实际开始时间', templet: function (d) { if (d.Actual_Start_Time != null) { return util.toDateString(d.Actual_Start_Time); } else { return '' }},width:170,  sort: true},
+                { field: 'Actual_End_Time', title: '实际结束时间', templet: function (d) { if (d.Actual_End_Time != null) { return util.toDateString(d.Actual_End_Time); } else { return '' } } ,width:170,  sort: true},
+                { field: 'Cost', title: '课程经费',   width:100},
+                { field: 'Submiter', title: '创建人',   width:100}
+            ]] //设置表头
+       
+        });
+
+        //监听select 公司动态选择
+        form.on('select(Company_Name)', function (data) { 
+                $.ajax({
+                    type: 'POST',
+                    url: '/TZAssessmentDepartment/getAssessmentDepartment',
+                    data: { Company_Name: data.value },
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#Department").html(""); 
+                        var option1 = $("<option>").val("").text("");
+                        $("#Department").append(option1);
+                        $.each(data, function (key, val) {
+                            var option1 = $("<option>").val(val).text(val);
+                            $("#Department").append(option1);
+                        });
+                        form.render('select');
+                        $("#Department").get(0).selectedIndex = 0;
+                    }, error: function (message) {
+                        $("#Department").html("");
+                    } 
+                }); 
+        });
+
+
+        form.render();
+        //页面一打开就执行弹层
+        layer.ready(function () {
+            //执行重载
+            table.reload('TZCurriculuProject', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    Company_Name: $("#Company_Name").val(),
+                    Organization_Type: $("#Organization_Type").val(),
+                    Department: $("#Department").val(),
+                    time: new Date()
+                }
+            });
+        });
+
+
+        table.on('toolbar(TZCurriculuProject)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
+            var data = checkStatus.data;  //获取选中行数据
+            if (data.length == 0) { layer.msg("请选择一行记录"); return; }
+
+            var id = data[0].ID;
+            switch (obj.event) {
+                case 'edit':
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: "编辑课程项目信息",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['680px', '580px'], //宽高
+                        content: '/TZCurriculuProject/Edit?ID=' + id
+
+                    });
+                    break;
+                case 'del':
+                    layer.confirm('数据删除之后将无法恢复', function (index) {
+                        $.ajax({
+                            'type': 'post',
+                            'url': '/TZCurriculuProject/DelInfo',
+                            'data': {
+                                ID: id
+                            },
+                            success: function (data) {
+                                var da = JSON.parse(data);
+                                if (da.IsSuccess == "1") {
+                                    layer.close(index);
+                                    layer.alert(da.MessageString, {
+                                        title: '提示'
+                                    }, function () {
+                                        //window.parent.location.reload();
+                                        layer.close(layer.index);
+                                        //执行重载
+                                        table.reload('TZCurriculuProject', {
+                                            page: {
+                                                curr: 1 //重新从第 1 页开始
+                                            }
+                                            , where: {
+                                                Company_Name: $("#Company_Name").val(),
+                                                Organization_Type: $("#Organization_Type").val(),
+                                                Department: $("#Department").val(),
+                                                time: new Date()
+                                            }
+                                        });
+                                    });
+                                }
+                                else {
+                                    layer.alert(da.MessageString, {
+                                        title: '提示'
+                                    });
+                                }
+
+                            },
+                            error: function (message) {
+                                layer.alert(JSON.stringify(message.statusText), {
+                                    title: '提示'
+                                });
+                            }
+                        });
+                    });
+                    break;
+                case 'time':
+                    layer.open({
+                        type: 2,
+                        title: "课程时间",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['450px', '460px'], //宽高
+                        content: '/TZCurriculuProject/CurriculuTime?ID=' + id
+                    });
+                    break;
+                case 'cost':
+                    layer.open({
+                        type: 2,
+                        title: "课程经费",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['450px', '300px'], //宽高
+                        content: '/TZCurriculuProject/CurriculuCost?ID=' + id
+                    });
+                    break;
+                case 'uploadFiles':
+                    layer.open({
+                        type: 2,
+                        title: "资料上传",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['650px', '560px'], //宽高
+                        content: '/TZCurriculuProject/Upload?ID=' + id
+                    });
+                    break;
+                case 'uploadFilesOutside':
+                    layer.open({
+                        type: 2,
+                        title: "资料上传",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['650px', '560px'], //宽高
+                        content: '/TZCurriculuProject/UploadOutside?ID=' + id
+                    });
+                    break;
+                case 'previewFiles':
+                    layer.open({
+                        type: 2,
+                        title: "文件查看",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['950px', '560px'], //宽高
+                        content: '/TZCurriculuProject/Preview?ID=' + id + "&time=new date()&str=Preview"
+                    });
+                    break;
+                case 'QRCode':
+                    layer.open({
+                        type: 2,
+                        title: "二维码下载",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['1100px', '580px'], //宽高
+                        content: '/TZCurriculuProject/DownQRCode?ID=' + id + "&time=new date()"
+                    });
+                    break;
+                case 'Copy':
+                    layer.open({
+                        type: 2,
+                        title: "复制课程信息",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['750px', '360px'], //宽高
+                        content: '/TZCurriculuProject/CopyTxt?ID=' + id + "&time=new date()"
+                    });
+                    break;
+                case 'CancelCheck':
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/TZCurriculuProject/CancelCheck',
+                        'data': {
+                            ID: id
+                        },
+                        success: function (data) {
+                            var obj = JSON.parse(data);
+                            if (obj.IsSuccess == "1") {
+
+                                window.location.reload();
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                            else {
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                        },
+                        error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+                    });
+                    break;
+                case 'Check':
+                    layer.open({
+                        type: 2,
+                        title: "审核提报",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['950px', '560px'], //宽高
+                        content: '/TZCurriculuProject/Preview?ID=' + id + "&time=new date()&str=Company"
+                    });
+                    break;
+                case 'GroupCancelCheck':
+                    $.ajax({
+                        'type': 'post',
+                        'url': '/TZCurriculuProject/GroupCancelCheck',
+                        'data': {
+                            ID: id
+                        },
+                        success: function (data) {
+                            var obj = JSON.parse(data);
+                            if (obj.IsSuccess == "1") {
+
+                                window.location.reload();
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                            else {
+                                layer.alert(obj.MessageString, {
+                                    title: '提示'
+                                });
+                            }
+                        },
+                        error: function (message) {
+                            layer.alert(JSON.stringify(message.statusText), {
+                                title: '提示'
+                            });
+                        }
+
+                    });
+                    break;
+                case 'GroupCheck':
+                    layer.open({
+                        type: 2,
+                        title: "审核提报",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['950px', '560px'], //宽高
+                        content: '/TZCurriculuProject/Preview?ID=' + id + "&time=new date()&str=Group"
+                    });
+                    break;
+
+                case 'sign':
+                    layer.open({
+                        type: 2,
+                        title: "签到信息",
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['1100px', '550px'], //宽高
+                        content: '/TZCurriculuProject/Sign?ID=' + id + "&time=new date()"
+                    });
+                    break;
+            }
+        });
+
+        $('#QRCode').hide();
+        $('#uploadFilesOutside').hide();
+        $('#uploadFiles').hide();
+        $('#Check').hide();
+        $('#CancelCheck').hide();
+        $('#GroupCheck').hide();
+        $('#GroupCancelCheck').hide();
+
+        //监听工具条
+        table.on('tool(TZCurriculuProject)', function (obj) {
+            var data = obj.data;
+            var id = id;
+            if (obj.event === 'detail') {
+
+            } else if (obj.event === 'checked') {
+                $('#divBtn').show();
+
+                @* 外部讲师不需要签到二维码 *@
+                if (data.Organization_Type == '外部讲师') {
+                    $('#QRCode').hide();
+                }
+                else {
+                    $('#QRCode').show();
+                }
+                @* 内部讲师 和外部讲师上传的问题不一样 *@
+                if (data.Organization_Type == '内部讲师') {
+                    $('#uploadFiles').show();
+                    $('#uploadFilesOutside').hide();
+                }
+                else {
+                    $('#uploadFiles').hide();
+                    $('#uploadFilesOutside').show()
+                }
+
+                @* 子公司已审核, 则显示撤回 *@
+                if (data.Checker != '' && data.Checker != null) {
+                    $('#CancelCheck').show();
+                    $('#Check').hide();
+                }
+                else {
+                    $('#CancelCheck').hide();
+                    $('#Check').show()
+                }
+                @* 集团已审核, 则显示撤回 *@
+                if (data.Group_Checker != '' && data.Group_Checker != null) {
+                    $('#GroupCancelCheck').show();
+                    $('#GroupCheck').hide();
+                }
+                else {
+                    $('#GroupCancelCheck').hide();
+                    $('#GroupCheck').show()
+                }
+            }
+            else if (obj.event === 'bak') {
+
+
+
+
+            //else if (obj.event === 'edit') {
+
+            //    //页面层
+            //    layer.open({
+            //        type: 2,
+            //        title: "编辑课程项目信息",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['680px', '580px'], //宽高
+            //        content: '/TZCurriculuProject/Edit?ID=' + id
+
+            //    });
+
+            //} else if (obj.event === 'del') {
+            //    layer.confirm('数据删除之后将无法恢复', function (index) {
+            //        $.ajax({
+            //            'type': 'post',
+            //            'url': '/TZCurriculuProject/DelInfo',
+            //            'data': {
+            //                ID: id
+            //            },
+            //            success: function (data) {
+            //                var da = JSON.parse(data);
+            //                if (da.IsSuccess == "1") {
+            //                    obj.del();
+            //                    layer.close(index);
+
+            //                    layer.alert(da.MessageString, {
+            //                        title: '提示'
+            //                    });
+            //                }
+            //                else {
+            //                    layer.alert(da.MessageString, {
+            //                        title: '提示'
+            //                    });
+            //                }
+
+            //            },
+            //            error: function (message) {
+            //                layer.alert(JSON.stringify(message.statusText), {
+            //                    title: '提示'
+            //                });
+            //            }
+
+            //        });
+
+
+
+            //    });
+            //} else if (obj.event === 'uploadFiles') {
+            //    layer.open({
+            //        type: 2,
+            //        title: "资料上传",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['650px', '560px'], //宽高
+            //        content: '/TZCurriculuProject/Upload?ID=' + id
+            //    });
+            //} else if (obj.event === 'uploadFilesOutside') {
+            //    layer.open({
+            //        type: 2,
+            //        title: "资料上传",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['650px', '560px'], //宽高
+            //        content: '/TZCurriculuProject/UploadOutside?ID=' + id
+            //    });
+            //} else if (obj.event === 'previewFiles') {
+            //    layer.open({
+            //        type: 2,
+            //        title: "文件查看",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['950px', '560px'], //宽高
+            //        content: '/TZCurriculuProject/Preview?ID=' + id + "&time=new date()&str=Preview"
+            //    });
+            //}
+            //else if (obj.event === 'QRCode') {
+            //    layer.open({
+            //        type: 2,
+            //        title: "二维码下载",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['1100px', '500px'], //宽高
+            //        content: '/TZCurriculuProject/DownQRCode?ID=' + id + "&time=new date()"
+            //    });
+            //}
+            //else if (obj.event === 'Copy') {
+            //    layer.open({
+            //        type: 2,
+            //        title: "复制课程信息",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['750px', '360px'], //宽高
+            //        content: '/TZCurriculuProject/CopyTxt?ID=' + id + "&time=new date()"
+            //    });
+
+            //}
+            //else if (obj.event === 'CancelCheck') {
+            //    $.ajax({
+            //        'type': 'post',
+            //        'url': '/TZCurriculuProject/CancelCheck',
+            //        'data': {
+            //            ID: id
+            //        },
+            //        success: function (data) {
+            //            var obj = JSON.parse(data);
+            //            if (obj.IsSuccess == "1") {
+
+            //                window.location.reload();
+            //                layer.alert(obj.MessageString, {
+            //                    title: '提示'
+            //                });
+            //            }
+            //            else {
+            //                layer.alert(obj.MessageString, {
+            //                    title: '提示'
+            //                });
+            //            }
+            //        },
+            //        error: function (message) {
+            //            layer.alert(JSON.stringify(message.statusText), {
+            //                title: '提示'
+            //            });
+            //        }
+
+            //    });
+
+            //}
+            //else if (obj.event === 'Check') {
+            //    layer.open({
+            //        type: 2,
+            //        title: "审核提报",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['950px', '560px'], //宽高
+            //        content: '/TZCurriculuProject/Preview?ID=' + id + "&time=new date()&str=Company"
+            //    });
+
+            //} else if (obj.event === 'GroupCancelCheck') {
+            //    $.ajax({
+            //        'type': 'post',
+            //        'url': '/TZCurriculuProject/GroupCancelCheck',
+            //        'data': {
+            //            ID: id
+            //        },
+            //        success: function (data) {
+            //            var obj = JSON.parse(data);
+            //            if (obj.IsSuccess == "1") {
+
+            //                window.location.reload();
+            //                layer.alert(obj.MessageString, {
+            //                    title: '提示'
+            //                });
+            //            }
+            //            else {
+            //                layer.alert(obj.MessageString, {
+            //                    title: '提示'
+            //                });
+            //            }
+            //        },
+            //        error: function (message) {
+            //            layer.alert(JSON.stringify(message.statusText), {
+            //                title: '提示'
+            //            });
+            //        }
+
+            //    });
+
+            //}
+            //else if (obj.event === 'GroupCheck') {
+            //    layer.open({
+            //        type: 2,
+            //        title: "审核提报",
+            //        skin: 'layui-layer-rim', //加上边框
+            //        area: ['950px', '560px'], //宽高
+            //        content: '/TZCurriculuProject/Preview?ID=' + id + "&time=new date()&str=Group"
+            //    });
+
+            //}
+            }
+        });
+
+
+        //搜索加载--数据表格重载
+        var $ = layui.$, active = {
+
+            reload: function () {
+                $('#QRCode').hide();
+                $('#uploadFilesOutside').hide();
+                $('#uploadFiles').hide();
+                $('#Check').hide();
+                $('#CancelCheck').hide();
+                $('#GroupCheck').hide();
+                $('#GroupCancelCheck').hide();
+
+                //执行重载
+                table.reload('TZCurriculuProject', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Company_Name: $("#Company_Name").val(),
+                        Organization_Type: $("#Organization_Type").val(),
+                        Department: $("#Department").val(),
+                        time: new Date()
+                    }
+                });
+
+            }
+        };
+
+        $('#search').on('click', function () {
+            ids = new Array();
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+
+        $('#add').on('click', function () {
+            layer.open({
+                type: 2,
+                title: "新增课程项目",
+                skin: 'layui-layer-rim', //加上边框
+                area: ['680px', '580px'], //宽高
+                content: '/TZCurriculuProject/Add'
+            });
+        });
+
+    });
+
+</script>

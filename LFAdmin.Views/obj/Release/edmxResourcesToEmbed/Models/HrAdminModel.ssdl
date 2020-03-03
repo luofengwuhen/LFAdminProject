@@ -1,0 +1,890 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HrEvaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GW_Evaluationers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_ID" Type="bigint" />
+    <Property Name="Project_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Position_ID" Type="bigint" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Conmpany_Name" Type="varchar" MaxLength="200" />
+    <Property Name="First_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Post" Type="varchar" MaxLength="200" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Phone" Type="varchar" MaxLength="200" />
+    <Property Name="Is_Completed" Type="bit" />
+    <Property Name="Completed_Time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="GW_Position">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_ID" Type="bigint" />
+    <Property Name="Project_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Conmpany_Name" Type="varchar" MaxLength="200" />
+    <Property Name="First_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Importer" Type="varchar" MaxLength="200" />
+    <Property Name="Import_Time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="GW_Position_Evaluation_Project">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Address" Type="varchar" MaxLength="200" />
+    <Property Name="Questionnaire_ID" Type="bigint" />
+    <Property Name="Questionnaire_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Position_Counts" Type="int" />
+    <Property Name="Memo" Type="varchar" MaxLength="2000" />
+    <Property Name="Creater" Type="varchar" MaxLength="200" />
+    <Property Name="Create_Time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="GW_Position_Evaluation_Results">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_ID" Type="bigint" />
+    <Property Name="Project_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Position_ID" Type="bigint" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Evaluationer_ID" Type="bigint" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Phone" Type="varchar" MaxLength="200" />
+    <Property Name="Option_Name1" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score1" Type="int" />
+    <Property Name="Option_Name2" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score2" Type="int" />
+    <Property Name="Option_Name3" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score3" Type="int" />
+    <Property Name="Option_Name4" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score4" Type="int" />
+    <Property Name="Option_Name5" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score5" Type="int" />
+    <Property Name="Option_Name6" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score6" Type="int" />
+    <Property Name="Option_Name7" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score7" Type="int" />
+    <Property Name="Option_Name8" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score8" Type="int" />
+    <Property Name="Option_Name9" Type="varchar" MaxLength="500" />
+    <Property Name="Actual_Score9" Type="int" />
+  </EntityType>
+  <EntityType Name="GW_QRCode">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_ID" Type="bigint" />
+    <Property Name="Project_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Url" Type="varchar" MaxLength="200" />
+    <Property Name="QRCode" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Manage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Dim" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Manage_He_Relation_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Relation_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_ID" Type="bigint" />
+    <Property Name="Subject_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Manage_He_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_ID" Type="bigint" />
+    <Property Name="Subject_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MinScore" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MaxScore" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Quality">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Dim" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Quality_He_Relation_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Relation_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_ID" Type="bigint" />
+    <Property Name="Subject_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Quality_He_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_ID" Type="bigint" />
+    <Property Name="Subject_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MinScore" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MaxScore" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Ranking">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Score" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Ranking" Type="int" />
+    <Property Name="Ranking_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Quality_Score" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Quality_Ranking" Type="int" />
+    <Property Name="Quality_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Manage_Score" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Manage_Ranking" Type="int" />
+    <Property Name="Manage_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_SUM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Relation_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Total_Counts" Type="int" />
+    <Property Name="Valid_Counts" Type="int" />
+    <Property Name="Invalid_Counts" Type="int" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Valid_Per" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HZ_EVA_Trust">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Years" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Dim" Type="varchar" MaxLength="50" />
+    <Property Name="Trust_Per" Type="varchar" MaxLength="50" />
+    <Property Name="Basictrust_Per" Type="varchar" MaxLength="50" />
+    <Property Name="Distrust_Per" Type="varchar" MaxLength="50" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Trust_Pers" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="T_Assessor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_Info_ID" Type="bigint" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Relation_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="State" Type="bit" Nullable="false" />
+    <Property Name="Is_Valid" Type="bit" Nullable="false" />
+    <Property Name="Strip_Line" Type="bit" Nullable="false" />
+    <Property Name="Questionnaire_ID" Type="bigint" />
+    <Property Name="Emp_ID" Type="bigint" />
+    <Property Name="Emp_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="T_Assessor_Info">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Hierarchy_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Eva_Counts" Type="int" />
+    <Property Name="Plur_Company_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Basic_Data">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Value" Type="varchar" MaxLength="50" />
+    <Property Name="Memo" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="T_Employee">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Employee_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Phone" Type="varchar" MaxLength="11" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Password_Bak" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Option">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Option_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Option_Num" Type="int" />
+    <Property Name="Option_Score" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Option_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Option_Code" Type="int" />
+    <Property Name="Subject_Type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="alias" Type="varchar" MaxLength="20" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="palias" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="T_Questionnaire">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Questionnaire_Name" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="T_Questionnaire_Results">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Assessor_ID" Type="bigint" />
+    <Property Name="Questionnaire_ID" Type="bigint" Nullable="false" />
+    <Property Name="Subject_ID" Type="bigint" Nullable="false" />
+    <Property Name="Subject_Num" Type="int" />
+    <Property Name="Subject_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Subject_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_Score" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Option_ID" Type="bigint" />
+    <Property Name="Option_Code" Type="int" />
+    <Property Name="Option_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Option_Score" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Actual_Score" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Assessor_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Employee_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Questionnaire_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Subject_Second_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_First_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_Zore_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_Answer" Type="varchar" MaxLength="500" />
+    <Property Name="Questionnairer_ID" Type="bigint" />
+    <Property Name="Questionnairer_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Questionnaire_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject_ID" Type="bigint" />
+    <Property Name="Subject_Num" Type="int" />
+    <Property Name="Subject_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Questionnaire_ID" Type="bigint" />
+    <Property Name="Subject_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Option_Code" Type="int" />
+    <Property Name="Subject_Second_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_First_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_Zore_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="T_Questionnairer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile_Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Questionnaire_ID" Type="int" />
+    <Property Name="Is_OK" Type="bit" />
+    <Property Name="Create_Time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="T_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_Code" Type="varchar" MaxLength="50" />
+    <Property Name="Role_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Role_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_ID" Type="bigint" />
+    <Property Name="Permission_Code" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject_Name" Type="varchar" MaxLength="500" />
+    <Property Name="Subject_Score" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Subject_Prefix" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Option_Code" Type="int" />
+    <Property Name="Subject_Second_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_First_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Subject_Zore_Type" Type="varchar" MaxLength="50" />
+    <Property Name="Weight" Type="numeric" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="T_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Chinese_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Is_Company" Type="bit" />
+    <Property Name="Role_Name" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="T_User_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Rule_Code" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Rule_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_User_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_ID" Type="bigint" />
+    <Property Name="User_ID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="TZ_Assessment_Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Department_Counts" Type="int" />
+    <Property Name="Is_Assessment" Type="bit" />
+  </EntityType>
+  <EntityType Name="TZ_Company">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Company_Scale" Type="int" />
+  </EntityType>
+  <EntityType Name="TZ_Company_Month_Report">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Month" Type="int" />
+    <Property Name="PX" Type="int" />
+    <Property Name="DF" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="JF" Type="int" />
+    <Property Name="NDJF" Type="int" />
+    <Property Name="Valid_Per" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="ZZCC" Type="int" />
+    <Property Name="ZZZCC" Type="int" />
+    <Property Name="FXRS" Type="int" />
+    <Property Name="KS" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="KCJF" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="XS" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="YCQRS" Type="int" />
+    <Property Name="SCQRS" Type="int" />
+    <Property Name="WCBMS" Type="int" />
+    <Property Name="YFGBMS" Type="int" />
+    <Property Name="YFXFGL" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FJC_SCQRS" Type="int" />
+    <Property Name="FJC_YCQRS" Type="int" />
+    <Property Name="FJC_FGL" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FJC_ZXS" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FJC_RJXS" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="YIFXRS" Type="int" />
+    <Property Name="YFXRS" Type="int" />
+    <Property Name="FXRS_Per" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="TZ_Curriculu_Project">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Department" Type="varchar" MaxLength="200" />
+    <Property Name="Organization_Type" Type="varchar" MaxLength="200" />
+    <Property Name="Curriculu_Name" Type="varchar" MaxLength="200" />
+    <Property Name="First_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="20" />
+    <Property Name="Post" Type="varchar" MaxLength="200" />
+    <Property Name="Hierarchy" Type="varchar" MaxLength="2" />
+    <Property Name="Rank" Type="int" />
+    <Property Name="Estimate_Start_Time" Type="datetime" />
+    <Property Name="Estimate_End_Time" Type="datetime" />
+    <Property Name="Actual_Start_Time" Type="datetime" />
+    <Property Name="Actual_End_Time" Type="datetime" />
+    <Property Name="Memo" Type="varchar" MaxLength="2000" />
+    <Property Name="File_Counts" Type="int" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="200" />
+    <Property Name="Checker" Type="varchar" MaxLength="20" />
+    <Property Name="Check_Time" Type="datetime" />
+    <Property Name="Group_Checker" Type="varchar" MaxLength="20" />
+    <Property Name="Group_Check_Time" Type="datetime" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="External_Trainer" Type="varchar" MaxLength="200" />
+    <Property Name="Deduction_Factor" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="Deduction_Reason" Type="varchar" MaxLength="200" />
+    <Property Name="Group_Deduction_Factor" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="Group_Deduction_Reason" Type="varchar" MaxLength="200" />
+    <Property Name="Description" Type="varchar" MaxLength="2000" />
+    <Property Name="Submiter" Type="varchar" MaxLength="20" />
+    <Property Name="Submit_Time" Type="datetime" />
+    <Property Name="Submiter_ID" Type="bigint" />
+    <Property Name="Is_Valid" Type="bit" />
+    <Property Name="Valid_Reason" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TZ_Examiners">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Month" Type="int" />
+    <Property Name="Conmpany_Name" Type="varchar" MaxLength="200" />
+    <Property Name="First_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Second_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Card" Type="varchar" MaxLength="20" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="20" />
+    <Property Name="Post" Type="varchar" MaxLength="200" />
+    <Property Name="Hierarchy" Type="varchar" MaxLength="2" />
+    <Property Name="Rank" Type="int" />
+    <Property Name="Employee_Type" Type="varchar" MaxLength="20" />
+    <Property Name="State" Type="varchar" MaxLength="20" />
+    <Property Name="Importer" Type="varchar" MaxLength="20" />
+    <Property Name="Import_Time" Type="datetime" />
+    <Property Name="Lock_Time" Type="datetime" />
+    <Property Name="Is_Lock" Type="bit" />
+    <Property Name="Locker" Type="varchar" MaxLength="20" />
+    <Property Name="Is_Important" Type="bit" />
+  </EntityType>
+  <EntityType Name="TZ_Sign">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Curriculu_ID" Type="bigint" />
+    <Property Name="SignIn_Name" Type="varchar" MaxLength="20" />
+    <Property Name="SignIn_Time" Type="datetime" />
+    <Property Name="SignOut_Name" Type="varchar" MaxLength="20" />
+    <Property Name="SignOut_Time" Type="datetime" />
+    <Property Name="Curriculu_Mark" Type="varchar" MaxLength="20" />
+    <Property Name="Memo" Type="varchar" MaxLength="2000" />
+    <Property Name="Teacher_Mark" Type="varchar" MaxLength="20" />
+    <Property Name="First_Department" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TZ_Sign_Url">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Curriculu_ID" Type="bigint" />
+    <Property Name="SignInUrl" Type="varchar" MaxLength="200" />
+    <Property Name="SignOutUrl" Type="varchar" MaxLength="200" />
+    <Property Name="SignInQC" Type="varbinary(max)" />
+    <Property Name="SignOutQC" Type="varbinary(max)" />
+    <Property Name="Curriculu_Name" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TZ_Upload_Data">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Curriculu_ID" Type="bigint" />
+    <Property Name="File_Type" Type="varchar" MaxLength="20" />
+    <Property Name="File_Size" Type="bigint" />
+    <Property Name="File_Data" Type="varbinary(max)" Nullable="false" />
+    <Property Name="File_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Uploader" Type="varchar" MaxLength="20" />
+    <Property Name="Uplpad_Time" Type="datetime" />
+    <Property Name="ContentType" Type="varchar" MaxLength="100" />
+    <Property Name="File_Sort" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“HrEva.dbo.V_Depmartment_Curriculu”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_Depmartment_Curriculu">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Is_Assessment" />
+      <PropertyRef Name="Is_Valid" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Month" Type="int" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Department" Type="varchar" MaxLength="200" />
+    <Property Name="Is_Assessment" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="Curriculu_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Curriculu_Cost" Type="numeric" Precision="20" Scale="6" />
+    <Property Name="Is_Valid" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="Check_Time" Type="datetime" />
+    <Property Name="Valid_Reason" Type="varchar" MaxLength="200" />
+    <Property Name="Group_Deduction_Factor" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="Group_Deduction_Reason" Type="varchar" MaxLength="200" />
+    <Property Name="Actual_Attendance_Counts" Type="int" />
+    <Property Name="Attendance_Counts" Type="int" />
+    <Property Name="Attendance_Pre" Type="numeric" Precision="24" Scale="12" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="20" />
+    <Property Name="Total_Hours" Type="numeric" Precision="31" Scale="6" />
+    <Property Name="Un_Attendance_Counts" Type="int" />
+    <Property Name="Avg_Hours" Type="numeric" Precision="38" Scale="13" />
+    <Property Name="Important_Full_Name" Type="varchar" MaxLength="20" />
+    <Property Name="Years_Scenes" Type="int" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“HrEva.dbo.V_Examiners_Group”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_Examiners_Group">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Year" Type="int" />
+    <Property Name="Month" Type="int" />
+    <Property Name="Conmpany_Name" Type="varchar" MaxLength="50" />
+    <Property Name="First_Department_Counts" Type="int" />
+    <Property Name="Totals_Counts" Type="int" />
+    <Property Name="Important_Counts" Type="int" />
+    <Property Name="Admin_Counts" Type="int" />
+    <Property Name="Entry_Counts" Type="int" />
+    <Property Name="Leave_Counts" Type="int" />
+    <Property Name="Transfer_Counts" Type="int" />
+    <Property Name="Importer" Type="varchar" MaxLength="20" />
+    <Property Name="Import_Time" Type="datetime" />
+    <Property Name="Locker" Type="varchar" MaxLength="20" />
+    <Property Name="Lock_Time" Type="datetime" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“HrEva.dbo.V_Hollander”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_Hollander">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Questionnairer_ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Questionnairer_ID" Type="bigint" Nullable="false" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile_Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Questionnaire_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Option_Score1" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score2" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score3" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score4" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score5" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score6" Type="numeric" Precision="38" Scale="2" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“HrEva.dbo.V_Position_Evaluation_Results”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_Position_Evaluation_Results">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="variation_per" />
+      <PropertyRef Name="is_variation" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Conmpany_Name" Type="varchar" MaxLength="200" />
+    <Property Name="First_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="200" />
+    <Property Name="maxscore" Type="int" />
+    <Property Name="minscore" Type="int" />
+    <Property Name="avgscore" Type="int" />
+    <Property Name="avgscore2" Type="int" />
+    <Property Name="stdevscore" Type="float" />
+    <Property Name="variation_per" Type="float" Nullable="false" />
+    <Property Name="is_variation" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="result" Type="nvarchar(max)" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“HrEva.dbo.V_Position_Evaluationers”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_Position_Evaluationers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="Project_ID" Type="bigint" />
+    <Property Name="Project_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Position_Company" Type="varchar" MaxLength="200" />
+    <Property Name="Position_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Evaluationers_Company" Type="varchar" MaxLength="200" />
+    <Property Name="Evaluationers_Department" Type="varchar" MaxLength="200" />
+    <Property Name="Post" Type="varchar" MaxLength="200" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Phone" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“HrEva.dbo.V_Questionnairer”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_Questionnairer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Full_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile_Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Questionnaire_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Option_Score1" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score2" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score3" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score4" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score5" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score6" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score7" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score8" Type="numeric" Precision="38" Scale="2" />
+    <Property Name="Option_Score9" Type="numeric" Precision="38" Scale="2" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“HrEva.dbo.V_User_Permission”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_User_Permission">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Rule_Code" Type="varchar" MaxLength="50" />
+    <Property Name="Rule_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="HrEvaModelStoreContainer">
+    <EntitySet Name="GW_Evaluationers" EntityType="Self.GW_Evaluationers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GW_Position" EntityType="Self.GW_Position" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GW_Position_Evaluation_Project" EntityType="Self.GW_Position_Evaluation_Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GW_Position_Evaluation_Results" EntityType="Self.GW_Position_Evaluation_Results" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GW_QRCode" EntityType="Self.GW_QRCode" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Manage" EntityType="Self.HZ_EVA_Manage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Manage_He_Relation_Subject" EntityType="Self.HZ_EVA_Manage_He_Relation_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Manage_He_Subject" EntityType="Self.HZ_EVA_Manage_He_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Quality" EntityType="Self.HZ_EVA_Quality" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Quality_He_Relation_Subject" EntityType="Self.HZ_EVA_Quality_He_Relation_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Quality_He_Subject" EntityType="Self.HZ_EVA_Quality_He_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Ranking" EntityType="Self.HZ_EVA_Ranking" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_SUM" EntityType="Self.HZ_EVA_SUM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HZ_EVA_Trust" EntityType="Self.HZ_EVA_Trust" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Assessor" EntityType="Self.T_Assessor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Assessor_Info" EntityType="Self.T_Assessor_Info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Basic_Data" EntityType="Self.T_Basic_Data" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Employee" EntityType="Self.T_Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Option" EntityType="Self.T_Option" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Permission" EntityType="Self.T_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Questionnaire" EntityType="Self.T_Questionnaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Questionnaire_Results" EntityType="Self.T_Questionnaire_Results" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Questionnaire_Subject" EntityType="Self.T_Questionnaire_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Questionnairer" EntityType="Self.T_Questionnairer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Role" EntityType="Self.T_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Role_Permission" EntityType="Self.T_Role_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Subject" EntityType="Self.T_Subject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_User" EntityType="Self.T_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_User_Permission" EntityType="Self.T_User_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Assessment_Department" EntityType="Self.TZ_Assessment_Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Company" EntityType="Self.TZ_Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Company_Month_Report" EntityType="Self.TZ_Company_Month_Report" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Curriculu_Project" EntityType="Self.TZ_Curriculu_Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Examiners" EntityType="Self.TZ_Examiners" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Sign" EntityType="Self.TZ_Sign" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Sign_Url" EntityType="Self.TZ_Sign_Url" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TZ_Upload_Data" EntityType="Self.TZ_Upload_Data" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="V_Depmartment_Curriculu" EntityType="Self.V_Depmartment_Curriculu" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Depmartment_Curriculu].[Id] AS [Id], 
+    [V_Depmartment_Curriculu].[Year] AS [Year], 
+    [V_Depmartment_Curriculu].[Month] AS [Month], 
+    [V_Depmartment_Curriculu].[Company_Name] AS [Company_Name], 
+    [V_Depmartment_Curriculu].[Department] AS [Department], 
+    [V_Depmartment_Curriculu].[Is_Assessment] AS [Is_Assessment], 
+    [V_Depmartment_Curriculu].[Curriculu_Name] AS [Curriculu_Name], 
+    [V_Depmartment_Curriculu].[Curriculu_Cost] AS [Curriculu_Cost], 
+    [V_Depmartment_Curriculu].[Is_Valid] AS [Is_Valid], 
+    [V_Depmartment_Curriculu].[Check_Time] AS [Check_Time], 
+    [V_Depmartment_Curriculu].[Valid_Reason] AS [Valid_Reason], 
+    [V_Depmartment_Curriculu].[Group_Deduction_Factor] AS [Group_Deduction_Factor], 
+    [V_Depmartment_Curriculu].[Group_Deduction_Reason] AS [Group_Deduction_Reason], 
+    [V_Depmartment_Curriculu].[Actual_Attendance_Counts] AS [Actual_Attendance_Counts], 
+    [V_Depmartment_Curriculu].[Attendance_Counts] AS [Attendance_Counts], 
+    [V_Depmartment_Curriculu].[Attendance_Pre] AS [Attendance_Pre], 
+    [V_Depmartment_Curriculu].[Full_Name] AS [Full_Name], 
+    [V_Depmartment_Curriculu].[Total_Hours] AS [Total_Hours], 
+    [V_Depmartment_Curriculu].[Un_Attendance_Counts] AS [Un_Attendance_Counts], 
+    [V_Depmartment_Curriculu].[Avg_Hours] AS [Avg_Hours], 
+    [V_Depmartment_Curriculu].[Important_Full_Name] AS [Important_Full_Name], 
+    [V_Depmartment_Curriculu].[Years_Scenes] AS [Years_Scenes]
+    FROM [dbo].[V_Depmartment_Curriculu] AS [V_Depmartment_Curriculu]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Examiners_Group" EntityType="Self.V_Examiners_Group" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Examiners_Group].[Id] AS [Id], 
+    [V_Examiners_Group].[Year] AS [Year], 
+    [V_Examiners_Group].[Month] AS [Month], 
+    [V_Examiners_Group].[Conmpany_Name] AS [Conmpany_Name], 
+    [V_Examiners_Group].[First_Department_Counts] AS [First_Department_Counts], 
+    [V_Examiners_Group].[Totals_Counts] AS [Totals_Counts], 
+    [V_Examiners_Group].[Important_Counts] AS [Important_Counts], 
+    [V_Examiners_Group].[Admin_Counts] AS [Admin_Counts], 
+    [V_Examiners_Group].[Entry_Counts] AS [Entry_Counts], 
+    [V_Examiners_Group].[Leave_Counts] AS [Leave_Counts], 
+    [V_Examiners_Group].[Transfer_Counts] AS [Transfer_Counts], 
+    [V_Examiners_Group].[Importer] AS [Importer], 
+    [V_Examiners_Group].[Import_Time] AS [Import_Time], 
+    [V_Examiners_Group].[Locker] AS [Locker], 
+    [V_Examiners_Group].[Lock_Time] AS [Lock_Time]
+    FROM [dbo].[V_Examiners_Group] AS [V_Examiners_Group]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Hollander" EntityType="Self.V_Hollander" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Hollander].[ID] AS [ID], 
+    [V_Hollander].[Company_Name] AS [Company_Name], 
+    [V_Hollander].[Questionnairer_ID] AS [Questionnairer_ID], 
+    [V_Hollander].[Full_Name] AS [Full_Name], 
+    [V_Hollander].[Mobile_Phone] AS [Mobile_Phone], 
+    [V_Hollander].[Questionnaire_Name] AS [Questionnaire_Name], 
+    [V_Hollander].[Option_Score1] AS [Option_Score1], 
+    [V_Hollander].[Option_Score2] AS [Option_Score2], 
+    [V_Hollander].[Option_Score3] AS [Option_Score3], 
+    [V_Hollander].[Option_Score4] AS [Option_Score4], 
+    [V_Hollander].[Option_Score5] AS [Option_Score5], 
+    [V_Hollander].[Option_Score6] AS [Option_Score6]
+    FROM [dbo].[V_Hollander] AS [V_Hollander]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Position_Evaluation_Results" EntityType="Self.V_Position_Evaluation_Results" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Position_Evaluation_Results].[Id] AS [Id], 
+    [V_Position_Evaluation_Results].[Conmpany_Name] AS [Conmpany_Name], 
+    [V_Position_Evaluation_Results].[First_Department] AS [First_Department], 
+    [V_Position_Evaluation_Results].[Position_Name] AS [Position_Name], 
+    [V_Position_Evaluation_Results].[maxscore] AS [maxscore], 
+    [V_Position_Evaluation_Results].[minscore] AS [minscore], 
+    [V_Position_Evaluation_Results].[avgscore] AS [avgscore], 
+    [V_Position_Evaluation_Results].[avgscore2] AS [avgscore2], 
+    [V_Position_Evaluation_Results].[stdevscore] AS [stdevscore], 
+    [V_Position_Evaluation_Results].[variation_per] AS [variation_per], 
+    [V_Position_Evaluation_Results].[is_variation] AS [is_variation], 
+    [V_Position_Evaluation_Results].[result] AS [result]
+    FROM [dbo].[V_Position_Evaluation_Results] AS [V_Position_Evaluation_Results]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Position_Evaluationers" EntityType="Self.V_Position_Evaluationers" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Position_Evaluationers].[ID] AS [ID], 
+    [V_Position_Evaluationers].[Project_ID] AS [Project_ID], 
+    [V_Position_Evaluationers].[Project_Name] AS [Project_Name], 
+    [V_Position_Evaluationers].[Position_Company] AS [Position_Company], 
+    [V_Position_Evaluationers].[Position_Department] AS [Position_Department], 
+    [V_Position_Evaluationers].[Position_Name] AS [Position_Name], 
+    [V_Position_Evaluationers].[Evaluationers_Company] AS [Evaluationers_Company], 
+    [V_Position_Evaluationers].[Evaluationers_Department] AS [Evaluationers_Department], 
+    [V_Position_Evaluationers].[Post] AS [Post], 
+    [V_Position_Evaluationers].[Full_Name] AS [Full_Name], 
+    [V_Position_Evaluationers].[Phone] AS [Phone]
+    FROM [dbo].[V_Position_Evaluationers] AS [V_Position_Evaluationers]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Questionnairer" EntityType="Self.V_Questionnairer" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Questionnairer].[ID] AS [ID], 
+    [V_Questionnairer].[Company_Name] AS [Company_Name], 
+    [V_Questionnairer].[Full_Name] AS [Full_Name], 
+    [V_Questionnairer].[Mobile_Phone] AS [Mobile_Phone], 
+    [V_Questionnairer].[Questionnaire_Name] AS [Questionnaire_Name], 
+    [V_Questionnairer].[Option_Score1] AS [Option_Score1], 
+    [V_Questionnairer].[Option_Score2] AS [Option_Score2], 
+    [V_Questionnairer].[Option_Score3] AS [Option_Score3], 
+    [V_Questionnairer].[Option_Score4] AS [Option_Score4], 
+    [V_Questionnairer].[Option_Score5] AS [Option_Score5], 
+    [V_Questionnairer].[Option_Score6] AS [Option_Score6], 
+    [V_Questionnairer].[Option_Score7] AS [Option_Score7], 
+    [V_Questionnairer].[Option_Score8] AS [Option_Score8], 
+    [V_Questionnairer].[Option_Score9] AS [Option_Score9]
+    FROM [dbo].[V_Questionnairer] AS [V_Questionnairer]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_User_Permission" EntityType="Self.V_User_Permission" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_User_Permission].[Id] AS [Id], 
+    [V_User_Permission].[User_ID] AS [User_ID], 
+    [V_User_Permission].[Rule_Code] AS [Rule_Code], 
+    [V_User_Permission].[Rule_Name] AS [Rule_Name]
+    FROM [dbo].[V_User_Permission] AS [V_User_Permission]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

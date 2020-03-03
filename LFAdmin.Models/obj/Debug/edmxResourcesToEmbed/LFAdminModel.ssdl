@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LFAdminModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="T_Basic_Data">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Value" Type="varchar" MaxLength="50" />
+    <Property Name="Memo" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="T_Company">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Company_Scale" Type="int" />
+  </EntityType>
+  <EntityType Name="T_Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="200" />
+    <Property Name="Department_Counts" Type="int" />
+    <Property Name="Is_Assessment" Type="bit" />
+  </EntityType>
+  <EntityType Name="T_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="alias" Type="varchar" MaxLength="20" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="palias" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="T_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_Code" Type="varchar" MaxLength="50" />
+    <Property Name="Role_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_Role_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_ID" Type="bigint" />
+    <Property Name="Permission_Code" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Chinese_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Department_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Position_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Is_Company" Type="bit" />
+    <Property Name="Role_Name" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="T_User_Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Rule_Code" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Rule_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="T_User_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Role_ID" Type="bigint" />
+    <Property Name="User_ID" Type="bigint" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“LFAdmin.dbo.V_User_Permission”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="V_User_Permission">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Rule_Code" Type="varchar" MaxLength="50" />
+    <Property Name="Rule_Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="LFAdminModelStoreContainer">
+    <EntitySet Name="T_Basic_Data" EntityType="Self.T_Basic_Data" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Company" EntityType="Self.T_Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Department" EntityType="Self.T_Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Permission" EntityType="Self.T_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Role" EntityType="Self.T_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Role_Permission" EntityType="Self.T_Role_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_User" EntityType="Self.T_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_User_Permission" EntityType="Self.T_User_Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_User_Role" EntityType="Self.T_User_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="V_User_Permission" EntityType="Self.V_User_Permission" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_User_Permission].[Id] AS [Id], 
+    [V_User_Permission].[User_ID] AS [User_ID], 
+    [V_User_Permission].[Rule_Code] AS [Rule_Code], 
+    [V_User_Permission].[Rule_Name] AS [Rule_Name]
+    FROM [dbo].[V_User_Permission] AS [V_User_Permission]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

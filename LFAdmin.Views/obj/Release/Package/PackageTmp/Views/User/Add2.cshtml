@@ -1,0 +1,159 @@
+﻿@*<link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />*@
+
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="User_Name" lay-verify="required" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="Chinese_Name" lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">公司</label>
+        <div class="layui-input-inline">
+            <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                @*<option value="" selected=""></option>*@
+                @if (ViewBag.comList != null)
+                {
+                    foreach (var emp in ViewBag.comList)
+                    {
+                        <option value="@emp.Company_Name">@emp.Company_Name</option>
+                    }
+                }
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">部门</label>
+        <div class="layui-input-inline">
+            <select name="Department_Name" id="Department_Name" lay-filter="Department_Name">
+                <option value="" selected=""></option>
+                @if (ViewBag.depList != null)
+                {
+                    foreach (var emp in ViewBag.depList)
+                    {
+                        <option value="@emp.Department_Name">@emp.Department_Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+        @*<div class="layui-form-item">
+                <label class="layui-form-label">公司</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="Company_Name" lay-verify="required" autocomplete="off" placeholder="请输入公司" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="Department_Name" autocomplete="off" placeholder="请输入部门" class="layui-input">
+                </div>
+            </div>*@
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">职位/岗位</label>
+            <div class="layui-input-inline">
+                <input type="text" name="Position_Name" autocomplete="off" placeholder="请输入职位/岗位" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+</form>
+
+@*<script src="~/Scripts/layui/layui.js"></script>*@
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+
+
+    //监听select 公司动态选择
+    form.on('select(Company_Name)', function (data) {
+        $.ajax({
+            type: 'POST',
+            url: '/TZAssessmentDepartment/getAssessmentDepartment',
+            data: { Company_Name: data.value },
+            dataType: 'json',
+            success: function (data) {
+                $("#Department_Name").html("");
+                var option1 = $("<option>").val("").text("");
+                $("#Department_Name").append(option1);
+                $.each(data, function (key, val) {
+                    var option1 = $("<option>").val(val).text(val);
+                    $("#Department_Name").append(option1);
+                });
+                form.render('select');
+                $("#Department_Name").get(0).selectedIndex = 0;
+            }, error: function (message) {
+                $("#Department_Name").html("");
+            }
+        });
+    });
+
+  //监听提交
+    form.on('submit(add)', function(data){
+        var index = layer.load(1, {
+            shade: [0.5, '#000'] //0.1透明度的背景
+        }); 
+        $.ajax({
+            'type': 'post',
+            'url': '/User/AddInfo',
+            'data': {
+                Chinese_Name: data.field.Chinese_Name,
+                User_Name: data.field.User_Name, Company_Name: data.field.Company_Name
+                , Department_Name: data.field.Department_Name, Position_Name: data.field.Position_Name
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

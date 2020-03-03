@@ -1,0 +1,6 @@
+H:\1.精工\LFAdminProject\LFAdmin.Logger\bin\Debug\LFAdmin.Logger.dll
+H:\1.精工\LFAdminProject\LFAdmin.Logger\bin\Debug\LFAdmin.Logger.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Logger\obj\Debug\LFAdmin.Logger.csproj.CoreCompileInputs.cache
+H:\1.精工\LFAdminProject\LFAdmin.Logger\obj\Debug\LFAdmin.Logger.dll
+H:\1.精工\LFAdminProject\LFAdmin.Logger\obj\Debug\LFAdmin.Logger.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Logger\obj\Debug\LFAdmin.Logger.csprojAssemblyReference.cache

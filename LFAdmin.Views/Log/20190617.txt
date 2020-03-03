@@ -1,0 +1,501 @@
+ 
+记录时间：2019-06-17 08:42:57,188 
+线程ID:[5] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 08:47:38,348 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-RoleController-RolePermission]权限保存成功! 
+ 
+记录时间：2019-06-17 09:01:09,143 
+线程ID:[5] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 09:01:45,300 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCompanyMonthReportController-getList]查询结果为空! 
+ 
+记录时间：2019-06-17 09:01:45,809 
+线程ID:[10] 
+日志级别：  INFO  
+错误描述：[1-TZCompanyMonthReportController-getList]查询结果为空! 
+ 
+记录时间：2019-06-17 09:22:37,242 
+线程ID:[10] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 09:25:38,340 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCompanyMonthReportController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 09:39:30,381 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 09:40:01,325 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCompanyMonthReportController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 09:41:41,132 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 09:41:46,566 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCompanyMonthReportController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 09:42:31,875 
+线程ID:[11] 
+日志级别：  INFO  
+错误描述：[1-TZCompanyMonthReportController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 11:32:34,076 
+线程ID:[5] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 11:32:45,645 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-RoleController-RolePermission]权限保存成功! 
+ 
+记录时间：2019-06-17 11:43:24,647 
+线程ID:[7] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 11:46:48,012 
+线程ID:[14] 
+日志级别：  INFO  
+错误描述：[1-BasicController-getList]查询结果为空! 
+ 
+记录时间：2019-06-17 12:16:51,189 
+线程ID:[81] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 14:04:28,271 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 14:41:29,358 
+线程ID:[6] 
+日志级别：  ERROR 
+错误描述：[1-TZCurriculuProjectController-getList]查询数据失败 :未将对象引用设置到对象的实例。 
+System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 HrAdminProject.Controllers.TZCurriculuProjectController.<>c__DisplayClass4_0.<getList>b__6(TZ_Curriculu_Project o)
+   在 System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 HrAdminProject.Controllers.TZCurriculuProjectController.getList(Int32 page, Int32 limit, String Department, String Organization_Type, String Company_Name)
+ 
+记录时间：2019-06-17 14:45:17,890 
+线程ID:[19] 
+日志级别：  ERROR 
+错误描述：[1-TZCurriculuProjectController-getList]查询数据失败 :未将对象引用设置到对象的实例。 
+System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 HrAdminProject.Controllers.TZCurriculuProjectController.<>c__DisplayClass4_0.<getList>b__6(TZ_Curriculu_Project o)
+   在 System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 HrAdminProject.Controllers.TZCurriculuProjectController.getList(Int32 page, Int32 limit, String Department, String Organization_Type, String Company_Name)
+ 
+记录时间：2019-06-17 15:26:14,633 
+线程ID:[11] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 15:29:52,119 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 15:30:26,741 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:31:45,439 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:31:50,572 
+线程ID:[10] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:31:55,197 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:32:08,637 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]已审核的数据不允许修改! 
+ 
+记录时间：2019-06-17 15:33:13,958 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 15:33:24,428 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:34:27,462 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:34:49,386 
+线程ID:[12] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:37:49,546 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 15:40:55,468 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:41:51,297 
+线程ID:[10] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:43:39,736 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-17 15:43:51,334 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:44:35,854 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:44:40,293 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:44:45,041 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:44:49,438 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:44:55,757 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:01,138 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:05,946 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:09,977 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:13,759 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:20,139 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:24,325 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:28,482 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:47,399 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:45:52,574 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:18,481 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:25,923 
+线程ID:[12] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:30,902 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:35,013 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:39,395 
+线程ID:[12] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:44,082 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:48,419 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:52,415 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:46:56,348 
+线程ID:[12] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:01,235 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:08,057 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:13,560 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:18,702 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:23,360 
+线程ID:[14] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:27,671 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:37,728 
+线程ID:[13] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:49,926 
+线程ID:[10] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:47:57,831 
+线程ID:[13] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:09,979 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:16,274 
+线程ID:[25] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:21,390 
+线程ID:[22] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:25,704 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:31,268 
+线程ID:[25] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:37,726 
+线程ID:[22] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:41,520 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:48,366 
+线程ID:[18] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:53,750 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:48:57,982 
+线程ID:[21] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:02,341 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:08,307 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:12,603 
+线程ID:[17] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:17,512 
+线程ID:[16] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:22,282 
+线程ID:[16] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:26,687 
+线程ID:[21] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:31,656 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:37,133 
+线程ID:[16] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:42,294 
+线程ID:[21] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:46,906 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:51,333 
+线程ID:[12] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:49:55,688 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:50:00,014 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:50:05,119 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:57:26,115 
+线程ID:[30] 
+日志级别：  ERROR 
+错误描述：[1-TZCurriculuProjectController-DownQRCode] 
+System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 HrAdminProject.Controllers.TZCurriculuProjectController.DownQRCode(Int32 ID) 位置 H:\1.精工\HrEvaProject\HrAdminProject\Controllers\TZCurriculuProjectController.cs:行号 1155
+ 
+记录时间：2019-06-17 15:57:40,298 
+线程ID:[31] 
+日志级别：  ERROR 
+错误描述：[1-TZCurriculuProjectController-DownQRCode] 
+System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 HrAdminProject.Controllers.TZCurriculuProjectController.DownQRCode(Int32 ID) 位置 H:\1.精工\HrEvaProject\HrAdminProject\Controllers\TZCurriculuProjectController.cs:行号 1155
+ 
+记录时间：2019-06-17 15:57:54,787 
+线程ID:[30] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:57:59,257 
+线程ID:[31] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 
+ 
+记录时间：2019-06-17 15:58:59,198 
+线程ID:[37] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-SaveInfo]信息修改成功! 

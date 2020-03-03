@@ -1,0 +1,55 @@
+ 
+记录时间：2019-06-15 08:18:29,049 
+线程ID:[8] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-15 08:37:34,107 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-15 08:52:19,631 
+线程ID:[39] 
+日志级别：  INFO  
+错误描述：[1-TZAssessmentDepartmentController-AddInfo]信息新增成功! 
+ 
+记录时间：2019-06-15 08:52:33,179 
+线程ID:[43] 
+日志级别：  INFO  
+错误描述：[1-TZAssessmentDepartmentController-DelInfo]信息删除成功! 
+ 
+记录时间：2019-06-15 08:56:46,106 
+线程ID:[7] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-15 08:57:21,707 
+线程ID:[7] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-GroupCheck]审核成功! 
+ 
+记录时间：2019-06-15 08:58:14,865 
+线程ID:[7] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-GroupCancelCheck]取消审核成功! 
+ 
+记录时间：2019-06-15 09:00:15,452 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-GroupCheck]审核成功! 
+ 
+记录时间：2019-06-15 09:37:58,831 
+线程ID:[6] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-15 09:58:27,152 
+线程ID:[9] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-15 10:11:18,647 
+线程ID:[29] 
+日志级别：  INFO  
+错误描述：[1-TZCurriculuProjectController-GroupCancelCheck]取消审核成功! 

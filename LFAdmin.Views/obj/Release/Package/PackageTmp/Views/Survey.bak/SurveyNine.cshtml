@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "九型人格测评";
+}
+<style>
+    .fixed-top {
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+        top: 0;
+        border-width: 0 0 1px;
+    }
+</style>
+
+<form id="commentForm" class="layui-form layui-form-pane" style="padding-left:10%;padding-right:10%;padding-top:20px;  ">
+    <input id="fullname" name="fullname" type="hidden" />
+    <input id="mobilephone" name="mobilephone" type="hidden" />
+    @*<input id="companyname" name="companyname" type="hidden" />*@
+
+    <div class="layui-progress layui-progress-big fixed-top" lay-filter="progress" lay-showPercent="true">
+        <div class="layui-progress-bar" lay-percent="0%"></div>
+    </div>
+    <div style="font-size:28px !important; text-align:center;line-height:60px;">
+        @ViewBag.Survey.Questionnaire_Name
+    </div>
+
+
+
+    <div class="layui-form-item" style="background-color:aliceblue;font-size:18px !important; line-height:30px;">
+        测试指导语<br />
+        1、请凭第一印象选择，不要反复考虑<br />
+        2、测试结果无好坏，选项也无好坏，只用来帮助你辨识你的类型<br />
+        本次测试共 180 题
+    </div>
+
+
+    @foreach (var subject in ViewBag.Survey.subjectList)
+    {
+        if (subject.Subject_Type == "单选题")
+        {
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="background-color:beige;font-size:18px;">
+                        @subject.Subject_Num . @subject.Subject_Name
+                    </div>
+                    <div class="layui-card-body">
+                        <label id="inlineRadioOptions$@subject.Subject_ID" style="color:red"></label>
+                        @foreach (var option in subject.optionList)
+                        {
+                            <input type="radio" name="inlineRadioOptions#@subject.Subject_ID" value="@option.Option_Score" title="@option.Option_Name" required />
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <br />
+    <br />
+    <div class="layui-form-item">
+        @*<div class="layui-input-block">*@
+        <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="add">立即提交</button>
+        @*</div>*@
+    </div>
+</form>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+
+    //$().ready(function () {
+    //    $.extend($.validator.messages, {
+    //        required: "请从这些选项中选择一个!"
+    //    });
+
+    //    $("#commentForm").validate({
+    //        errorPlacement: function (error, element) {
+    //            var btn = $("#btnOK");
+    //            btn.button('reset');
+    //            $(element).closest("form").find("label[id='" + element.attr("id") + "']").append(error);
+    //        },
+    //        errorElement: "span",
+    //        //debug: true
+    //    });
+    //});
+
+    layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+        var form = layui.form;
+        layer = layui.layer;
+        layedit = layui.layedit;
+        laydate = layui.laydate;
+        var element = layui.element;
+
+        $('#inlineRadioOptions#141').focus();
+       // document.getElementById('inlineRadioOptions#141').focus();
+        form.render();
+        form.render('radio');
+
+      
+        $('#inlineRadioOptions#141').focus();
+        //document.getElementById('inlineRadioOptions#141').focus();
+
+        //layer.open({
+        //    type: 2,
+        //    closeBtn: 0,//不显示关闭按钮
+        //    title:"请输入",
+        //    skin: 'layui-layer-rim', //加上边框
+        //    area: ['420px', '240px'], //宽高
+        //    content: '/Survey/Login'
+        //});
+
+        form.on('radio', function (data) {
+
+            element.progress('progress', '50%');
+        });
+
+        form.verify({
+            //checked: function (value) {
+            //    alert(this.name);
+            //    return false;
+            //    //if (value.length < 5) {
+            //    //    return '标题至少得5个字符啊';
+            //    //}
+            //}
+        });
+
+        //监听提交
+        form.on('submit(add)', function (data) {
+
+            //layer.alert(data.field.mobilephone);
+            //return false;
+
+            $("input[type=radio]").each(function () {
+                if (!this.checked)
+                {
+                     $(this)[0].focus();
+                    $("#"+this.name).focus();//可移动位置
+                    layer.tips('请选择', $("#" + this.name));
+                    return false;
+                }
+            });
+
+            return false;
+
+            $.ajax({
+                'type': 'post',
+                'url': '/Survey/SaveSurveyNine',
+                'data': {
+                    field: JSON.stringify(data.field)
+                },
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "1") {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index);
+                            window.parent.location.reload();
+                        });
+                    }
+                    else {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        });
+                    }
+                },
+                error: function (message) {
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+            });
+
+            return false;
+        });
+
+
+
+    });
+    var radioArray = new Array();
+
+    function checkHas(radioName, totalCounts) {
+        if (radioArray.length > 0) {
+            var isHas = false;
+            for (var i = 0; i < radioArray.length; i++) {
+                if (radioArray[i] == radioName) {
+                    isHas = true;
+                    return;
+                }
+            }
+
+            if (!isHas) {
+                radioArray.push(radioName);
+                var proVal = Math.round(radioArray.length * 100 / totalCounts) + '%';
+                var pro = document.getElementById("progressbar")
+                pro.innerText = proVal;
+                pro.style.cssText = "width: " + proVal + ";";
+            }
+        }
+        else {
+            radioArray.push(radioName);
+            var proVal = Math.round(radioArray.length * 100 / totalCounts) + '%';
+            var pro = document.getElementById("progressbar")
+            pro.innerText = proVal;
+            pro.style.cssText = "width: " + proVal + ";";
+        }
+    }
+
+
+</script>
+

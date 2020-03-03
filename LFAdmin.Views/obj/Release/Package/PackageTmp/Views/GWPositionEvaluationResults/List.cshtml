@@ -1,0 +1,100 @@
+﻿
+    <form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+        <div class="layui-form-item"> 
+            <label class="layui-form-label">公司</label>
+            <div class="layui-input-inline">
+                <select name="Company_Name" id="Company_Name" lay-filter="Company_Name">
+                    <option value="" selected=""></option>
+                    @if (ViewBag.comList != null)
+                    {
+                        foreach (var emp in ViewBag.comList)
+                        {
+                            <option value="@emp.Company_Name">@emp.Company_Name</option>
+                        }
+                    }
+
+                </select>
+            </div>
+
+            <button class="layui-btn" data-type="reload" type="button" id="search"><i class="layui-icon layui-icon-search"></i>搜索 </button>
+            <button class="layui-btn layui-btn-primary" type="button" data-type="add" id="add"><i class="layui-icon layui-icon-add-circle"></i>添加</button>
+        </div>
+    </form>
+   
+    <table id="GWPositionEvaluationResults" class="layui-table" lay-filter="GWPositionEvaluationResults" lay-data="{  height: 'full-80', cellMinWidth: 120,toolbar: '#toolbar', page: true, limit: 20, url:'/GWPositionEvaluationResults/getList'}">
+        <thead>
+            <tr>
+                <th lay-data="{type: 'numbers'}"></th>
+                <th lay-data="{field:'Conmpany_Name',  sort: true }">公司</th>
+                <th lay-data="{field:'First_Department',  sort: true }">部门</th>
+                <th lay-data="{field:'Position_Name',  sort: true }">岗位</th>
+                <th lay-data="{field:'result',  sort: true ,width:300}">评分数据</th>
+                <th lay-data="{field:'maxscore',  sort: true }">最大分值</th>
+                <th lay-data="{field:'minscore',  sort: true }">最小分值</th>
+                <th lay-data="{field:'avgscore',  sort: true }">平均值</th>
+                <th lay-data="{field:'avgscore2',  sort: true}">平均值(修正)</th>
+                <th lay-data="{field:'stdevscore',  sort: true }">标准差</th>
+                <th lay-data="{field:'variation_per',  sort: true }">变异系数</th>
+                <th lay-data="{field:'is_variation',  sort: true }">是否异常</th>
+                @*<th lay-data="{ width:320, align:'center', toolbar: '#bar'}"></th>*@
+            </tr>
+        </thead>
+    </table>
+ 
+
+    <script type="text/javascript">
+        layui.use(['table', 'layer', 'form', 'layedit', 'laydate', 'upload'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , table = layui.table
+                , upload = layui.upload;
+            var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+           // form.render();
+             
+    
+
+            layer.ready(function () {
+                //执行重载
+                table.reload('GWPositionEvaluationResults', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Company_Name: $("#Company_Name").val(),
+                        time: new Date()
+                    }
+                });
+            });
+
+            //搜索加载--数据表格重载
+            var $ = layui.$, active = {
+                reload: function () {
+                    //执行重载
+                    table.reload('GWPositionEvaluationResults', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        , where: { 
+                            Company_Name: $("#Company_Name").val(), 
+                            time: new Date()
+                        }
+                    });
+                }
+
+            };
+
+            $('#search').on('click', function () {
+                ids = new Array();
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+             
+           
+
+        });
+
+    </script>

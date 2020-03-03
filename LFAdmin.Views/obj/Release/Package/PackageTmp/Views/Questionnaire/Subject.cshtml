@@ -1,0 +1,162 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="Option_Code" />
+    <input hidden="hidden" name="Subject_Name" />
+    <input hidden="hidden" name="Questionnaire_ID" value="@ViewBag.Questionnaire_ID" />
+ 
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">问卷名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Questionnaire_Name" disabled autocomplete="off" class="layui-input" value="@ViewBag.Questionnaire_Name">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">题目名称</label>
+        <div class="layui-input-block">
+            <select name="Subject_ID" lay-filter="Subject_ID" lay-verify="required" lay-search>
+                <option value="" selected=""></option>
+                @foreach (var sub in ViewBag.SubList)
+                {
+                    <option value="@sub.ID">@sub.Subject_Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">题目序号</label>
+        <div class="layui-input-inline">
+            <input type="number" name="Subject_Num" disabled autocomplete="off" class="layui-input" value="@ViewBag.subNum">
+        </div>
+
+        <label class="layui-form-label">题目类型</label>
+        <div class="layui-input-inline">
+            <input name="Subject_Type" lay-filter="Subject_Type" disabled autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">题目答案</label>
+        <div class="layui-input-inline">
+            <input name="Option_Type" lay-filter="Option_Type" disabled autocomplete="off" class="layui-input" />
+        </div>
+
+        <label class="layui-form-label">题目大类</label>
+        <div class="layui-input-inline">
+            <input name="Subject_Zore_Type" lay-filter="Subject_Zore_Type" disabled autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">一级分类</label>
+        <div class="layui-input-inline">
+            <input name="Subject_First_Type" lay-filter="Subject_First_Type" disabled autocomplete="off" class="layui-input" />
+        </div>
+
+        <label class="layui-form-label">二级分类</label>
+        <div class="layui-input-inline">
+            <input name="Subject_Second_Type" lay-filter="Subject_Second_Type" disabled autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">权重</label>
+        <div class="layui-input-inline">
+            <input name="Weight" lay-filter="Weight" disabled autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+
+
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+
+    form.render();
+
+
+    form.on('select(Subject_ID)', function (data) {
+         
+        $.ajax({
+            type: 'POST',
+            url: '/Questionnaire/getSubjectVal',
+            data: { ID: data.value },
+            dataType: 'json',
+            success: function (data) {
+                $("input[name=Subject_Type]").val(data.Subject_Type);
+                $("input[name=Option_Type]").val(data.Option_Type);
+                $("input[name=Subject_Zore_Type]").val(data.Subject_Zore_Type);
+                $("input[name=Subject_First_Type]").val(data.Subject_First_Type);
+                $("input[name=Subject_Second_Type]").val(data.Subject_Second_Type); 
+                $("input[name=Weight]").val(data.Weight);  
+                $("input[name=Option_Code]").val(data.Option_Code);  
+                $("input[name=Subject_Name]").val(data.Subject_Name);  
+                
+            }
+        });
+    });
+
+
+    
+  //监听提交
+    form.on('submit(add)', function(data){
+
+        $.ajax({
+            'type': 'post',
+            'url': '/Questionnaire/SaveSubject',
+            'data': {
+                Questionnaire_ID: data.field.Questionnaire_ID, Subject_ID: data.field.Subject_ID,
+                Subject_Num: data.field.Subject_Num, Subject_Name: data.field.Subject_Name,
+                Subject_Type: data.field.Subject_Type, Option_Code: data.field.Option_Code,
+                Subject_Second_Type: data.field.Subject_Second_Type, Subject_First_Type: data.field.Subject_First_Type,
+                Subject_Zore_Type: data.field.Subject_Zore_Type, Weight: data.field.Weight 
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

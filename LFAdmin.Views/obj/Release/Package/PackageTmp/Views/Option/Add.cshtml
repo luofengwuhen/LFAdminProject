@@ -1,0 +1,117 @@
+﻿ 
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    @*<input hidden="hidden" id="Option_Type" name="Option_Type" />*@
+    <div class="layui-form-item">
+        <label class="layui-form-label">题目类型</label>
+        <div class="layui-input-block">
+            <select name="Subject_Type" lay-filter="Subject_Type" lay-verify="required">
+                <option value="" selected=""></option>
+                <option value="单选题">单选题</option>
+                <option value="问答题">问答题</option>
+            </select>
+        </div>
+    </div>
+    @*<div class="layui-form-item">
+
+            <label class="layui-form-label">题目答案</label>
+            <div class="layui-input-block">
+                <select id="o_code" name="Option_Code" lay-filter="Option_Code" lay-verify="required" >
+                    <option value="" selected=""></option>
+                    @foreach (var sz in ViewBag.OptionList)
+                    {
+                        <option value="@sz.Option_Code">@sz.Option_Type</option>
+                    }
+                </select>
+            </div>
+        </div>*@
+    <div class="layui-form-item">
+        <label class="layui-form-label">答案编号</label>
+        <div class="layui-input-block">
+            <input type="number" name="Option_Code" autocomplete="off" lay-verify="required" class="layui-input" value="0">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">选项序号</label>
+        <div class="layui-input-block">
+            <input type="number" name="Option_Num" autocomplete="off" lay-verify="required" class="layui-input" value="0">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选项名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="Option_Name" autocomplete="off" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">选项得分</label>
+        <div class="layui-input-block">
+            <input type="number" name="Option_Score" autocomplete="off" class="layui-input" value="0">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+
+    form.on('select(Option_Code)', function (data) {
+        $("#Option_Type").val($(data.elem).find("option:selected").text());
+    });
+
+  //监听提交
+    form.on('submit(add)', function(data){
+
+        $.ajax({
+            'type': 'post',
+            'url': '/Option/AddInfo',
+            'data': { 
+                 Subject_Type: data.field.Subject_Type, Option_Code: data.field.Option_Code
+                , Option_Num: data.field.Option_Num, Option_Name: data.field.Option_Name
+                , Option_Score: data.field.Option_Score
+            },
+            success: function (data) {
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

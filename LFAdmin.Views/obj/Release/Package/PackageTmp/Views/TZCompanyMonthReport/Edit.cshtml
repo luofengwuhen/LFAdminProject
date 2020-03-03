@@ -1,0 +1,92 @@
+﻿
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="ID" value="@ViewBag.TZ_Company_Month_Report.ID" />
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排名</label>
+        <div class="layui-input-block">
+            <input type="number" name="PX" value="@ViewBag.TZ_Company_Month_Report.PX" lay-verify="required" autocomplete="off" placeholder="请输入排名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">得分</label>
+        <div class="layui-input-block">
+            <input type="number" name="DF" value="@ViewBag.TZ_Company_Month_Report.DF" lay-verify="required" autocomplete="off" placeholder="请输入得分" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">当期积分</label>
+        <div class="layui-input-block">
+            <input type="number" name="JF" value="@ViewBag.TZ_Company_Month_Report.JF" lay-verify="required" autocomplete="off" placeholder="请输入当期积分" class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="edit">立即提交</button>
+        </div>
+    </div>
+</form>
+ 
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+ 
+    form.render();
+  //监听提交
+    form.on('submit(edit)', function(data){
+        var index = layer.load(1, {
+            shade: [0.5, '#000'] //0.1透明度的背景
+        });
+        $.ajax({
+            'type': 'post',
+            'url': '/TZCompanyMonthReport/SaveInfo',
+            'data': {
+                ID: data.field.ID,
+                PX: data.field.PX,
+                DF: data.field.DF,
+                JF: data.field.JF 
+            },
+            success: function (data) {
+                layer.close(index);
+                var obj = JSON.parse(data);
+                if (obj.IsSuccess == "1") {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    }, function () {
+                        layer.close(layer.index);
+                        window.parent.location.reload();
+                    });
+
+                }
+                else {
+                    layer.alert(obj.MessageString, {
+                        title: '提示'
+                    });
+                }
+
+            },
+            error: function (message) {
+                layer.close(index);
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+            }
+
+        });
+
+
+        return false;
+    });
+
+
+
+
+});
+</script>

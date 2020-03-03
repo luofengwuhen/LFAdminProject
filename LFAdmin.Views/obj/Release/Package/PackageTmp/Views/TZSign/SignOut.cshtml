@@ -1,0 +1,163 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewBag.Title = "课程签退";
+}
+
+
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="Curriculu_ID" value="@ViewBag.Curriculu_ID" />
+    <input hidden="hidden" id="Curriculu_Mark" name="Curriculu_Mark" value="5" />
+    <input hidden="hidden" id="Teacher_Mark" name="Teacher_Mark" value="5" />
+    <div class="layui-form-item"></div>
+    <div class="layui-form-item"></div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" id="SignOut_Name" name="SignOut_Name" lay-verify="required" autocomplete="off" onblur="getDep()" placeholder="请输入姓名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">一级部门</label>
+        <div class="layui-input-inline">
+            <select name="First_Department" id="First_Department" lay-filter="First_Department" lay-verify="required"></select>
+        </div>
+    </div>
+
+    <label class="layui-form-label">讲师评价</label>
+    <div id="test4"></div>
+    <div class="layui-form-item">
+    </div>
+    <label class="layui-form-label">课程评价</label>
+    <div id="test5"></div>
+    <div class="layui-form-item">
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">意见或建议</label>
+        <div class="layui-input-inline">
+            <textarea class="layui-textarea" id="Memo" placeholder="请输入意见或建议" name="Memo"> </textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="signout">签退</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    layui.use(['rate', 'form'], function () {
+        var rate = layui.rate,
+            form = layui.form;
+
+        var $ = layui.$;
+        //自定义文本
+        rate.render({
+            elem: '#test5'
+            , value: 0
+            , text: true
+            , setText: function (value) { //自定义文本的回调
+
+                $("#Curriculu_Mark").val( value);
+
+                var arrs = {
+                    '1': '极差'
+                    , '2': '差'
+                    , '3': '中等'
+                    , '4': '好'
+                    , '5': '极好'
+                };
+                this.span.text(arrs[value] || (value + "星"));
+            }
+        })
+
+        rate.render({
+            elem: '#test4'
+            , value: 0
+            , text: true
+            , setText: function (value) { //自定义文本的回调
+
+                $("#Teacher_Mark").val(value);
+
+                var arrs = {
+                    '1': '极差'
+                    , '2': '差'
+                    , '3': '中等'
+                    , '4': '好'
+                    , '5': '极好'
+                };
+                this.span.text(arrs[value] || (value + "星"));
+            }
+        })
+
+        window.getDep = function () {
+            var Full_Name = $("#SignOut_Name").val();
+            $.ajax({
+                type: 'POST',
+                url: '/TZExaminers/getFirstDepartment',
+                data: { Full_Name: Full_Name },
+                dataType: 'json',
+                success: function (data) {
+                    $("#First_Department").html("");
+                    //var option1 = $("<option>").val("").text("");
+                    //$("#First_Department").append(option1);
+                    $.each(data, function (key, val) {
+                        var option1 = $("<option>").val(val).text(val);
+                        $("#First_Department").append(option1);
+                    });
+                    form.render('select');
+                    $("#First_Department").get(0).selectedIndex = 0;
+                }, error: function (message) {
+                    $("#First_Department").html("");
+                }
+
+            });
+        }
+
+        //监听提交
+        form.on('submit(signout)', function (data) {
+
+            $.ajax({
+                'type': 'post',
+                'url': '/TZSign/SignOutAdd',
+                'data': {
+                    Curriculu_ID: data.field.Curriculu_ID,
+                    SignOut_Name: data.field.SignOut_Name,
+                    Curriculu_Mark: data.field.Curriculu_Mark,
+                    Teacher_Mark: data.field.Teacher_Mark,
+                    Memo: data.field.Memo,
+                    First_Department: data.field.First_Department 
+                },
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "0") {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index);
+                        });
+
+                    }
+                    else {
+                        window.location.href = "/TZSign/SignOutResult";
+                    }
+
+                },
+                error: function (message) {
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+
+            });
+
+
+            return false;
+        });
+
+
+    });
+</script>
+

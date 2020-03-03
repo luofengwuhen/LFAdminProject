@@ -1,0 +1,115 @@
+﻿<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+
+    @if (ViewBag.SignImport!=null && ViewBag.SignImport == "True")
+    {
+        <button class="layui-btn layui-btn-normal" data-type="import" type="button" id="import"><i class="layui-icon layui-icon-upload-circle"></i>签到信息导入</button>
+
+    }
+
+        <div class="layui-form-item">
+            <input hidden="hidden" name="ID" value="@ViewBag.Curriculu_ID" />
+            @*<button class="layui-btn" data-type="reload" type="button" id="search">搜索</button>*@
+
+            <table id="TZSign" lay-filter="TZSign"></table>
+            @*<table id="TZSign" class="layui-table" lay-filter="TZSign" lay-data="{  height: 'full-90', cellMinWidth: 120, page: true, limit: 90,toolbar: '#toolbar', url:'/TZSign/getList?Curriculu_ID=@ViewBag.Curriculu_ID'}">
+            <thead>
+                <tr>
+                    <th lay-data="{field:'First_Department', sort: true }">一级部门</th>
+                    <th lay-data="{field:'SignIn_Name', sort: true}">签到人</th>
+                    <th lay-data="{field:'SignIn_Time',  sort: true,width:'200'}">签到时间</th>
+                    <th lay-data="{field:'SignOut_Name',  sort: true}">签退人</th>
+                    <th lay-data="{field:'SignOut_Time',  sort: true ,width:'200'}">签退时间</th>
+                    <th lay-data="{field:'Curriculu_Mark',  sort: true }">课程评价</th>
+                    <th lay-data="{field:'Teacher_Mark',  sort: true }">讲师评价</th>
+                    <th lay-data="{field:'Memo',  sort: true }">意见或建议</th>
+                </tr>
+            </thead>
+        </table>*@
+        </div>
+</form>
+
+
+<script>
+    layui.use(['form', 'table', 'layedit', 'upload','util', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , upload = layui.upload
+            , table = layui.table
+            , util = layui.util
+            , laydate = layui.laydate;
+        var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+        table.render({
+            elem: '#TZSign' //指定原始表格元素选择器（推荐id选择器）
+            , height: 'full-90' //容器高度
+            , cellMinWidth: 120
+            , toolbar: '#toolbar'
+            , page: false 
+            , limit:90
+            , url: '/TZSign/getList?Curriculu_ID=@ViewBag.Curriculu_ID'
+            , cols: [[ 
+                { field: 'First_Department', title: '一级部门', sort: true },
+                { field: 'SignIn_Name', title: '签到人', sort: true },
+                { field: 'SignIn_Time', title: '签到时间', templet: function (d) { if (d.SignIn_Time != null) { return util.toDateString(d.SignIn_Time); } else { return '' }}, sort: true, width: 170 },
+                { field: 'SignOut_Name', title: '签退人', sort: true  },
+                { field: 'SignOut_Time', title: '签退时间', templet: function (d) { if (d.SignOut_Time != null) { return util.toDateString(d.SignOut_Time); } else { return '' }}, sort: true, width: 170 },
+                { field: 'Curriculu_Mark', title: '课程评价', sort: true },
+                { field: 'Teacher_Mark', title: '讲师评价',   sort: true },
+                { field: 'Memo', title: '意见或建议', sort: true } 
+            ]] //设置表头
+
+        });
+
+
+        layer.ready(function () {
+            //执行重载
+            table.reload('TZSign', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+                , where: {
+                    Curriculu_ID: @ViewBag.Curriculu_ID , 
+                    time: new Date()
+                }
+            });
+        });
+
+
+
+        ///导入
+        upload.render({
+            elem: '#import'
+            , accept: 'file'
+            , exts: 'xls|xlsx'
+            , url: '/TZCurriculuProject/ImportSign?Curriculu_ID='+@ViewBag.Curriculu_ID
+            , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+            }
+            , done: function (res) {
+                layer.closeAll('loading'); //关闭loading
+                if (res.IsSuccess == "1") {
+                    layer.alert("上传成功", {
+                        title: '提示'
+                    });
+                    window.location.reload();
+                }
+                else {
+                    layer.alert(res.MessageString, {
+                        title: '提示'
+                    });
+                    return false;
+                }
+            },
+            error: function (message) {
+                layer.closeAll('loading'); //关闭loading
+                layer.alert(JSON.stringify(message.statusText), {
+                    title: '提示'
+                });
+                return false;
+            }
+        });
+
+
+    });
+</script>

@@ -1,0 +1,17 @@
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\LFAdmin.Repositories.dll.config
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\LFAdmin.Repositories.dll
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\LFAdmin.Repositories.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\EntityFramework.dll
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\EntityFramework.SqlServer.dll
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\LFAdmin.Models.dll
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\LFAdmin.Models.pdb
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\LFAdmin.Models.dll.config
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\EntityFramework.xml
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\EntityFramework.SqlServer.xml
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\zh-Hans\EntityFramework.resources.dll
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\obj\Debug\LFAdmin.Repositories.csprojAssemblyReference.cache
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\obj\Debug\LFAdmin.Repositories.csproj.CoreCompileInputs.cache
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\obj\Debug\LFAdmin.Repositories.csproj.CopyComplete
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\obj\Debug\LFAdmin.Repositories.dll
+H:\1.精工\LFAdminProject\LFAdmin.Repositories\obj\Debug\LFAdmin.Repositories.pdb

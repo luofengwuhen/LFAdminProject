@@ -1,0 +1,1853 @@
+﻿ 
+<style>
+    .left-td-l {
+        width: 10%;
+    }
+
+    .left-td {
+        width: 40%;
+        padding-right: 10px;
+        text-align: right;
+        line-height: 40px;
+        font-size: 18px;
+    }
+
+    .right-td {
+        width: 40%;
+        padding-left: 10px;
+        line-height: 40px;
+        text-align: left;
+        font-size: 18px;
+    }
+
+    .right-td-r {
+        width: 10%;
+    }
+
+    .split {
+        page-break-after: always;
+        width: 70%;
+        margin: 0 auto
+    }
+
+    .firt_font {
+        font-weight: 900;
+        text-align: left;
+    }
+
+    .texts_font {
+        text-align: left;
+        line-height: 20px;
+        font-size: 14px;
+    }
+
+    .texts_font_bold {
+        text-align: left;
+        line-height: 20px;
+        font-weight: 700;
+        font-size: 16px;
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+
+    $(document).on("DOMContentLoaded", function () {
+        $("#tableTrust").rowspan(0);//传入的参数是对应的列数从0开始  第一列合并相同
+        $("#tableTopFive").rowspan(0);//传入的参数是对应的列数从0开始  第一列合并相同
+        $("#tableTopFive").rowspan(1);
+        $("#tableManTopFive").rowspan(0);
+        $("#tableManTopFive").rowspan(1);
+        $("#tbQua").rowspan(0);
+        $("#tbMan").rowspan(0);
+    });
+</script>
+
+@* 第一页 *@
+<div class="split">
+    <input type="hidden" id="AssessorInfoID" value="@ViewBag.ID" />
+    <input type="hidden" id="HierarchyName" value="@ViewBag.Hierarchy_Name" />
+
+    <div style="padding-top:50px;text-align:left;">
+        <img src="~/images/logo.png" style="width:280px;height:60px;" />
+    </div>
+
+    <div style="padding-top:50px;text-align:center;">
+
+        <img src="~/images/footer.png" />
+    </div>
+
+    <div style="padding-top:150px;text-align:center;width:80%;margin:0 auto">
+        <table style="border:1px solid ;width:100%">
+            <tr>
+                <td class="left-td" style="padding-top:40px;">被评估人 :</td>
+                <td class="right-td" style="padding-top:40px;">@ViewBag.Assessor_Name</td>
+            </tr>
+
+            <tr>
+                <td class="left-td">所在公司 :</td>
+                <td class="right-td">@ViewBag.Company_Name</td>
+            </tr>
+            <tr>
+                <td class="left-td">所在部门 :</td>
+                <td class="right-td">@ViewBag.Department_Name</td>
+            </tr>
+
+            <tr>
+                <td class="left-td">信任度评估结果:</td>
+                <td class="right-td">@ViewBag.TrustPer </td>
+            </tr>
+            <tr>
+                <td class="left-td">管理技能得分 :</td>
+                <td class="right-td">@ViewBag.HeManAve</td>
+            </tr>
+            <tr>
+                <td class="left-td">核心素质得分 :</td>
+                <td class="right-td">@ViewBag.HeQuaAve</td>
+            </tr>
+            @*<tr>
+
+                <td class="left-td">同组综合排名 :</td>
+                @if (ViewBag.Ranking_Name != null && ViewBag.Ranking_Name != "")
+                {
+                    <td class="right-td">@ViewBag.Rank  ( @ViewBag.Ranking_Name)</td>
+                }
+                else
+                {
+                    <td class="right-td">@ViewBag.Rank  </td>
+                }
+            </tr>*@
+            <tr>
+                <td class="left-td" style="padding-bottom:40px;">报表日期 :</td>
+                <td class="right-td" style="padding-bottom:40px;">@ViewBag.ReportDate</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+@* 第二页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+        <h1 class="firt_font">前言</h1>
+        <br />
+        <h5 class="texts_font">这是一份关于您的360度评估反馈报告，以《精工控股集团管理类任职资格标准》为基础，同时沿用各级管理干部信任度的投票评估，汇总了您本人及相关同事对您工作表现的看法。通过这种多角度的反馈，让您更全面地认识自己，并获知改善的方向，帮助您发挥潜力、持续成长！</h5>
+        <br />
+        <br />
+        <h5 class="texts_font_bold">报告基于以下人员的评估数据：</h5>
+        <h5 class="texts_font">
+            上级：指直接上级、抽取隔级上级<br />
+            下属：指直接下属、隔级下属<br />
+            相关方同事：指与被评估人有密切工作接触的同部门同事或跨部门同事<br />
+            具有集团条线管控职能的对象，同时包含集团条线的领导、下属及相关方
+        </h5>
+        <br />
+
+        <table style="border-top:2px solid #000;border-bottom:2px solid #000;border-left:0px;border-right:0px;width:600px;line-height:35px;"  rules="rows">
+            <tr style="font-weight:700">
+                <td>
+                    评价关系
+                </td>
+                <td>
+                    有效数据
+                </td>
+                <td>
+                    邀请
+                </td>
+                <td>
+                    完成率
+                </td>
+            </tr>
+
+            @foreach (var ret in ViewBag.RetList)
+            {
+                <tr>
+                    <td>
+                        @ret.Relation_Name
+                    </td>
+                    <td>
+                        @ret.Valid_Counts
+                    </td>
+                    <td>
+                        @ret.Total_Counts
+                    </td>
+                    <td>
+                        @ret.Valid_Per
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <td>
+                    合计
+                </td>
+                <td>
+                    @ViewBag.ValidSums
+                </td>
+                <td>
+                    @ViewBag.TotalSums
+                </td>
+                <td>
+                    @ViewBag.ValidPer
+                </td>
+            </tr>
+
+        </table>
+
+        <br />
+        <h5 class="texts_font_bold">
+            他们通过如下选项对您进行评估：
+        </h5>
+        <br />
+
+        <table style="border-top:2px solid #000;border-bottom:2px solid #000;border-left:0px;border-right:0px;width:400px;line-height:35px;" rules="rows">
+            <tr style="font-weight:700">
+                <td> 选项 </td>
+                <td> 对应分值 </td>
+            </tr>
+            <tr>  <td> 从来没有 </td> <td> 1 </td>
+            <tr>
+                <td> 偶尔如此 </td>
+                <td> 2 </td>
+            </tr>
+            <tr>
+                <td> 半数如此 </td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td> 大多数如此 </td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td> 一直如此 </td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td> 无法评价 </td>
+                <td>不计入总分</td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>
+
+@* 第三页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+        <h1 class="firt_font">指标定义</h1>
+        <br />
+        <h5 class="texts_font">&nbsp&nbsp在正式阅读报告之前，请先了解这次评估反馈中涉及的指标，理解每个指标的含义和侧重点，主要分为三大部分：</h5>
+
+        <h5 class="texts_font_bold">信任度</h5>
+        <h5 class="texts_font">
+            ● &nbsp信任：就算面临困境，也愿意相信并追随（任用）他<br />
+            ● &nbsp基本信任：在一般情况下，可以相信并追随（任用）他<br />
+            ● &nbsp不信任：几乎不能信任
+        </h5>
+        <br />
+
+        <h5 class="texts_font_bold">核心管理素质</h5>
+        <h5 class="texts_font"><strong>● &nbsp责任心：</strong>能主动负责、一诺千金，忘我工作、竭尽全力，勇于承担工作任务，有“只为成功找方法，不为失败找理由”的责任心</h5>
+        <h5 class="texts_font"><strong>● &nbsp进取心：</strong>不断追求上进，不安于现状，不得过且过，能吃人家吃不了的苦、干人家不愿干的活，有渴望成功、成就事业的想法</h5>
+        <h5 class="texts_font"><strong>● &nbsp包容心：</strong>为人坦率真诚、能够听取不同的意见和观点，能够用人所长、宽容下属的缺点，并能与团队成员达成共识，共同合作</h5>
+        <h5 class="texts_font"><strong>● &nbsp学习力：</strong>具有不断了解新事物、吸收新知识、掌握新方法、研究新技术的意愿，并能快速吸收领悟、有效应用到实际工作中，同时营造团队和组织的学习氛围</h5>
+        <h5 class="texts_font"><strong>● &nbsp决断力：</strong>有“一叶知秋”的洞察力，有逻辑思维能力及系统思考的能力，做事果敢，不拖泥带水，并能够快速、正确的做出判断</h5>
+        <h5 class="texts_font"><strong>● &nbsp毅力：</strong>坚韧不拔、有抗压、抗打击能力，在困难、挫折和压力环境下，保持对工作的激情以及乐观、自信的心态，只要还有一点点希望就能付出百分之百的努力，决不放弃</h5>
+
+        <h5 class="texts_font_bold">管理技能</h5>
+        <h5 class="texts_font"><strong>● &nbsp战略规划与管理：</strong>制订公司的战略发展规划、经营方针，并整合资源，保障规划达成</h5>
+        <h5 class="texts_font"><strong>● &nbsp文化塑造与组织氛围建设：</strong>塑造、诠释公司的企业文化，并通过个人以身作则、考核激励等措施，践行公司的企业文化，营造良好的组织氛围</h5>
+        <h5 class="texts_font"><strong>● &nbsp市场洞察与客户管理：</strong>发掘内外部客户真正的需求，持续改善相应的服务和工作流程，提高内外部客户的满意度，与客户建立合作伙伴关系</h5>
+        <h5 class="texts_font"><strong>● &nbsp目标计划管理：</strong>制订公司年度工作计划，并分解落实到部门、岗位，监控目标计划达成</h5>
+        <h5 class="texts_font"><strong>● &nbsp人才选拔与培养：</strong>建立公司人才培养机制，进行人员规划，选拔与培养人才，提升员工的能力，形成核心类别、关键岗位的后备人才队伍</h5>
+        <h5 class="texts_font"><strong>● &nbsp员工激励：</strong>根据公司激励政策，通过授权、考核评价、职业发展等措施进行激励</h5>
+        <h5 class="texts_font"><strong>● &nbsp组织体系建设：</strong>创新、设计、优化公司的核心业务流程体系架构和组织架构，从组织的角度保证对公司核心业务流程的支撑</h5>
+        <h5 class="texts_font"><strong>● &nbsp变革管理：</strong>识别组织变革的目的、意义和迫切性，发起公司管理变革，并有效管理变革过程，保证变革目标达成</h5>
+    </div>
+</div>
+
+@* 第四页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+        <h1 class="firt_font">计分规则</h1>
+        <br />
+        <h5 class="texts_font_bold">信任度</h5>
+        <h5 class="texts_font">围绕精工企业文化以及核心素质、技能的要求对领导干部进行综合评估，分别按“ 信任、基本信任、不信任” 三方面进行评估， 按“ 对应投票数/参评总人数” ，计算得出“ 信任度、基本信任、不信任” 的评估比例</h5>
+        <br />
+        <h5 class="texts_font_bold">核心管理素质</h5>
+        <h5 class="texts_font">
+            公司评估结果=上级40%+相关方30%+下属30%<br />
+            条线管理干部各项素质评估分=本公司评估结果50%+集团条线评估结果50%<br />
+            个人核心素质评估分=各项素质评估分的平均值
+        </h5>
+        <br />
+        <h5 class="texts_font_bold">管理技能</h5>
+        <h5 class="texts_font">
+            评估结果=上级40%+相关方30%+下属30%<br />
+            条线管理干部各项管理技能评估分=本公司评估结果50%+集团条线评估结果50%<br />
+            个人管理技能评估分=∑某项管理技能评估分*对应层级的权重
+        </h5>
+        <br />
+        <h5 class="texts_font_bold">排序范围</h5>
+        <h5 class="texts_font">
+            @*同组综合排名=（核心素质+管理技能）的总分在本公司同组进行排序，前20%-优秀/中60%-中等/后20%-待提升<br />*@
+            各层级排序范围，M5原则上在集团同一层级对象范围内进行排序，M4、M3、M2原则上在本公司同层级管理干部范围内排序
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            注：核心素质、管理技能上级评估分为本公司上级与集团条线上级的平均分，相关方评估分为本公司相关方与集团条线相关方的平均分，下属评估分为本公司下属与集团条线下属的平均分。如上级、相关方或下属缺少一类人员参评，则其对应的权重自动分摊到其他两类参评人员；如本公司和集团条线参评人员缺少一类人员参评，则其对应的权重也自动分摊到另一类参评人员。
+        </h5>
+    </div>
+</div>
+
+@* 第五页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+        <h1 class="firt_font">概况</h1>
+        <br />
+        <h5 class="texts_font_bold">1. &nbsp 信任度</h5>
+        <h5 class="texts_font">
+            信任可以降低管理成本，促使组织内部的资源得到更合理的运用，从而提高组织效能，同时促进组织成员间的互助合作，维系组织的生存。信任度展示了您被他人认可的程度。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            您在信任度指标上得分的概要情况，包括本次评估的他评、同组、所在公司的得分，根据后续指标分析重点思考是什么因素影响他人对您的评价？如何来保持及改善？
+        </h5>
+        <br />
+        <h5 class="texts_font_bold">您的信任度得分为：&nbsp&nbsp&nbsp @ViewBag.TrustPer</h5>
+        <table id="tableTrust" style="border-top:2px solid #000;border-bottom:2px solid #000;border-left:0px;border-right:0px;width:60%;line-height:35px;"  rules="rows">
+            <tr style="font-weight:700">
+                <td>
+                    年度
+                </td>
+                <td>
+                    评价维度
+                </td>
+                <td>
+                    信任
+                </td>
+                <td>
+                    基本信任
+                </td>
+                <td>
+                    不信任
+                </td>
+            </tr>
+
+            @foreach (var ret in ViewBag.trustList)
+            {
+                <tr>
+                    <td>
+                        @ret.Years 年
+                    </td>
+                    <td>
+                        @ret.Dim
+                    </td>
+                    <td>
+                        @ret.Trust_Per
+                    </td>
+                    <td>
+                        @ret.Basictrust_Per
+                    </td>
+                    <td>
+                        @ret.Distrust_Per
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <h5 class="texts_font_bold">2. &nbsp 素质能力</h5>
+        <h5 class="texts_font">
+            您在各项核心管理素质、管理能力指标上得分的概要情况，包括他评均分、自评、同组均分。
+        </h5>
+        <h5 class="texts_font">
+            请关注：各项指标是否均衡、有没有明显的长短板？自我认知的偏差是否符合您的预期？主要是什么原因？与同组人员相比有哪些优劣势？
+        </h5>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：管理素质“三心三力”，管理能力“8个维度”）
+            </h5>*@
+        <h5 class="texts_font">
+            2.1 核心素质
+        </h5>
+        <table style="width:100%;">
+            <tr>
+                <td style="width:300px;">
+                    <div id="Quality" style="height:450px;padding-top:10px;"></div>
+                </td>
+                <td style="width:400px;">
+                    <table rules="rows" id="tbQua" style="border-bottom:1px solid #000;border-top:1px solid #000;">
+                        @foreach (var qua in ViewBag.QuaList)
+                        {
+                            <tr>
+                                <td style="width:150px">
+                                    @qua.Type
+                                </td>
+                                <td style="width:70px">
+                                    @qua.Dim
+                                </td>
+                                <td style="width:50px">
+                                    @qua.Score
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        @*<h5 class="texts_font" style="color:red">
+                （图表调整说明：5分制，素质“三心三力”） 2018年核心素质，他评均分、自评、上年度均分以及同组50分位，4条线
+            </h5>*@
+
+    </div>
+</div>
+
+@* 第六页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+        <br />
+        <h5 class="texts_font">
+            2.2 管理能力
+        </h5>
+
+        <table style="width:100%;">
+            <tr>
+                <td style="width:300px; ">
+                    <div id="Manage" style="height:450px;padding-top:10px;"></div>
+                </td>
+                <td style="width:400px;">
+                    <table rules="rows" id="tbMan" style="border-bottom:1px solid #000;border-top:1px solid #000;">
+                        @foreach (var qua in ViewBag.ManList)
+                        {
+                            <tr>
+
+                                <td style="width:150px">
+                                    @qua.Type
+                                </td>
+                                <td style="width:70px">
+                                    @qua.Dim
+                                </td>
+                                <td style="width:50px">
+                                    @qua.Score
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <h5 class="texts_font_bold">3. &nbsp 发展建议</h5>
+        <h5 class="texts_font">
+            按照他评与自评的高低，将不同指标划分到待发展共识区、盲区、潜能区、优势共识区，对于不同区域的指标，有不同的发展建议。
+        </h5>
+        <table style="width:600px; height:500px; "  >
+            <tr>
+                <td width="50px">
+                    <img src="~/images/tbLeft.png" style="margin-bottom:-37px; " />
+                </td>
+                <td>
+                    <table style="width:500px; height:500px" align="left">
+                        <tr>
+                            <td align="center" style="background-image: url('../../images/background.png')   !important;line-height:50px ; width:240px;">
+                                <img src="~/images/qianneng.png" />
+                            </td>
+                            <td style="width:20px"></td>
+                            <td align="center" style="background-image: url('../../images/background.png')  !important;line-height:50px ;width:240px;">
+                                <img src="~/images/youshi.png" />
+                            </td>
+                        </tr>
+                        <tr style="min-height:150px;max-height:150px;  ">
+                            <td style="background-image: url('../../images/background.png') !important;text-align:left; width:240px;">
+                                @if (ViewBag.QuaPotential == "" && ViewBag.ManPotential == "")
+                                {
+                                    <p style="margin-left:150px;">略</p>
+                                }
+                                else
+                                {
+                                    <p style="margin-left:20px;margin-right:20px;">素质能力: @ViewBag.QuaPotential;<br /></p>
+                                    <p style="margin-left:20px;margin-right:20px;">管理能力: @ViewBag.ManPotential;</p>
+                                }
+                            </td>
+                            <td style="width:10px"></td>
+                            <td style="background-image: url('../../images/background.png') !important; text-align:left;width:240px;">
+                                @if (ViewBag.QuaAdvantage == "" && ViewBag.ManAdvantage == "")
+                                {
+                                    <p style="margin-left:150px;">略</p>
+                                }
+                                else
+                                {
+                                    <p style="margin-left:20px;margin-right:20px;">素质能力: @ViewBag.QuaAdvantage;<br /></p>
+                                    <p style="margin-left:20px;margin-right:20px;">管理能力: @ViewBag.ManAdvantage;</p>
+                                }
+                            </td>
+                        </tr>
+                        <tr style="height:15px;">
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background-image: url('../../images/background2.jpg') !important;line-height:50px ;"><img src="~/images/daifazhan.png" /></td>
+                            <td style="width:10px"></td>
+                            <td align="center" style="background-image: url('../../images/background2.jpg') !important;line-height:50px ;"><img src="~/images/mangqu.png" /></td>
+                        </tr>
+                        <tr style="min-height:150px;max-height:150px;  ">
+                            <td style="background-image: url('../../images/background.png') !important;text-align:left;width:240px;">
+                                @if (ViewBag.QuaDevelopment == "" && ViewBag.ManDevelopment == "")
+                                {
+                                    <p style="margin-left:150px;">略</p>
+                                }
+                                else
+                                {
+                                    <p style="margin-left:20px;margin-right:20px;">素质能力: @ViewBag.QuaDevelopment;<br /></p>
+                                    <p style="margin-left:20px;margin-right:20px;">管理能力: @ViewBag.ManDevelopment;</p>
+                                }
+                            </td>
+                            <td style="width:10px"></td>
+                            <td style="background-image: url('../../images/background.png') !important;text-align:left;width:240px;">
+                                @if (ViewBag.QuaBlind == "" && ViewBag.ManBlind == "")
+                                {
+                                    <p style="margin-left:150px;">略</p>
+                                }
+                                else
+                                {
+                                    <p style="margin-left:20px;margin-right:20px;">素质能力: @ViewBag.QuaBlind;<br /></p>
+                                    <p style="margin-left:20px;margin-right:20px;">管理能力: @ViewBag.ManBlind;</p>
+                                }
+                            </td>
+
+                        </tr>
+                        <tr style="width:600px;">
+                            <td colspan="3">
+                                <img src="~/images/tbBoot.png" style="margin-left:-40px" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+
+        @*<h5 class="texts_font" style="color:red">
+            （图表解析：素质和能力哈里视窗的他评高低和自评高低按公司同组总体50分位值分数区分，下用同组均分表示）
+        </h5>*@
+
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+
+@* 第七页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+        <h5 class="texts_font_bold"><img src="~/images/1.png" style="line-height:30px;" /> &nbsp &nbsp&nbsp&nbsp潜能区（他评高，自评低）</h5>
+        <h5 class="texts_font">
+            这个区域呈现的是您没有意识到的自身优势。如果稍加关注，在日常工作中多有意识的发挥这部分才能，对改善工作效果会有极大的帮助。因为您本身具备这部分潜质，会起到事半功倍的作用。
+        </h5>
+        <h5 class="texts_font">
+            注: 当他评大于公司同组均分，而自评小于等于公司同组均分时为潜能区。
+        </h5>
+        <br />
+        <h5 class="texts_font_bold"><img src="~/images/2.png" style="line-height:30px;" /> &nbsp &nbsp&nbsp&nbsp 优势共识区（他评自评均高）</h5>
+        <h5 class="texts_font">
+            在这个区域呈现出您的显著的优势，无论他人还是您自己都意识到在这方面做的非常出色。在日常工作中，要继续发挥这部分的能力，让自己尽可能接近完美。
+        </h5>
+        <h5 class="texts_font"> 注:   当他评与自评均大于公司同组均分为优势共识区。</h5>
+        <br />
+        <h5 class="texts_font_bold"><img src="~/images/3.png" style="line-height:30px;" /> &nbsp &nbsp&nbsp&nbsp 发展共识区（他评自评均低） </h5>
+        <h5 class="texts_font">
+            这个区域是您和他人都认为的弱势，是您工作的短板，影响到您的整理工作效能。建议您制定提升计划，参加系统的培训。
+        </h5>
+        <h5 class="texts_font">
+            注: 当他评与自评均小于等于公司同组均分为发展共识区。
+        </h5>
+        <br />
+
+        <h5 class="texts_font_bold"><img src="~/images/4.png" style="line-height:30px;" /> &nbsp &nbsp&nbsp&nbsp  盲区（自评高，他评低）</h5>
+        <h5 class="texts_font">
+            这个区域是您完全没有意识到的弱势。因此最有可能成为提升的死角。无意识自然也就不会去改善。所以要格外的注意。这个区域或成为你成长的最大阻碍，建议加倍的关注。
+        </h5>
+        <h5 class="texts_font">
+            注:  当他评小于等于公司同组均分，而自评大于公司同组均分时为盲区。<br />
+        </h5>
+        <br />
+
+    </div>
+</div>
+
+@* 第八页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+        <h1 class="firt_font">优势与待发展</h1>
+        <br />
+
+        <h5 class="texts_font">
+            他人眼中的优势与待发展项
+        </h5>
+        <h5 class="texts_font">
+            本部分展现他评分数最高和最低的几项核心管理素质和管理能力及所含题目，您将了解“他人眼中的您”，从而帮助您正确认识自己，强化优势，发展短板。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            1.  核心素质
+        </h5>
+        <h5 class="texts_font">
+            1.1  优势素质
+        </h5>
+        <h5 class="texts_font">
+            展现得分（他评均分）最高的选取标准及所含题目。部分得分较高但没包含在得分最高指标中的题目在其它得高分项中展现。阴影区域代表同样问卷者在该题目上的得分范围。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：  <br />
+            1) 查看以下结果，是否存在令您感到意外的结果？  <br />
+            2) 在您的某一优势素质下，有哪些行为做得不错（题目得分高）？哪些行为还需要改善？  <br />
+            3) 其他得高分的行为(题目)和您的优势素质之间有什么联系吗？
+        </h5>
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style=" font-weight: 700; background-color:#DDDDDD !important;  ">
+                @* background-image: url('../../images/background.png');*@
+                <td style="width:70%;text-align:left;height:50px;" colspan="3">
+                    TOP1   @ViewBag.TopName
+                </td>
+                <td style="width:30%;text-align:center" colspan="2">
+                    @ViewBag.TopScore
+                </td>
+            </tr>
+            <tr style="font-weight: 600; background-color:#f0f0f0 !important;  height: 30px; ">
+                @* background-image: url('../../images/background2.png');*@
+                <td style="width:10%;">题目编号</td>
+                <td style="width:45%;">题目名称</td>
+                <td style="width:15%;">他评最小值</td>
+                <td style="width:15%;">他评均分</td>
+                <td style="width:15%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.QualityHeSubjectList)
+            {
+                <tr>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按第一项优势素质及该项全部行为描述，评分维度为他评均分及最大最小范围）
+            </h5>*@
+        <br />
+        <br />
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style=" font-weight:700;background-color:#DDDDDD !important; ">
+                @*background-image: url('../../images/background.png');*@
+                <td style="width:100%;text-align:left;height:50px" colspan="6">
+                    其它得高分项:
+                </td>
+            </tr>
+            <tr style=" font-weight:600;height:30px;background-color:#f0f0f0 !important;   ">
+                @*background-image: url('../../images/background2.png');*@
+                <td style="width:10%;">所属指标</td>
+                <td style="width:10%;">题目编号</td>
+                <td style="width:40%;">题目名称</td>
+                <td style="width:10%;">他评最小值</td>
+                <td style="width:10%;">他评均分</td>
+                <td style="width:10%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.QualityHeSubjectSurList)
+            {
+                <tr>
+                    <td><strong>@qhs.Type</strong></td>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按除前面行为描述，取剩余前3项行为描述，评分维度为他评均分及最大最小范围）
+            </h5>*@
+
+    </div>
+</div>
+
+
+
+@* 第九页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            1.2  待发展素质
+        </h5>
+        <h5 class="texts_font">
+            展现得分（他评均分）最低的几项指标及所含题目。部分得分较低但没包含在得分最低指标中的题目在其它得低分项中展现。阴影区域代表同样问卷者在该题目上的得分范围。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：<br />
+            1) 查看以下内容，是否存在令您感到意外的结果？<br />
+            2) 在您的待发展素质中具体哪些行为做得不够好（题目得分低）？哪些行为表现得相对不错？<br />
+            3) 其他得低分的行为（题目）和您不同角色眼中的行为特点？
+        </h5>
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD !important;font-weight:700">
+                <td style="width:70%;text-align:left;height:50px" colspan="3">
+                    LAST1   @ViewBag.LastName
+                </td>
+                <td style="width:30%;text-align:center" colspan="2">
+                    @ViewBag.LastScore
+                </td>
+            </tr>
+            <tr style="background-color:#f0f0f0  !important;font-weight:600;height:30px">
+                <td style="width:10%;">题目编号</td>
+                <td style="width:45%;">题目名称</td>
+                <td style="width:15%;">他评最小值</td>
+                <td style="width:15%;">他评均分</td>
+                <td style="width:15%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.QualityHeSubjectLastList)
+            {
+                <tr>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按最后一项劣势素质及该项全部行为描述，评分维度为他评均分及最大最小范围）
+            </h5>*@
+        <br />
+        <br />
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:100%;text-align:left;height:50px" colspan="6">
+                    其它得低分项:
+                </td>
+            </tr>
+            <tr style="background-color:#f0f0f0  !important;font-weight:600;height:30px">
+                <td style="width:10%;">所属指标</td>
+                <td style="width:10%;">题目编号</td>
+                <td style="width:40%;">题目名称</td>
+                <td style="width:10%;">他评最小值</td>
+                <td style="width:10%;">他评均分</td>
+                <td style="width:10%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.QualityHeSubjectSurLastList)
+            {
+                <tr>
+                    <td>@qhs.Type</td>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按除前面行为描述，取剩余最后3项行为描述，评分维度为他评均分值及最大最小范围）
+            </h5>*@
+
+    </div>
+</div>
+
+@* 第十页 *@
+<div class="split">
+    <div style=" padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            1.3  不同角色眼中的行为特点
+        </h5>
+        <h5 class="texts_font">
+            不同评价角色评分最高和最低的行为题目。您可以了解在不同评价者眼中您的形象，分析这是否符合您的预期。
+        </h5>
+
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：<br />
+            1) 横看，某一角色的评价者眼中分别哪些行为是您的强弱项？<br />
+            2) 竖看，有哪些行为表现是不同角色的评价者一致认为的强项或弱项？<br />
+            3) 交叉看，是否存在某一行为，不同角色的评价者对其看法截然不同？
+        </h5>
+        <div>
+
+        </div>
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="font-weight:700">
+                <td style="width:45%;text-align:left;height:30px" colspan="4">
+                    <h2> &nbsp&nbsp&nbsp High</h2>
+                </td>
+                <td style="width:10%;  border-top:hidden;"> </td>
+                <td style=" width:45%;text-align:left;height:30px" colspan="4">
+                    <h2> &nbsp&nbsp&nbspLow</h2>
+                </td>
+            </tr>
+            @if (ViewBag.supHighQHRSList != null)
+            {
+                <tr style="top:2px; color:white;font-weight:700;">
+                    <td style="width:30%;text-align:left;height:30px;background-color:#37AE7C  !important;" colspan="2">
+                        &nbsp&nbsp上级
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#37AE7C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#37AE7C  !important">
+                        所属指标
+                    </td>
+                    <td style="width:10%; border-top:hidden;"> </td>
+                    <td style="width:30%;text-align:left;height:30px;background-color:#E69E6C  !important" colspan="2">
+                        &nbsp&nbsp上级
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#E69E6C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#E69E6C  !important">
+                        所属指标
+                    </td>
+                </tr>
+                for (int i = 0; i <3; i++)
+                {
+                <tr>
+                    <td style="width:5%">@ViewBag.supHighQHRSList[i].Subject_ID</td>
+                    <td style="width:25%;text-align:left;">@ViewBag.supHighQHRSList[i].Subject_Name</td>
+                    <td style="width:5%;">@ViewBag.supHighQHRSList[i].Score</td>
+                    <td style="width:10%;">@ViewBag.supHighQHRSList[i].Type</td>
+                    <td style="width:10%;border-top:hidden;"> </td>
+                    @if(ViewBag.supLowQHRSList.Count>i)
+                    {
+                        <td style="width:5%">@ViewBag.supLowQHRSList[i].Subject_ID</td>
+                        <td style="width:25%;text-align:left;">@ViewBag.supLowQHRSList[i].Subject_Name</td>
+                        <td style="width:5%;">@ViewBag.supLowQHRSList[i].Score</td>
+                        <td style="width:10%;">@ViewBag.supLowQHRSList[i].Type</td>
+                    } 
+                </tr>
+                }
+            }
+
+            @if (ViewBag.relHighQHRSList != null)
+            {
+
+
+                <tr style="top:2px;color:white;font-weight:700;">
+                    <td style="width:30%;text-align:left;height:30px;background-color:#37AE7C  !important" colspan="2">
+                        &nbsp&nbsp相关方
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#37AE7C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#37AE7C  !important">
+                        所属指标
+                    </td>
+                    <td style="width:10%; border-top:hidden;"> </td>
+                    <td style="width:30%;text-align:left;height:30px;background-color:#E69E6C  !important" colspan="2">
+                        &nbsp&nbsp相关方
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#E69E6C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#E69E6C  !important">
+                        所属指标
+                    </td>
+                </tr>
+
+                for (int i = 0; i < 3; i++)
+                {
+                <tr>
+                    <td style="width:5%">@ViewBag.relHighQHRSList[i].Subject_ID</td>
+                    <td style="width:25%;text-align:left;">@ViewBag.relHighQHRSList[i].Subject_Name</td>
+                    <td style="width:5%;">@ViewBag.relHighQHRSList[i].Score</td>
+                    <td style="width:10%;">@ViewBag.relHighQHRSList[i].Type</td>
+                    <td style="width:10%;border-top:hidden;"> </td>
+                    @if (ViewBag.relLowQHRSList.Count > i)
+                    {
+                        <td style="width:5%">@ViewBag.relLowQHRSList[i].Subject_ID</td>
+                        <td style="width:25%;text-align:left;">@ViewBag.relLowQHRSList[i].Subject_Name</td>
+                        <td style="width:5%;">@ViewBag.relLowQHRSList[i].Score</td>
+                        <td style="width:10%;">@ViewBag.relLowQHRSList[i].Type</td>
+                    }
+                    </tr>
+                }
+
+            }
+
+            @if (ViewBag.subHighQHRSList != null)
+            {
+                <tr style="top:2px;color:white;font-weight:700;">
+                    <td style="width:30%;text-align:left;height:30px;background-color:#37AE7C  !important" colspan="2">
+                        &nbsp&nbsp下属
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#37AE7C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#37AE7C  !important">
+                        所属指标
+                    </td>
+                    <td style="width:10%;border-top:hidden;"> </td>
+                    <td style="width:30%;text-align:left;height:30px;background-color:#E69E6C  !important" colspan="2">
+                        &nbsp&nbsp 下属
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#E69E6C  !important" "></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#E69E6C  !important" ">
+                        所属指标
+                    </td>
+                </tr>
+
+
+                for (int i = 0; i < 3; i++)
+                {
+                <tr>
+                    <td style="width:5%">@ViewBag.subHighQHRSList[i].Subject_ID</td>
+                    <td style="width:25%;text-align:left;">@ViewBag.subHighQHRSList[i].Subject_Name</td>
+                    <td style="width:5%;">@ViewBag.subHighQHRSList[i].Score</td>
+                    <td style="width:10%;">@ViewBag.subHighQHRSList[i].Type</td>
+                    <td style="width:10%;  border-top:hidden;border-bottom:hidden;"> </td>
+                    @if (ViewBag.subLowQHRSList.Count > i)
+                    {
+                        <td style="width:5%">@ViewBag.subLowQHRSList[i].Subject_ID</td>
+                        <td style="width:25%;text-align:left;">@ViewBag.subLowQHRSList[i].Subject_Name</td>
+                        <td style="width:5%;">@ViewBag.subLowQHRSList[i].Score</td>
+                        <td style="width:10%;">@ViewBag.subLowQHRSList[i].Type</td>
+                    }
+                    </tr>
+                }
+
+            }
+        </table>
+
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标取前/最后3项行为描述，评价维度按他评均分，所属指标取三心三力）
+            </h5>*@
+
+    </div>
+</div>
+
+
+@* 第十一页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            1.4  自我认知偏差
+        </h5>
+
+        <h5 class="texts_font">
+            展现自评与他评相比差距最大的能力及所含题目。通过自我认知偏差的分析，您可以了解“他人眼中的您”与“自我认知”之间的不同，从而帮助您弥补盲点、发挥潜能。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：</br>
+            1)对比自评均分和他评均分之间的差距，思考差距产生的原因。</br>
+            2)仔细查看下面每项素质中的题目得分，有哪些题目是自评与他评分差相对较小的。</br>
+            3)结合上一部分，下列素质中是否有某一素质也是他人眼中的优势或待发展素质？重点关注这些素质。
+        </h5>
+
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:5%;"></td>
+                <td style="width:55%;text-align:left;height:50px">
+                    指标名称
+                </td>
+                <td style="width:10%;text-align:center">
+                    他评
+                </td>
+                <td style="width:10%;text-align:center">
+                    自评
+                </td>
+                <td style="width:10%;text-align:right">
+                    自评偏高
+                </td>
+                <td style="width:10%;text-align:left">
+                    |自评偏低
+                </td>
+            </tr>
+            @foreach (var autogn in ViewBag.AutognList)
+            {
+                if (autogn.Subject_ID > 0)
+                {
+                    <tr>
+                        <td style="width:5%;">@autogn.Subject_ID</td>
+                        <td style="width:55%;text-align:left">@autogn.Subject_Name</td>
+                        <td>@autogn.heScore</td>
+                        <td>@autogn.ownScore</td>
+                        @if (autogn.ownHScore > 0)
+                        {
+                            <td>@autogn.ownHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @if (autogn.heHScore > 0)
+                        {
+                            <td>@autogn.heHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+                else
+                {
+                    <tr style="background-color:#f0f0f0  !important; line-height:50px ;">
+                        <td style="width:5%;height:30px;"></td>
+                        <td style="width:55%;text-align:left"><strong>@autogn.Subject_Name</strong></td>
+                        <td>@autogn.heScore</td>
+                        <td>@autogn.ownScore</td>
+                        @if (autogn.ownHScore > 0)
+                        {
+                            <td>@autogn.ownHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @if (autogn.heHScore > 0)
+                        {
+                            <td>@autogn.heHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+            }
+        </table>
+
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标取三心三力每项汇总项及每项行为描述，评价维度按他评均分，自评均分，他评偏高/偏低）
+            </h5>*@
+
+    </div>
+</div>
+
+@* 第十二页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            1.5  各角色间的认知偏差
+        </h5>
+
+        <h5 class="texts_font">
+            展现不同评价者给您评分差异最大的题目，您可以了解不同评价者对您评价的主要分歧，思考为何会产生这样的分歧，重点关注那些将对您的发展产生不良影响的。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：</br>
+            1) 在某一行为上不同角色的评价者之间的认知差异如何？</br>
+            2) 思考不同角色在某一行为上产生认知差距的原因是什么？</br>
+            3) 可以采取哪些行动来改变现状，获得一致较好的评价？
+        </h5>
+
+        <table id="tableTopFive" style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:16%;text-align:center;height:50px">
+                    所属指标
+                </td>
+                <td style="width:60%;text-align:center">
+                    题目
+                </td>
+                <td style="width:10%;text-align:center">
+                    关系
+                </td>
+                <td style="width:15%;text-align:center">
+                    各角色评分
+                </td>
+            </tr>
+            @foreach (var topfive in ViewBag.QualityTopFiveList)
+            {
+                <tr style="line-height:30px;">
+                    <td><strong>@topfive.Type</strong></td>
+                    <td style="text-align:left">@topfive.Subject_Name</td>
+                    <td>@topfive.Relation_Name</td>
+                    <td>@topfive.Score</td>
+                </tr>
+            }
+        </table>
+
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标取三心三力每项汇总项及每项行为描述，评价维度按他评均分，自评均分，他评偏高/偏低）
+            </h5>*@
+
+    </div>
+</div>
+
+@* 第十三页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            2.  管理能力
+        </h5>
+        <h5 class="texts_font">
+            2.1  优势能力
+        </h5>
+        <h5 class="texts_font">
+            展现得分（他评均分）最高的选取标准及所含题目。部分得分较高但没包含在得分最高指标中的题目在其它得高分项中展现。阴影区域代表同样问卷者在该题目上的得分范围。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：  <br />
+            1) 查看以下结果，是否存在令您感到意外的结果？  <br />
+            2) 在您的某一优势素质下，有哪些行为做得不错（题目得分高）？哪些行为还需要改善？  <br />
+            3) 其他得高分的行为(题目)和您的优势素质之间有什么联系吗？
+        </h5>
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:70%;text-align:left;height:50px" colspan="3">
+                    TOP1   @ViewBag.TopManageName
+                </td>
+                <td style="width:30%;text-align:center" colspan="2">
+                    @ViewBag.TopManageScore
+                </td>
+            </tr>
+            <tr style="background-color:#f0f0f0  !important;font-weight:600;height:30px">
+                <td style="width:10%;">题目编号</td>
+                <td style="width:45%;">题目名称</td>
+                <td style="width:15%;">他评最小值</td>
+                <td style="width:15%;">他评均分</td>
+                <td style="width:15%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.ManageHeSubjectList)
+            {
+                <tr>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按第一项优势素质及该项全部行为描述，评分维度为他评均分及最大最小范围）
+            </h5>*@
+        <br />
+        <br />
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:100%;text-align:left;height:50px" colspan="6">
+                    其它得高分项:
+                </td>
+            </tr>
+            <tr style="background-color:#f0f0f0  !important;font-weight:600;height:30px">
+                <td style="width:10%;">所属指标</td>
+                <td style="width:10%;">题目编号</td>
+                <td style="width:40%;">题目名称</td>
+                <td style="width:10%;">他评最小值</td>
+                <td style="width:10%;">他评均分</td>
+                <td style="width:10%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.ManageHeSubjectSurList)
+            {
+                <tr>
+                    <td>@qhs.Type</td>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按除前面行为描述，取剩余前3项行为描述，评分维度为他评均分及最大最小范围）
+            </h5>*@
+
+    </div>
+</div>
+
+
+
+@* 第十四页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            2.2  待发展能力
+        </h5>
+        <h5 class="texts_font">
+            展现得分（他评均分）最低的几项指标及所含题目。部分得分较低但没包含在得分最低指标中的题目在其它得低分项中展现。阴影区域代表同样问卷者在该题目上的得分范围。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：<br />
+            1) 查看以下内容，是否存在令您感到意外的结果？<br />
+            2) 在您的待发展能力中具体哪些行为做得不够好（题目得分低）？哪些行为表现得相对不错？<br />
+            3) 其他得低分的行为（题目）和您不同角色眼中的行为特点？
+        </h5>
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:70%;text-align:left;height:50px" colspan="3">
+                    LAST1   @ViewBag.LastManageName
+                </td>
+                <td style="width:30%;text-align:center" colspan="2">
+                    @ViewBag.LastManageScore
+                </td>
+            </tr>
+            <tr style="background-color:#f0f0f0  !important;font-weight:600;height:30px">
+                <td style="width:10%;">题目编号</td>
+                <td style="width:45%;">题目名称</td>
+                <td style="width:15%;">他评最小值</td>
+                <td style="width:15%;">他评均分</td>
+                <td style=" width:15%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.ManageHeSubjectLastList)
+            {
+                <tr>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按最后一项劣势素质及该项全部行为描述，评分维度为他评均分及最大最小范围）
+            </h5>*@
+        <br />
+        <br />
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:100%;text-align:left;height:50px" colspan="6">
+                    其它得低分项:
+                </td>
+            </tr>
+            <tr style="background-color:#f0f0f0  !important;font-weight:600;height:30px">
+                <td style="width:10%;">所属指标</td>
+                <td style="width:10%;">题目编号</td>
+                <td style="width:40%;">题目名称</td>
+                <td style="width:10%;">他评最小值</td>
+                <td style="width:10%;">他评均分</td>
+                <td style=" width:10%;">他评最大值</td>
+            </tr>
+            @foreach (var qhs in ViewBag.ManageHeSubjectSurLastList)
+            {
+                <tr>
+                    <td><strong>@qhs.Type</strong></td>
+                    <td>@qhs.Subject_ID</td>
+                    <td style="text-align:left">@qhs.Subject_Name</td>
+                    <td>@qhs.MinScore</td>
+                    <td><strong>@qhs.Score</strong></td>
+                    <td>@qhs.MaxScore</td>
+                </tr>
+            }
+        </table>
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标按除前面行为描述，取剩余最后3项行为描述，评分维度为他评均分值及最大最小范围）
+            </h5>*@
+
+    </div>
+</div>
+
+@* 第十五页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            2.3  不同角色眼中的行为特点
+        </h5>
+        <h5 class="texts_font">
+            不同评价角色评分最高和最低的行为题目。您可以了解在不同评价者眼中您的形象，分析这是否符合您的预期。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：<br />
+            1) 横看，某一角色的评价者眼中分别哪些行为是您的强弱项？<br />
+            2) 竖看，有哪些行为表现是不同角色的评价者一致认为的强项或弱项？<br />
+            3) 交叉看，是否存在某一行为，不同角色的评价者对其看法截然不同？
+        </h5>
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="font-weight:700">
+                <td style="width:45%;text-align:left; height: 30px" colspan="4">
+                    <h2>High</h2>
+                </td>
+                <td style="width:10%;"> </td>
+                <td style=" width:45%;text-align:left;height:30px" colspan="4">
+                    <h2>Low</h2>
+                </td>
+            </tr>
+            @if (ViewBag.supHighMHRSList != null)
+            {
+                <tr style=" top:2px;color:white;">
+                    <td style=" width:30%;text-align:left;height:30px;background-color:#37AE7C  !important" colspan="2">
+                        上级
+                    </td>
+                    <td style=" width:5%;text-align:center;height:30px ;background-color:#37AE7C  !important"></td>
+                    <td style=" width:10%;text-align:center;height:30px;background-color:#37AE7C  !important">
+                        所属指标
+                    </td>
+                    <td style="width:10%;border-top:hidden; "> </td>
+                    <td style="width:30%;text-align:left;height:30px;background-color:#E69E6C  !important" colspan="2">
+                        上级
+                    </td>
+                    <td style=" width:5%;text-align:center;height:30px;background-color:#E69E6C  !important"></td>
+                    <td style=" width:10%;text-align:center;height:30px;background-color:#E69E6C  !important">
+                        所属指标
+                    </td>
+                </tr>
+
+                for (int i = 0; i < 3; i++)
+                {
+                <tr>
+                    @if (ViewBag.supHighMHRSList.Count > i)
+                    {
+                        <td style=" width:5%">@ViewBag.supHighMHRSList[i].Subject_ID</td>
+                        <td style="width:25%;text-align:left;">@ViewBag.supHighMHRSList[i].Subject_Name</td>
+                        <td style="width:5%;">@ViewBag.supHighMHRSList[i].Score</td>
+                        <td style="width:10%;">@ViewBag.supHighMHRSList[i].Type</td>
+                    }
+                        <td style=" width:10%;border-top:hidden;"> </td>
+                        @if (ViewBag.supLowMhrsList.Count > i)
+                        {
+                            <td style=" width:5%">@ViewBag.supLowMhrsList[i].Subject_ID</td>
+                            <td style="width:25%;text-align:left;">@ViewBag.supLowMhrsList[i].Subject_Name</td>
+                            <td style="width:5%;">@ViewBag.supLowMhrsList[i].Score</td>
+                            <td style=" width:10%;">@ViewBag.supLowMhrsList[i].Type</td>
+                        }
+                    </tr>
+                }
+
+            }
+
+            @if (ViewBag.relHighMHRSList != null)
+            {
+
+
+                <tr style="top:2px;color:white;">
+                    <td style="width:30%;text-align:left;height:30px;background-color:#37AE7C  !important" colspan="2">
+                        相关方
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#37AE7C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#37AE7C  !important">
+                        所属指标
+                    </td>
+                    <td style="width:10%;border-top:hidden;"> </td>
+                    <td style=" width:30%;text-align:left;height:30px;background-color:#E69E6C  !important" colspan="2">
+                        相关方
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#E69E6C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#E69E6C  !important">
+                        所属指标
+                    </td>
+                </tr>
+
+                for (int i = 0; i < 3; i++)
+                {
+                <tr>
+                    @if (ViewBag.relHighMHRSList.Count > i)
+                    {
+                        <td style="width:5%">@ViewBag.relHighMHRSList[i].Subject_ID</td>
+                        <td style="width:25%;text-align:left;">@ViewBag.relHighMHRSList[i].Subject_Name</td>
+                        <td style="width:5%;">@ViewBag.relHighMHRSList[i].Score</td>
+                        <td style="width:10%;">@ViewBag.relHighMHRSList[i].Type</td>
+                    }
+                        <td style="width:10%;border-top:hidden;"> </td>
+                        @if (ViewBag.relLowMHRSList.Count > i)
+                        {
+                            <td style="width:5%">@ViewBag.relLowMHRSList[i].Subject_ID</td>
+                            <td style="width:25%;text-align:left;">@ViewBag.relLowMHRSList[i].Subject_Name</td>
+                            <td style="width:5%;">@ViewBag.relLowMHRSList[i].Score</td>
+                            <td style="width:10%;">@ViewBag.relLowMHRSList[i].Type</td>
+                        }
+                    </tr>
+                }
+
+            }
+
+            @if (ViewBag.subHighMHRSList != null)
+            {
+                <tr style="top:2px;color:white ; ">
+                    <td style="width:30%;text-align:left;height:30px;background-color:#37AE7C  !important" colspan="2">
+                        下属
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#37AE7C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#37AE7C  !important">
+                        所属指标
+                    </td>
+                    <td style="width:10%;border-top:hidden;"> </td>
+                    <td style="width:30%;text-align:left;height:30px;background-color:#E69E6C  !important" colspan="2">
+                        下属
+                    </td>
+                    <td style="width:5%;text-align:center;height:30px;background-color:#E69E6C  !important"></td>
+                    <td style="width:10%;text-align:center;height:30px;background-color:#E69E6C  !important">
+                        所属指标
+                    </td>
+                </tr>
+
+                for (int i = 0; i < 3; i++)
+                {
+                <tr>
+                    @if (ViewBag.subHighMHRSList.Count > i)
+                    {
+                        <td style="width:5%">@ViewBag.subHighMHRSList[i].Subject_ID</td>
+                        <td style="width:25%;text-align:left;">@ViewBag.subHighMHRSList[i].Subject_Name</td>
+                        <td style="width:5%;">@ViewBag.subHighMHRSList[i].Score</td>
+                        <td style="width:10%;">@ViewBag.subHighMHRSList[i].Type</td>
+                    }
+                        <td style="width:10%;border-top:hidden;border-bottom:hidden;"> </td>
+                        @if (ViewBag.subLowMHRSList.Count > i)
+                        {
+                            <td style="width:5%">@ViewBag.subLowMHRSList[i].Subject_ID</td>
+                            <td style="width:25%;text-align:left;">@ViewBag.subLowMHRSList[i].Subject_Name</td>
+                            <td style="width:5%;">@ViewBag.subLowMHRSList[i].Score</td>
+                            <td style="width:10%;">@ViewBag.subLowMHRSList[i].Type</td>
+                        }
+                    </tr>
+                }
+
+            }
+        </table>
+
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标取前/最后3项行为描述，评价维度按他评均分，所属指标取三心三力）
+            </h5>*@
+
+    </div>
+</div>
+
+
+@* 第十六页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            2.4  自我认知偏差
+        </h5>
+
+        <h5 class="texts_font">
+            展现自评与他评相比差距最大的能力及所含题目。通过自我认知偏差的分析，您可以了解“他人眼中的您”与“自我认知”之间的不同，从而帮助您弥补盲点、发挥潜能。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：</br>
+            1)在某一行为上不同角色的评价者之间的认知差异如何？</br>
+            2)仔细查看下面每项能力中的题目得分，有哪些题目是自评与他评分差相对较小的。</br>
+            3)结合上一部分，下列能力中是否有某一能力也是他人眼中的优势或待发展能力？重点关注这些能力。
+        </h5>
+
+        <table style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:5%;"></td>
+                <td style="width:55%;text-align:left;height:50px">
+                    指标名称
+                </td>
+                <td style="width:10%;text-align:center">
+                    他评
+                </td>
+                <td style="width:10%;text-align:center">
+                    自评
+                </td>
+                <td style="width:10%;text-align:right">
+                    自评偏高
+                </td>
+                <td style="width:10%;text-align:left">
+                    |自评偏低
+                </td>
+            </tr>
+            @foreach (var autogn in ViewBag.AutognManageList)
+            {
+                if (autogn.Subject_ID > 0)
+                {
+                    <tr>
+                        <td style="width:5%;">@autogn.Subject_ID</td>
+                        <td style="width:55%;text-align:left"> @autogn.Subject_Name </td>
+                        <td>@autogn.heScore</td>
+                        <td>@autogn.ownScore</td>
+                        @if (autogn.ownHScore > 0)
+                        {
+                            <td>@autogn.ownHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @if (autogn.heHScore > 0)
+                        {
+                            <td>@autogn.heHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+                else
+                {
+                    <tr style="background-color:#f0f0f0  !important;line-height:50px ;">
+                        <td style="width:5%;height:30px;"></td>
+                        <td style="width:55%;text-align:left"><strong><strong>@autogn.Subject_Name</strong></strong></td>
+                        <td>@autogn.heScore</td>
+                        <td>@autogn.ownScore</td>
+                        @if (autogn.ownHScore > 0)
+                        {
+                            <td>@autogn.ownHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @if (autogn.heHScore > 0)
+                        {
+                            <td>@autogn.heHScore</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+            }
+        </table>
+
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标取三心三力每项汇总项及每项行为描述，评价维度按他评均分，自评均分，他评偏高/偏低）
+            </h5>*@
+
+    </div>
+</div>
+
+@* 第十七页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h5 class="texts_font">
+            2.5  各角色间的认知偏差
+        </h5>
+
+        <h5 class="texts_font">
+            展现不同评价者给您评分差异最大的题目，您可以了解不同评价者对您评价的主要分歧，思考为何会产生这样的分歧，重点关注那些将对您的发展产生不良影响的。
+        </h5>
+        <br />
+        <h5 class="texts_font">
+            阅读此部分时请注意思考以下问题：</br>
+            1) 在某一行为上不同角色的评价者之间的认知差异如何？</br>
+            2) 思考不同角色在某一行为上产生认知差距的原因是什么？</br>
+            3) 可以采取哪些行动来改变现状，获得一致较好的评价？
+        </h5>
+
+        <table id="tableManTopFive" style="width:100%;border-bottom:1px solid #000;" rules="rows">
+            <tr style="background-color:#DDDDDD  !important;font-weight:700">
+                <td style="width:15%;text-align:center;height:50px">
+                    所属指标
+                </td>
+                <td style="width:60%;text-align:center">
+                    题目
+                </td>
+                <td style="width:10%;text-align:center">
+                    关系
+                </td>
+                <td style="width:15%;text-align:center">
+                    各角色评分
+                </td>
+            </tr>
+            @foreach (var topfive in ViewBag.ManageTopFiveList)
+            {
+                <tr style="line-height:30px;">
+                    <td>@topfive.Type</td>
+                    <td style="text-align:left">@topfive.Subject_Name</td>
+                    <td>@topfive.Relation_Name</td>
+                    <td>@topfive.Score</td>
+                </tr>
+            }
+        </table>
+
+        @*<h5 class="texts_font" style="color:red">
+                （图表解析：指标取三心三力每项汇总项及每项行为描述，评价维度按他评均分，自评均分，他评偏高/偏低）
+            </h5>*@
+
+    </div>
+</div>
+@* 第十八页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h1 class="firt_font">开放性反馈</h1>
+        <br />
+        <h5 class="texts_font">
+            评价者在一些问题上给您的评价和建议,辅助您进一步了解他人的看法，并收获一些如何发展的启发。
+        </h5>
+        <h5 class="texts_font_bold">工作中，他/她的优势体现在哪些地方？请举例说明</h5>
+        <h5 class="texts_font">
+            @if (ViewBag.QuestionList1 != null && ViewBag.QuestionList1.Count > 0)
+            {
+                foreach (var ql in ViewBag.QuestionList1)
+                {
+                    @ql.Subject_Answer <br />
+                }
+            }
+            else
+            {
+                <p>略</p>
+
+            }
+
+        </h5>
+        <br />
+        <h5 class="texts_font_bold">工作中，他/她最待改进的地方是什么？您有何建议？ </h5>
+        <h5 class="texts_font">
+            @if (ViewBag.QuestionList2 != null && ViewBag.QuestionList2.Count > 0)
+            {
+                foreach (var ql in ViewBag.QuestionList2)
+                {
+                    @ql.Subject_Answer<br />
+                }
+            }
+            else
+            {
+                <p>略</p>
+            }
+        </h5>
+    </div>
+</div>
+
+
+@* 第十九页 *@
+<div class="split">
+    <div style="padding-top:10px;text-align:center;">
+
+        <h1 class="firt_font">声明</h1>
+        <br />
+        <h5 class="texts_font">
+            整个评估过程独立、保密，评估人的个人的意见将被保密不向任何第三方泄露<br />
+            由评估人意见汇总分析而成的报告仅供被评估个人及人力资源部所有，不向任何其他第三方 <br />
+            建议有专业人员进行报告含义的解读
+        </h5>
+
+    </div>
+</div>
+
+@* 第二十页 *@
+<div class="split">
+    <h1 class="firt_font">
+        附件：
+    </h1>
+    <div style="width:98%;margin-left:10px;">
+        <img src="~/images/page1.png" style="   width: 100%;    height: 100%; object-fit:cover;" />
+    </div>
+</div>
+@* 第二十一页 *@
+<div class="split">
+     
+    <div style="width:100%; ">
+        <img src="~/images/page2.png" style="   width: 100%;    height: 100%; object-fit:cover;" />
+    </div>
+</div>
+@* 第二十二页 *@
+<div style="width:70%;   margin: 0 auto;"> 
+    <div style="width:100%;">
+        <img src="~/images/page3.png" style="   width: 100%;    height: 100%; object-fit:cover;" />
+    </div>
+</div>
+<!-- ECharts单文件引入 -->
+<script src="../Scripts/echarts.min.js"></script>
+<script type="text/javascript">
+
+    var id = $("#AssessorInfoID").val();
+    var hierarchyName = $("#HierarchyName").val();
+    //三心三力
+    $.ajax({
+        'type': 'post',
+        'url': '/Assessor/Quality',
+        'data': { id: id },
+        success: function (data) {
+            var obj = JSON.parse(data);
+            Quality(obj);
+        },
+        error: function (message) {
+            toastr.warning(message.statusText);
+        }
+    });
+    //管理能力
+    $.ajax({
+        'type': 'post',
+        'url': '/Assessor/Manage',
+        'data': { id: id },
+        success: function (data) {
+            var obj = JSON.parse(data);
+            var indicatorData = "";
+            if (hierarchyName.match('M5')) {
+                indicatorData = '[{ "name": "变革管理", "max": 5 },{ "name": "目标计划管理", "max": 5 },{ "name": "人才选拔与培养", "max": 5 },{ "name": "市场洞察与客户管理", "max": 5 },{ "name": "文化塑造与组织氛围建设", "max": 5 },{"name": "战略规划与管理", "max": 5 },{ "name": "组织体系建设", "max": 5 }]';
+            }
+            else if (hierarchyName.match('M4')) {
+                indicatorData = '[{ "name": "目标计划管理", "max": 5 },{ "name": "人才选拔与培养", "max": 5 },{ "name": "市场洞察与客户管理", "max": 5 },{ "name": "文化塑造与组织氛围建设", "max": 5 },{ "name": "员工激励", "max": 5 },{"name": "战略规划与管理", "max": 5 },{ "name": "组织体系建设", "max": 5 }]';
+
+            }
+            else if (hierarchyName.match('M3') || hierarchyName.match('M2')) {
+                indicatorData = '[{ "name": "目标计划管理", "max": 5 },{ "name": "人才选拔与培养", "max": 5 },{ "name": "文化塑造与组织氛围建设", "max": 5 },{ "name": "员工激励", "max": 5 },{ "name": "组织体系建设", "max": 5 }]';
+
+            }
+            var indicator = JSON.parse(indicatorData);
+            Manage(obj, indicator);
+        },
+        error: function (message) {
+            toastr.warning(message.statusText);
+        }
+    });
+
+    //优秀素质
+    //$.ajax({
+    //    'type': 'post',
+    //    'url': '/Home/QualityTopType',
+    //    'data': { id: id },
+    //    success: function (data) {
+    //        var obj = JSON.parse(data);
+    //        QualityTopType(obj[0].value, obj[1].value, obj[2].value, obj[3].value);
+    //    },
+    //    error: function (message) {
+    //        toastr.warning(message.statusText);
+    //    }
+    //});
+
+
+    //三心三力
+    function Quality(retData) {
+        var myChart = echarts.init(document.getElementById('Quality'));
+        var option = {
+            tooltip: {
+                show: true
+            },
+            legend: {
+                data: ['自评', '他评', '同层']
+            },
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5]
+                    }
+                },
+                indicator: [
+                    { name: '包容心', max: 5 },
+                    { name: '进取心', max: 5 },
+                    { name: '决断力', max: 5 },
+                    { name: '学习力', max: 5 },
+                    { name: '毅力', max: 5 },
+                    { name: '责任心', max: 5 }
+                ]
+            },
+            series: [{
+                name: '核心素质',
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data: retData
+            }]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+    }
+    //管理能力
+    function Manage(retData, indicatorData) {
+        var myChart = echarts.init(document.getElementById('Manage'));
+        var option = {
+            tooltip: {},
+            legend: {
+                data: ['自评', '他评', '同层']
+            },
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5]
+                    }
+                },
+                indicator: indicatorData
+            },
+            series: [{
+                name: '管理能力',
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data: retData
+
+            }]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+    }
+                                //优秀素质
+                             //function QualityTopType(obj1,obj2,obj3,obj4) {
+                             //    var myChart = echarts.init(document.getElementById('QualityTopType'));
+                             //    var option = {
+                             //        grid: {
+                             //            left: '3%',
+                             //            right: '4%',
+                             //            bottom: '3%',
+                             //            containLabel: true
+                             //        },
+                             //        xAxis: {
+                             //            splitLine: { show: false }
+
+                             //        },
+                             //        yAxis: {
+                             //            data: obj1,
+                             //            axisTick: { show: false }
+                             //        },
+                             //        animationDurationUpdate: 1200,
+                             //        series: [
+                             //            {
+                             //                type: 'bar',
+                             //                itemStyle: {
+                             //                    normal: {
+                             //                        color: '#00db00'
+                             //                    }
+                             //                },
+                             //                label: {
+                             //                    normal: {
+                             //                        show: true,
+                             //                        color: '#000',
+                             //                        position: 'insideRight'
+                             //                    }
+                             //                },
+                             //                silent: true,
+                             //                barWidth: 40,
+                             //                barGap: '-100%', // Make series be overlap
+                             //                data: obj3
+                             //            },
+                             //            {
+                             //                type: 'bar',
+                             //                itemStyle: {
+                             //                    normal: {
+                             //                        color: '#00db00'
+                             //                    }
+                             //                },
+                             //                label: {
+                             //                    normal: {
+                             //                        show: true,
+                             //                        color: '#000',
+                             //                        position: 'insideRight'
+                             //                    }
+                             //                },
+                             //                silent: true,
+                             //                barWidth: 40,
+                             //                barGap: '-100%', // Make series be overlap
+                             //                data: obj2
+                             //            }, {
+                             //                type: 'bar',
+                             //                itemStyle: {
+                             //                    normal: {
+                             //                        color: '#F3F3F3'
+                             //                    }
+                             //                },
+                             //                barWidth: 40,
+                             //                z: 10,
+                             //                label: {
+                             //                    normal: {
+                             //                        show: true,
+                             //                        color: '#000',
+                             //                        position: 'insideRight'
+                             //                    }
+                             //                },
+                             //                data: obj4
+                             //            }]
+                             //    };
+                             //    // 为echarts对象加载数据
+                             //    myChart.setOption(option);
+                             //}
+</script>
+

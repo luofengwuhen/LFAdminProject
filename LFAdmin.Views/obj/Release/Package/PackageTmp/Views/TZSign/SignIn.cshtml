@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewBag.Title = "课程签到";
+}
+
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+    <input hidden="hidden" name="Curriculu_ID" value="@ViewBag.Curriculu_ID" />
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" id="SignIn_Name" name="SignIn_Name" lay-verify="required" onblur="getDep()" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">一级部门</label>
+        <div class="layui-input-inline"> 
+            <select name="First_Department" id="First_Department" lay-filter="First_Department"   lay-verify="required">
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="signin">签到</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form
+            , layer = layui.layer;
+        var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+        window.getDep = function () {
+            var Full_Name = $("#SignIn_Name").val();
+            $.ajax({
+                type: 'POST',
+                url: '/TZExaminers/getFirstDepartment',
+                data: { Full_Name: Full_Name},
+                dataType: 'json',
+                success: function (data) {
+                    $("#First_Department").html("");
+                    //var option1 = $("<option>").val("").text("");
+                    //$("#First_Department").append(option1);
+                    $.each(data, function (key, val) {
+                        var option1 = $("<option>").val(val).text(val);
+                        $("#First_Department").append(option1); 
+                    });
+                    form.render('select');
+                    $("#First_Department").get(0).selectedIndex = 0;
+                } ,error: function (message) {
+                    $("#First_Department").html("");
+                }
+
+            });
+        }
+
+
+        //监听提交
+        form.on('submit(signin)', function (data) {
+
+            $.ajax({
+                'type': 'post',
+                'url': '/TZSign/SignInAdd',
+                'data': {
+                    Curriculu_ID: data.field.Curriculu_ID ,
+                    SignIn_Name: data.field.SignIn_Name,
+                    First_Department: data.field.First_Department 
+                },
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    if (obj.IsSuccess == "0") {
+                        layer.alert(obj.MessageString, {
+                            title: '提示'
+                        }, function () {
+                            layer.close(layer.index); 
+                        });
+
+                    }
+                    else {
+                        window.location.href = "/TZSign/SignInResult";
+                    }
+
+                },
+                error: function (message) {
+                    layer.alert(JSON.stringify(message.statusText), {
+                        title: '提示'
+                    });
+                }
+
+            });
+
+
+            return false;
+        });
+
+
+    });
+</script>

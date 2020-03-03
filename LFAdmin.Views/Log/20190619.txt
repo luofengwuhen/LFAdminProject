@@ -1,0 +1,15 @@
+ 
+记录时间：2019-06-19 09:38:50,333 
+线程ID:[5] 
+日志级别：  INFO  
+错误描述：[账号 :admin,登录成功!-] 
+ 
+记录时间：2019-06-19 09:40:01,614 
+线程ID:[11] 
+日志级别：  INFO  
+错误描述：[1-GWPositionEvaluationProjectController-AddInfo]信息新增成功! 
+ 
+记录时间：2019-06-19 09:40:16,951 
+线程ID:[11] 
+日志级别：  INFO  
+错误描述：[1-GWPositionEvaluationProjectController-DelInfo]信息删除成功! 

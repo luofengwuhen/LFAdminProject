@@ -1,0 +1,29 @@
+﻿
+
+
+<form class="layui-form layui-form-pane" style="padding-left:10px;padding-right:10px;padding-top:20px;">
+ 
+    <div id="layer-photos-demo" class="layer-photos-demo">
+
+        <div class="layui-input-inline">
+            <h2 style="text-align:center">@ViewBag.Project_Name</h2>
+            <br />
+         
+            <img src="data:image/bmp;base64,@ViewBag.QRCode" style="width:400px;height:400px" id="QRCode" />
+        </div> 
+ 
+    </div>
+
+</form>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate; 
+        var $ = layui.$; //重点在layui中引用JQ必须写这一句
+
+         
+    });
+</script>
